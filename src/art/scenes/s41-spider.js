@@ -216,7 +216,8 @@ export default function render() {
 
   // ------------------------------------------------ ground and foreground
   body += path(ridge([[-20, 790], [140, 776], [320, 784], [500, 778], [700, 786], [880, 776], [1020, 784]], 1000), { fill: `url(#${id('ground')})` });
-  const fr = { fill: '#3A4770', dark: '#2A3456', lit: '#6E80AE' };
+  for (const [rx, ry, rw] of [[420, 820, 120], [600, 836, 100], [480, 862, 150], [300, 846, 90], [720, 868, 110]]) body += path(`M${rx - rw / 2},${ry} q${rw / 2},-8 ${rw},0`, { fill: 'none', stroke: '#8D9DC8', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.35 });
+  const fr = { fill: '#2C3760', dark: '#202848', lit: '#6678A8' };
   body += boulder(60, 1012, 240, 150, { ...fr, seed: 11 }, id.next('f'), extra);
   body += boulder(215, 1012, 130, 70, { ...fr, seed: 12 }, id.next('f'), extra);
   body += boulder(940, 1012, 250, 170, { ...fr, seed: 13 }, id.next('f'), extra);
@@ -233,12 +234,12 @@ export default function render() {
   }
   // pebbles
   const RP = rng(9);
-  for (let i = 0; i < 18; i++) {
-    const px = 260 + RP() * 480;
-    const py = 812 + RP() * 120;
-    const pr = 2.5 + RP() * 4;
-    body += ellipse(px, py, pr * 1.4, pr, { fill: '#33406A', opacity: 0.6 });
-    body += ellipse(px - pr * 0.3, py - pr * 0.4, pr * 0.7, pr * 0.35, { fill: '#9AAAD4', opacity: 0.5 });
+  for (let i = 0; i < 7; i++) {
+    const px = 380 + RP() * 260;
+    const py = 830 + RP() * 110;
+    const pr = 4 + RP() * 4;
+    body += ellipse(px, py, pr * 1.5, pr, { fill: '#4A5884' });
+    body += ellipse(px - pr * 0.35, py - pr * 0.35, pr * 0.8, pr * 0.4, { fill: '#8D9DC8', opacity: 0.6 });
   }
 
   body += vignette(id('vig'));

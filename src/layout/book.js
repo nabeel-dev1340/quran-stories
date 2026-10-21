@@ -46,7 +46,7 @@ export function assemble({ parts, stories, art }) {
   outline.push(['For Little Eyes (high-contrast pages)', back.eyes, 0]);
   add(() => special.littleEyesIntro(art));
   for (const [word, key] of special.littleEyesPages()) add((n) => special.highContrast(word, key, n, art));
-  if (pages.length % 2 === 0) add(() => special.endpaper(art)); // keep the back cover on an even page
+  if (pages.length % 2 === 0) add(() => special.colophon(art)); // keep the back cover on an even page
   outline.push(['Back Cover', pages.length + 1, 0]);
   add(() => special.backCover(art));
 

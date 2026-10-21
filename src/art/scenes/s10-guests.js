@@ -189,8 +189,8 @@ function bigTent(id) {
   // the open front: warm glowing inside
   const door = 'M300,652 L300,470 C300,452 316,446 332,446 L668,446 C684,446 700,452 700,470 L700,652Z';
   s += path(door, { fill: `url(#${id('inside')})` });
+  s += `<clipPath id="${id('doorClip')}"><path d="${door}"/></clipPath>`;
   s += g({ 'clip-path': `url(#${id('doorClip')})` },
-    `<clipPath id="${id('doorClip')}"><path d="${door}"/></clipPath>`,
     // back wall drapes
     ...[340, 420, 500, 580, 660].map((dx) => path(`M${dx - 30},446 Q${dx},470 ${dx + 30},446 L${dx + 30},560 Q${dx},572 ${dx - 30},560Z`, { fill: C.gold2, opacity: 0.25 })),
     // rug on the floor

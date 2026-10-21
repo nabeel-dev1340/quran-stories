@@ -5,7 +5,7 @@
 // shown by a small tent with a warm lamp, a lone palm and his sleeping sheep.
 import {
   C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth,
-  sparkle, palm, tent, farBird, rays, eye, grass, r1, T,
+  sparkle, palm, farBird, rays, eye, grass, lerp, r1, T,
 } from '../lib.js';
 
 // Dense points along the same Catmull-Rom curve that smooth() draws.
@@ -46,14 +46,13 @@ function duneBand(points, { fill, depthId, shade = C.ink, shadeOp = 0.22, rim, r
     if (crest[1] >= trough[1]) continue; // only slopes that rise to the right
     const seg = pts.slice((i - 1) * per, i * per + 1);
     const d0 = 'M' + seg.map((p) => p.map(r1).join(',')).join(' L');
-    const ctl = [lerpN(trough[0], crest[0], 0.62), lerpN(trough[1], crest[1], 0.45) + depth];
+    const ctl = [lerp(trough[0], crest[0], 0.62), lerp(trough[1], crest[1], 0.45) + depth];
     const back = ` Q${r1(ctl[0])},${r1(ctl[1])} ${r1(trough[0])},${r1(trough[1])}Z`;
     s += path(d0 + back, { fill: shade, opacity: shadeOp });
   }
   if (rim) s += path(smooth(points), { fill: 'none', stroke: rim, 'stroke-width': 3.5, 'stroke-linecap': 'round', opacity: rimOp });
   return s;
 }
-const lerpN = (a, b, t) => a + (b - a) * t;
 
 // A sheep lying down asleep, legs tucked in (faces right).
 function sleepySheep(x, y, { s = 1, flip = false, wool = '#F3EFF8', woolShade = '#C8C0DC', face = '#6E5F7C', seed = 1 } = {}) {

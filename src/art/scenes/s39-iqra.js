@@ -136,6 +136,7 @@ export default function render() {
     if (ex * ex + ey * ey > 1) continue;
     if (((hx - 226) / 62) ** 2 + ((hy - 812) / 26) ** 2 < 1) continue; // open space around the Ka'bah
     if (hx > 400 && hy < 790) continue; // behind the mountain's foot
+    if (hx < 52) continue; // keep clear of the trimmed edge
     if (houses.some(([ox, oy]) => Math.abs(ox - hx) < 22 && Math.abs(oy - hy) < 12)) continue;
     const k = 0.75 + ((hy - 748) / 116) * 0.5; // nearer rows are a little bigger
     houses.push([hx, hy, (20 + R.range(0, 10)) * k, (14 + R.range(0, 9) + (R() < 0.2 ? 8 : 0)) * k, R() < 0.55]);

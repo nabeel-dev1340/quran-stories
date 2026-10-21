@@ -1,0 +1,235 @@
+// Salih and the Special She-Camel (Quran 7:73-79, 11:61-68, 26:141-158, 54:27-31, 91:13).
+// The land of Thamud: rose sandstone mountains with elegant homes carved
+// into them. In front, the she-camel of Allah - gentle and lovelier than any
+// other - drinks at the stone trough on her drinking day, her baby beside
+// her, by a well with a bucket. A few palms, warm rose and sand, clear sky.
+// No people.
+import {
+  C, svgDoc, ids, rng, mix, linear, radial, glowDef, glow, vignetteDef, vignette, rect, path, circle, ellipse, g,
+  ridge, smooth, blob, sparkle, cloud, palm, grass, flower, bird, farBird, eye, T, r1,
+} from '../lib.js';
+
+// ---------------------------------------------------------------- camels
+// Standing camel in the kit's style, facing right (flip to face left).
+// drink: neck curves down so the muzzle reaches the water.
+function camel(x, y, { s = 1, flip = false, body = C.sand3, dark = C.sand4, light = C.sand2, drink = false, lashes = false, headScale = 1, fluffy = false } = {}) {
+  const parts = [];
+  parts.push(ellipse(10, 2, 96, 9, { fill: C.ink, opacity: 0.13 }));
+  // far legs
+  parts.push(rect(-52, -96, 15, 98, { rx: 7, fill: dark }), rect(38, -96, 15, 98, { rx: 7, fill: dark }));
+  parts.push(ellipse(-44, 0, 12, 5.5, { fill: mix(dark, '#000000', 0.15) }), ellipse(46, 0, 12, 5.5, { fill: mix(dark, '#000000', 0.15) }));
+  // tail with a little tuft
+  parts.push(path('M-78,-118 Q-92,-96 -86,-74', { fill: 'none', stroke: dark, 'stroke-width': 6, 'stroke-linecap': 'round' }));
+  parts.push(ellipse(-86, -70, 5, 8, { fill: dark }));
+  // body + hump
+  parts.push(path('M-82,-112 C-84,-150 -60,-168 -30,-170 C-18,-214 30,-214 40,-168 C62,-166 80,-150 80,-120 C80,-96 60,-86 0,-86 C-50,-86 -80,-92 -82,-112Z', { fill: body }));
+  parts.push(path('M-30,-170 C-18,-214 30,-214 40,-168 C20,-180 -10,-182 -30,-170Z', { fill: light, opacity: 0.75 }));
+  parts.push(path('M-74,-132 C-70,-152 -52,-164 -30,-168 C-50,-158 -64,-146 -74,-132Z', { fill: light, opacity: 0.6 }));
+  parts.push(path('M-70,-100 C-40,-88 30,-88 70,-102 C66,-90 50,-86 0,-86 C-40,-86 -64,-90 -70,-100Z', { fill: dark, opacity: 0.5 }));
+  if (fluffy) parts.push(g({ fill: light }, circle(-6, -204, 7), circle(6, -207, 7), circle(17, -203, 6)));
+  // near legs with knobby knees and soft feet
+  parts.push(rect(-40, -100, 16, 102, { rx: 8, fill: body }), rect(50, -100, 16, 102, { rx: 8, fill: body }));
+  parts.push(ellipse(-32, -48, 10, 8, { fill: light }), ellipse(58, -48, 10, 8, { fill: light }));
+  parts.push(ellipse(-32, 0, 13, 6, { fill: dark }), ellipse(58, 0, 13, 6, { fill: dark }));
+  const face = (hx, hy, rot) => {
+    // a head drawn pointing along +x, then turned by rot degrees about (hx, hy)
+    const hs = headScale;
+    const lashes3 = lashes ? path(`M${-3 * hs},${-12 * hs} l-3,-6 M${2 * hs},${-13 * hs} l0,-7 M${7 * hs},${-12 * hs} l3,-6`, { fill: 'none', stroke: C.ink, 'stroke-width': 2, 'stroke-linecap': 'round' }) : '';
+    return g({ transform: `translate(${r1(hx)} ${r1(hy)}) rotate(${r1(rot)})` },
+      ellipse(-22 * hs, -16 * hs, 6.5 * hs, 11 * hs, { fill: dark, transform: `rotate(-50 ${r1(-22 * hs)} ${r1(-16 * hs)})` }),
+      ellipse(-4 * hs, 0, 28 * hs, 20 * hs, { fill: body }),
+      ellipse(24 * hs, 5 * hs, 22 * hs, 15 * hs, { fill: body }),
+      ellipse(26 * hs, 9 * hs, 17 * hs, 9 * hs, { fill: light, opacity: 0.55 }),
+      path(`M${-26 * hs},${-8 * hs} C${-14 * hs},${-20 * hs} ${8 * hs},${-22 * hs} ${20 * hs},${-12 * hs}`, { fill: 'none', stroke: light, 'stroke-width': r1(5 * hs), 'stroke-linecap': 'round', opacity: 0.6 }),
+      ellipse(40 * hs, -1 * hs, 3.4 * hs, 2.4 * hs, { fill: dark }),
+      path(`M${32 * hs},${15 * hs} Q${38 * hs},${18 * hs} ${44 * hs},${13 * hs}`, { fill: 'none', stroke: dark, 'stroke-width': r1(2.6 * hs), 'stroke-linecap': 'round' }),
+      g({ transform: `translate(${r1(2 * hs)} ${r1(-4 * hs)})` }, lashes3, eye(0, -4 * hs, 5 * hs)),
+      ellipse(10 * hs, 7 * hs, 7 * hs, 4.2 * hs, { fill: C.cheek, opacity: 0.6 }),
+    );
+  };
+  if (drink) {
+    parts.push(path('M52,-162 C100,-160 140,-126 158,-80 L184,-90 C160,-138 122,-156 80,-120 C72,-114 66,-122 60,-130Z', { fill: body }));
+    parts.push(path('M80,-120 C122,-156 160,-138 184,-90 L176,-87 C156,-126 124,-144 86,-114Z', { fill: light, opacity: 0.5 }));
+    parts.push(face(170, -70, 68));
+  } else {
+    parts.push(path('M62,-150 C88,-160 96,-190 98,-222 L124,-222 C124,-180 112,-134 76,-118Z', { fill: body }));
+    parts.push(path('M98,-222 L124,-222 C124,-196 120,-170 110,-150 C114,-176 110,-200 98,-222Z', { fill: light, opacity: 0.45 }));
+    parts.push(face(120, -232, -8));
+  }
+  return g({ transform: T(x, y, s, 0, flip) }, parts);
+}
+
+// ---------------------------------------------------------------- well and trough
+function well(x, y, { s = 1 } = {}) {
+  const st = '#E9C2A6';
+  const stDark = '#C99479';
+  const parts = [ellipse(0, 4, 92, 12, { fill: C.ink, opacity: 0.14 })];
+  // wooden frame (back half)
+  parts.push(rect(-74, -190, 13, 176, { rx: 4, fill: C.wood2 }));
+  // drum of stones
+  parts.push(path('M-70,-74 L-70,-6 Q0,14 70,-6 L70,-74Z', { fill: st }));
+  parts.push(path('M20,-74 L20,4 Q48,0 70,-6 L70,-74Z', { fill: stDark, opacity: 0.55 }));
+  for (let row = 0; row < 3; row++) {
+    const yy = -66 + row * 22;
+    for (let k = 0; k < 5; k++) {
+      const xx = -70 + k * 30 + (row % 2) * 15;
+      if (xx > 60) continue;
+      parts.push(rect(xx + 2, yy, Math.min(26, 68 - xx), 18, { rx: 6, fill: k % 2 ? '#F2D2B8' : '#E3B597', opacity: 0.9 }));
+    }
+  }
+  parts.push(path('M20,-74 L20,4 Q48,0 70,-6 L70,-74Z', { fill: stDark, opacity: 0.3 }));
+  // rim and dark water inside
+  parts.push(ellipse(0, -74, 74, 18, { fill: '#F6DCC6' }));
+  parts.push(ellipse(0, -73, 58, 12, { fill: '#2F5E77' }));
+  parts.push(ellipse(-14, -75, 22, 4, { fill: C.water2, opacity: 0.7 }));
+  // front post, beam, rope and bucket
+  parts.push(rect(61, -190, 13, 176, { rx: 4, fill: C.wood2 }), rect(66, -190, 8, 176, { fill: C.wood3, opacity: 0.5 }));
+  parts.push(rect(-84, -200, 168, 14, { rx: 6, fill: C.wood1 }), rect(-84, -192, 168, 6, { fill: C.wood3, opacity: 0.5 }));
+  parts.push(ellipse(0, -193, 16, 13, { fill: C.wood3 }), circle(0, -193, 5, { fill: C.wood1 }));
+  parts.push(path('M10,-190 L10,-128', { stroke: C.sand4, 'stroke-width': 3 }));
+  parts.push(path('M-6,-128 L26,-128 L22,-98 L-2,-98Z', { fill: C.wood1 }));
+  parts.push(path('M-6,-128 L26,-128', { stroke: C.wood3, 'stroke-width': 4, 'stroke-linecap': 'round' }));
+  parts.push(path('M-4,-114 L24,-114', { stroke: C.wood3, 'stroke-width': 2.4, opacity: 0.7 }));
+  parts.push(path('M-6,-128 Q10,-146 26,-128', { fill: 'none', stroke: C.wood3, 'stroke-width': 2.4 }));
+  return g({ transform: T(x, y, s) }, parts);
+}
+
+function trough(x, y, w, { h = 54 } = {}) {
+  const st = '#E7BFA2';
+  const stDark = '#C68F74';
+  let out = ellipse(x, y + 4, w * 0.56, 12, { fill: C.ink, opacity: 0.14 });
+  out += rect(x - w / 2, y - h, w, h, { rx: 10, fill: st });
+  out += rect(x + w * 0.2, y - h, w * 0.3, h, { rx: 10, fill: stDark, opacity: 0.45 });
+  for (const k of [-0.25, 0.1]) out += path(`M${r1(x + k * w)},${r1(y - h + 16)} l0,${h - 22}`, { stroke: stDark, 'stroke-width': 2.4, opacity: 0.5 });
+  out += rect(x - w / 2 - 6, y - h - 10, w + 12, 18, { rx: 8, fill: '#F4D6BE' });
+  out += rect(x - w / 2 + 6, y - h - 7, w - 12, 10, { rx: 5, fill: C.water1 });
+  out += rect(x - w / 2 + 6, y - h - 7, w - 12, 4, { rx: 2, fill: C.water0, opacity: 0.9 });
+  out += path(`M${r1(x - w * 0.3)},${r1(y - h - 2)} q14,-3 28,0 M${r1(x + w * 0.05)},${r1(y - h - 2)} q12,-3 24,0`, { fill: 'none', stroke: C.white, 'stroke-width': 2.4, 'stroke-linecap': 'round', opacity: 0.8 });
+  return out;
+}
+
+// ---------------------------------------------------------------- carved homes
+// A tall facade carved into the rock (Hegra style). (x, y) = bottom centre.
+function facade(x, y, w, h, { face = '#F3CDB4', frame = '#E5AE92', shade = '#C98670', door = '#7C463D', windows = 0 } = {}) {
+  let out = '';
+  const top = y - h;
+  const body = top + h * 0.26;
+  // recess and smooth carved face
+  out += rect(x - w / 2 - 8, top + h * 0.2, w + 16, h * 0.8 + 2, { fill: shade, opacity: 0.45 });
+  out += rect(x - w / 2, body, w, y - body, { fill: face });
+  out += rect(x + w * 0.3, body, w * 0.2, y - body, { fill: shade, opacity: 0.35 });
+  // pilasters
+  for (const sx of [-1, 1]) {
+    const px = x + sx * w * 0.42;
+    out += rect(px - w * 0.06, body + h * 0.08, w * 0.12, y - body - h * 0.08, { fill: frame });
+    out += rect(px - w * 0.08, body + h * 0.06, w * 0.16, h * 0.04, { fill: frame });
+  }
+  // cornice bands
+  out += rect(x - w / 2 - 4, body, w + 8, h * 0.05, { fill: frame });
+  out += rect(x - w / 2 - 2, body + h * 0.05, w + 4, h * 0.02, { fill: shade, opacity: 0.6 });
+  // crow-steps on top (two stepped merlons)
+  const sw = w * 0.22;
+  const sh = h * 0.07;
+  for (const sx of [-1, 1]) {
+    const cx = x + sx * w * 0.26;
+    out += path(`M${r1(cx - sw)},${r1(body)} L${r1(cx - sw)},${r1(body - sh)} L${r1(cx - sw / 2)},${r1(body - sh)} L${r1(cx - sw / 2)},${r1(body - sh * 2)} L${r1(cx + sw / 2)},${r1(body - sh * 2)} L${r1(cx + sw / 2)},${r1(body - sh)} L${r1(cx + sw)},${r1(body - sh)} L${r1(cx + sw)},${r1(body)}Z`, { fill: face });
+    out += path(`M${r1(cx + sw * 0.1)},${r1(body - sh * 2)} L${r1(cx + sw / 2)},${r1(body - sh * 2)} L${r1(cx + sw / 2)},${r1(body - sh)} L${r1(cx + sw)},${r1(body - sh)} L${r1(cx + sw)},${r1(body)} L${r1(cx + sw * 0.1)},${r1(body)}Z`, { fill: shade, opacity: 0.3 });
+  }
+  // doorway with a lintel and a small pediment
+  const dw = w * 0.3;
+  const dh = h * 0.36;
+  out += rect(x - dw / 2 - w * 0.05, y - dh - h * 0.06, dw + w * 0.1, dh + h * 0.06, { fill: frame });
+  out += path(`M${r1(x - dw / 2 - w * 0.06)},${r1(y - dh - h * 0.06)} L${r1(x)},${r1(y - dh - h * 0.15)} L${r1(x + dw / 2 + w * 0.06)},${r1(y - dh - h * 0.06)}Z`, { fill: frame });
+  out += rect(x - dw / 2, y - dh, dw, dh, { fill: door });
+  out += rect(x - dw / 2, y - dh, dw * 0.3, dh, { fill: mix(door, '#000000', 0.2), opacity: 0.5 });
+  for (let i = 0; i < windows; i++) {
+    const wx = x + (i % 2 ? 1 : -1) * w * 0.26;
+    const wy = body + h * 0.22;
+    out += rect(wx - w * 0.06, wy, w * 0.12, h * 0.12, { fill: door, rx: 2 });
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------- the scene
+export default function render() {
+  const id = ids('s06');
+  const R = rng(606);
+  const skyTint = '#F6DCCB';
+  const far = (c, k = 0.55) => mix(c, skyTint, k);
+  const defs = [
+    linear(id('sky'), [[0, '#86C6E2'], [0.45, '#B8E0EA'], [0.75, '#EEE8DC'], [1, '#F8DCCB']]),
+    glowDef(id('sunGlow'), '#FFF4D6', 0.8),
+    glowDef(id('sign'), '#FFF2D0', 0.8),
+    linear(id('cliff'), [[0, '#F0C3AA'], [0.6, '#E2A48A'], [1, '#CD8A72']]),
+    linear(id('ground'), [[0, '#F6D9B4'], [1, '#EBC08F']]),
+    vignetteDef(id('vig'), C.ink, 0.18),
+  ].join('');
+
+  let body = '';
+  // ------------------------------------------------------------ clear sky
+  body += rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
+  body += glow(90, 60, 300, id('sunGlow'));
+  body += cloud(330, 140, 150, { fill: '#FFFFFF', shade: '#E1F0F4', seed: 3, opacity: 0.85 });
+  body += cloud(780, 96, 120, { fill: '#FFFFFF', shade: '#E1F0F4', seed: 7, opacity: 0.75 });
+  body += farBird(560, 150, 1.1, '#7A8CA8', 0.5) + farBird(596, 136, 0.85, '#7A8CA8', 0.45);
+
+  // ------------------------------------------------------------ far rose mountains
+  body += path(blob([[-40, 640], [-30, 380], [60, 320], [160, 350], [230, 300], [330, 330], [400, 290], [520, 320], [600, 280], [700, 310], [790, 270], [900, 300], [1040, 330], [1050, 640]], 0.8), { fill: far('#E2A48A', 0.5) });
+
+  // ------------------------------------------------------------ near cliffs with carved homes
+  const cliffL = [[-40, 660], [-30, 300], [30, 236], [120, 214], [210, 236], [270, 280], [300, 360], [340, 400], [380, 660]];
+  const cliffC = [[300, 660], [320, 380], [370, 300], [450, 250], [540, 236], [620, 262], [680, 320], [700, 400], [720, 660]];
+  const cliffR = [[660, 660], [680, 340], [740, 270], [830, 236], [930, 250], [1000, 290], [1050, 330], [1050, 660]];
+  for (const [pts, shadeX] of [[cliffC, 640], [cliffL, 300], [cliffR, 990]]) {
+    body += path(blob(pts, 0.9), { fill: `url(#${id('cliff')})` });
+    void shadeX;
+  }
+  // soft vertical weathering lines and rounded shading on the right of each outcrop
+  body += path('M300,360 C320,420 330,520 340,660 L380,660 C370,520 350,420 300,360Z', { fill: '#C98670', opacity: 0.35 });
+  body += path('M680,320 C700,400 704,520 712,660 L724,660 C720,520 716,420 700,360Z', { fill: '#C98670', opacity: 0.4 });
+  body += path('M1000,290 C1030,360 1040,500 1050,660 L1050,320Z', { fill: '#C98670', opacity: 0.4 });
+  for (const [lx, ly, ll] of [[60, 300, 120], [250, 300, 90], [420, 290, 110], [600, 280, 80], [760, 300, 100], [960, 300, 110]]) {
+    body += path(`M${lx},${ly} C${lx + 6},${ly + ll * 0.4} ${lx - 4},${ly + ll * 0.7} ${lx + 2},${ly + ll}`, { fill: 'none', stroke: '#C98670', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.35 });
+  }
+  body += path('M30,236 C80,214 160,208 210,236 C160,226 80,228 30,250Z', { fill: '#F8D8C4', opacity: 0.7 });
+  body += path('M370,300 C430,256 500,236 560,238 C500,250 430,272 380,316Z', { fill: '#F8D8C4', opacity: 0.7 });
+  body += path('M740,270 C780,246 830,234 880,238 C830,246 790,262 750,286Z', { fill: '#F8D8C4', opacity: 0.7 });
+  // the carved homes
+  body += facade(150, 640, 150, 250, { windows: 0 });
+  body += facade(450, 640, 120, 200, { windows: 2 });
+  body += facade(580, 470, 84, 126, {});
+  body += facade(850, 640, 160, 270, { windows: 0 });
+  body += facade(330, 470, 70, 104, {});
+  // little stepped paths and ledges
+  body += path('M240,640 l0,-10 l16,0 l0,-10 l16,0 l0,-10 l16,0 l0,30Z', { fill: '#E5AE92' });
+
+  // ------------------------------------------------------------ ground and palms
+  body += path(ridge([[-20, 650], [200, 640], [420, 652], [640, 638], [860, 650], [1020, 642]], 1000), { fill: `url(#${id('ground')})` });
+  body += path(ridge([[-20, 760], [240, 744], [520, 760], [760, 740], [1020, 756]], 1000), { fill: '#EFC795', opacity: 0.6 });
+  body += palm(684, 676, { h: 230, seed: 5, lean: 0.08, dateColor: C.coral3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
+  body += palm(300, 680, { h: 200, seed: 8, lean: -0.1, dateColor: C.gold3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
+
+  // ------------------------------------------------------------ the well, the trough and the she-camel
+  body += glow(560, 640, 360, id('sign'));
+  body += well(150, 820, { s: 1.0 });
+  // the she-camel of Allah, drinking on her day
+  body += camel(612, 866, { s: 1.5, flip: true, drink: true, lashes: true, body: '#F1CDA2', dark: '#DDA97F', light: '#FBE4C4' });
+  body += trough(370, 880, 250, { h: 52 });
+  // her baby, standing close
+  body += camel(812, 900, { s: 0.78, flip: true, headScale: 1.3, fluffy: true, lashes: true, body: '#F6DDBA', dark: '#E5BD92', light: '#FFF0D8' });
+  // two little birds on the trough rim
+  body += bird(268, 822, { s: 0.36, body: C.coral2, wing: C.coral3, belly: C.coral0 });
+  body += bird(470, 822, { s: 0.34, flip: true, body: C.sky0, wing: C.water3, belly: C.sky2 });
+  // gentle sparkles: she is a sign from Allah
+  for (const [sx, sy, sz] of [[500, 470, 13], [760, 520, 10], [640, 410, 9], [420, 560, 8], [880, 600, 8], [560, 560, 7]]) body += sparkle(sx, sy, sz, '#FFF8E4', { opacity: 0.95 });
+
+  // ------------------------------------------------------------ foreground framing
+  body += palm(-10, 1010, { h: 470, seed: 2, lean: 0.14, dateColor: C.coral3 });
+  body += palm(1000, 1010, { h: 430, seed: 9, lean: -0.16, dateColor: C.gold3 });
+  for (const [gx, gy, gh, sd] of [[60, 1006, 60, 1], [120, 1006, 44, 2], [880, 1006, 50, 3], [940, 1006, 64, 4], [560, 1006, 34, 5]]) body += grass(gx, gy, { h: gh, n: 6, seed: sd, fill: '#9AA36C' });
+  for (const [fx, fy, c] of [[200, 960, C.rose1], [240, 980, C.coral1], [700, 970, C.rose1], [740, 950, C.white], [470, 975, C.coral1]]) body += flower(fx, fy, { r: 8, fill: c, center: C.gold2, stem: '#8E9A62', stemH: 12, rot: fx });
+  for (const [px, py, pw] of [[330, 960, 26], [620, 950, 20], [520, 990, 30]]) body += ellipse(px, py, pw / 2, pw * 0.3, { fill: '#D9A483' }) + ellipse(px - pw * 0.1, py - pw * 0.08, pw * 0.24, pw * 0.1, { fill: '#F4D4B8', opacity: 0.8 });
+
+  body += vignette(id('vig'));
+  return svgDoc({ defs, body });
+}

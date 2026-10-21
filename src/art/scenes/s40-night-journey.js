@@ -180,7 +180,7 @@ export default function render() {
   body += circle(640, -30, 380, { fill: `url(#${id('heaven')})` });
   for (let i = 0; i < 7; i++) {
     const ry = 390 - i * 50;
-    body += ellipse(640, -40, ry * 1.4, ry, { fill: `url(#${id(i % 2 ? 'shellA' : 'shellB')})` });
+    body += ellipse(640, -40, ry * 1.4, ry, { fill: `url(#${id('AAABABB'[i] === 'A' ? 'shellA' : 'shellB')})` });
   }
   // twinkles resting on the glowing layers
   const RH = rng(17);
@@ -246,9 +246,9 @@ export default function render() {
 
   const defs = [
     linear(id('sky'), [[0, '#0D1230'], [0.3, '#1A1F4F'], [0.62, '#2A2F6E'], [0.85, '#3A3F84']]),
-    radial(id('heaven'), [[0, '#FFF6DC', 0.6], [0.45, '#F6E2FF', 0.2], [1, '#C9B3E3', 0]]),
-    radial(id('shellA'), [[0, '#E9D9FF', 0], [0.82, '#E9D9FF', 0.03], [0.97, '#EBDCFF', 0.2], [1, '#E9D9FF', 0]]),
-    radial(id('shellB'), [[0, '#FFE6B0', 0], [0.82, '#FFE6B0', 0.03], [0.97, '#FFE3A6', 0.22], [1, '#FFE6B0', 0]]),
+    radial(id('heaven'), [[0, '#FFF4D2', 0.75], [0.35, '#FFE9B8', 0.3], [0.7, '#E9D6FF', 0.1], [1, '#C9B3E3', 0]]),
+    radial(id('shellA'), [[0, '#E9D9FF', 0], [0.82, '#E9D9FF', 0.03], [0.97, '#EEDDFF', 0.22], [1, '#E9D9FF', 0]]),
+    radial(id('shellB'), [[0, '#FFE6B0', 0], [0.82, '#FFE6B0', 0.03], [0.97, '#FFDC94', 0.26], [1, '#FFE6B0', 0]]),
     glowDef(id('moonGlow'), C.gold0, 0.3),
     glowDef(id('kGlow'), '#FFF0C0', 0.6),
     linear(id('gold'), [[0, C.gold1], [0.5, C.gold2], [1, C.gold3]], { x1: 0, y1: 0, x2: 1, y2: 0 }),

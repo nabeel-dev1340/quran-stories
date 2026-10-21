@@ -154,3 +154,17 @@ export function backCover(art) {
   </div>
 </section>`;
 }
+
+// Inside back cover: the endpaper pattern with a small "about this book" card.
+export function colophon(art) {
+  return `<section class="page endpaper colophon">${img(art['endpaper'])}
+  <div class="col-card">
+    <div class="col-title">About this book</div>
+    ${divider('#C9922E', 150)}
+    <p>The stories are retold for little ones from the Holy Quran; each page lists the surahs and verses to read in full. A few details come from Sahih al-Bukhari, Sahih Muslim and the books of seerah, and are marked where they appear.</p>
+    <p>The Arabic duas are taken word for word from the Uthmani text of the King Fahd Complex for the Printing of the Holy Quran, via the open <i>quran-json</i> dataset (CC BY-SA 4.0).</p>
+    <p>No prophet, angel or person is pictured. Illustrations were drawn especially for this book.</p>
+    <p class="col-small">Typeset in Fraunces, Nunito, Amiri, Amiri Quran, Aref Ruqaa and Baloo 2 (SIL Open Font License).</p>
+  </div>
+</section>`;
+}

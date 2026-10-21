@@ -13,8 +13,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sceneDir = path.join(root, 'src/art/scenes');
-const artOut = path.join(root, 'build/art');
-const pngOut = path.join(root, 'build/preview');
+const artOut = path.join(root, process.argv.includes('--out') ? 'build/review-art' : 'build/art');
+const outArg = process.argv.includes('--out') ? process.argv[process.argv.indexOf('--out') + 1] : null;
+const pngOut = outArg ? path.resolve(root, outArg) : path.join(root, 'build/preview');
 fs.mkdirSync(artOut, { recursive: true });
 fs.mkdirSync(pngOut, { recursive: true });
 
@@ -22,7 +23,7 @@ const args = process.argv.slice(2);
 const size = Number(args[args.indexOf('--size') + 1]) || 1000;
 const wantAll = args.includes('--all');
 const wantSheet = args.includes('--sheet');
-const prefixes = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--size');
+const prefixes = args.filter((a, i) => !a.startsWith('--') && args[i - 1] !== '--size' && args[i - 1] !== '--out');
 
 // Book art (cover etc.) lives in src/art/book: preview it with "book/cover".
 const bookDir = path.join(root, 'src/art/book');

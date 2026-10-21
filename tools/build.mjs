@@ -72,7 +72,7 @@ window.fitText = () => {
     const inner = pg.querySelector('.tp-inner');
     const body = pg.querySelector('.tp-body');
     const story = pg.querySelector('.story');
-    let fs = 14;
+    let fs = 15;
     const fits = () => {
       inner.style.setProperty('--fs', fs + 'pt');
       body.style.justifyContent = 'flex-start';

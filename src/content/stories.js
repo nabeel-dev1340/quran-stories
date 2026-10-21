@@ -85,7 +85,7 @@ export const stories = [
     dua: {
       seg: [[23, 29, 'رَّبِّ', null]],
       tr: 'Rabbi anzilnī munzalan mubārakan wa anta khayrul-munzilīn.',
-      en: 'My Lord, bring me down to a blessed place to stay, for You are the best to bring us safely home.',
+      en: 'My Lord, let me land in a blessed place, for You are the best One to bring us safely to land.',
     },
   },
   {
@@ -325,7 +325,7 @@ export const stories = [
     text: [
       'One cold, dark night, Musa {as} was travelling with his family when he saw a light on the mountain. “Wait here,” he said. “I’ll bring back a flame to keep us warm.”',
       'When he came close, he heard a call: “O Musa! I am your Lord. Take off your sandals, for you are in the holy valley of Tuwa.”',
-      '“What is in your hand, Musa?” “My stick,” said Musa. “Throw it down!” And — ~wiggle, wiggle~ — it became a snake! “Pick it up, and don’t be afraid.” And it was a stick again.',
+      'Allah asked, “What is in your hand, Musa?” “My stick,” he said. “Throw it down!” And — ~wiggle, wiggle~ — it became a snake! “Pick it up, and don’t be afraid.” And it was a stick again.',
       'Allah sent Musa to tell Pharaoh to stop being cruel. Musa prayed for help, and Allah sent his brother Harun {as} to help him.',
     ],
     lesson: 'When we have a big job to do, we ask Allah to make it easy.',
@@ -383,7 +383,7 @@ export const stories = [
       'Musa walked and walked with his young helper. At the meeting of the two seas — ~plip!~ — their fish jumped into the water and swam off, leaving a tunnel in the sea. That was the place!',
       '“May I follow you, and learn?” Musa asked. “You won’t be patient with me,” said al-Khidr. “I will, insha’Allah!” said Musa.',
       'But al-Khidr did surprising things. He made a hole in a good boat! He fixed a falling wall for free, in a town that had been unkind to them! Musa couldn’t help asking, “Why?”',
-      'Then al-Khidr explained: the hole saved poor fishermen’s boat from a greedy king, and under the wall was treasure kept safe for two orphans. Allah knows what we cannot see.',
+      'Then al-Khidr explained: the hole saved the poor fishermen’s boat from a greedy king, and under the wall was treasure kept safe for two orphans. Allah knows what we cannot see.',
     ],
     lesson: 'Sometimes we don’t understand why things happen. But Allah knows best, and He always has a good plan.',
   },
@@ -565,7 +565,7 @@ export const stories = [
       '“My dear son,” said Luqman, “worship Allah alone.”',
       'And right in the middle of Luqman’s advice, Allah reminds every child: “Be good to your mother and father. Your mother carried you, and cared for you when you were tiny. Be thankful to Me, and to your parents.”',
       'Luqman went on: “My son, even something as small as a mustard seed, hidden inside a rock — Allah knows all about it. Pray, tell people to do good, and be patient when things are hard.',
-      'Don’t be proud, and don’t turn your face away from people. Walk gently, and speak softly. The loudest voice of all belongs to the donkey — ~hee-haw!~”',
+      '“Don’t be proud, and don’t turn your face away from people. Walk gently, and speak softly. The loudest voice of all belongs to the donkey — ~hee-haw!~”',
     ],
     lesson: 'We listen to our parents’ loving advice, and we are kind, humble and gentle.',
     dua: {
