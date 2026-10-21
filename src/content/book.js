@@ -11,10 +11,22 @@ export const book = {
 export const parentsNote = {
   title: 'A Note for Parents',
   paras: [
-    'Assalamu ‘alaykum — and congratulations on your little one!',
+    'Assalamu ‘alaykum, and welcome!',
     'This book gathers the stories of the Quran, the stories Allah Himself calls “the best of stories,” and retells them gently, in words made for reading aloud to the very young.',
-    'Long before your baby understands the words, they will love the sound of your voice, the rhythm of the stories and the bright pictures. Point to the animals, make the sounds — the ~splashes~ and ~whooshes~ are there for you — and let the lessons grow along with your child.',
+    'Long before your child understands the words, they will love the sound of your voice, the rhythm of the stories and the bright pictures. Point to the animals, make the sounds — the ~splashes~ and ~whooshes~ are there for you — and let the lessons grow along with your child.',
   ],
+  agesTitle: 'Reading together, age by age',
+  ages: [
+    ['0–6 months', 'Snuggle up and let them hear your voice. The high-contrast pages at the back are made for brand-new eyes.'],
+    ['6–18 months', 'Point and name: “Look — a camel!” Make the sounds together and watch them light up.'],
+    ['18 months–3 years', 'One story at bedtime. Ask, “Where is the whale?” and say the little lesson together.'],
+    ['3–6 years', 'Read the whole story, talk about the lesson, learn a dua, and look up the verses together.'],
+  ],
+  closing: 'May Allah make your child the coolness of your eyes, and make these stories a light in their heart. Ameen.',
+};
+
+export const aboutBook = {
+  title: 'About This Book',
   points: [
     'No prophet, angel or person is drawn anywhere in this book. Their stories are shown through places, light, animals and nature.',
     'Every story lists where it is found in the Quran, so you can read it in full as your child grows. A few details come from authentic hadith and the books of seerah, and these are noted too.',
@@ -22,7 +34,12 @@ export const parentsNote = {
     'Stories with difficult moments are told softly, to suit little ears.',
     'After a prophet’s name you will see {as} — we say <i>‘alayhis-salam</i>, “peace be upon him.” After the name of Prophet Muhammad, {saw} means <i>sallallahu ‘alayhi wa sallam</i>.',
   ],
-  closing: 'At the very back you will find high-contrast pictures made for newborn eyes — perfect for tummy time right now. May Allah make your child the coolness of your eyes, and make these stories a light in their heart. Ameen.',
+  map: [
+    ['42 stories', 'from Creation to our beloved Prophet {saw}, in ten parts'],
+    ['16 duas', 'from the Quran, in Arabic with meaning'],
+    ['The 25 prophets', 'named in the Quran'],
+    ['For Little Eyes', 'eight high-contrast pages for newborns'],
+  ],
 };
 
 export const belongsTo = {
@@ -93,6 +110,22 @@ export const littleEyes = {
 };
 
 export const backCover = {
-  blurb: 'From the very first day of creation to our beloved Prophet Muhammad {saw}, here are 42 stories from the Quran, retold gently for little ones and beautifully illustrated.',
-  points: ['Made for reading aloud, from the newborn days onward', 'Quran references for every story', 'Duas in Arabic, transliteration and meaning', 'High-contrast pages for newborn eyes', 'No prophets, angels or people pictured'],
+  blurb: 'From the very first day of creation to our beloved Prophet Muhammad {saw} — 42 stories from the Quran, gently retold for the youngest listeners and illustrated with love.',
+  points: [
+    '42 read-aloud stories, each with a little lesson and its Quran references',
+    '16 duas from the Quran in Arabic, transliteration and simple meaning',
+    'High-contrast pages for newborn eyes',
+    'The 25 prophets named in the Quran',
+    'No prophets, angels or people pictured',
+  ],
+  tagline: 'A treasury for bedtime, tummy time and family time',
+};
+
+export const thankYou = {
+  title: 'Thank You!',
+  paras: [
+    'JazakAllahu khayran for sharing these stories with your little one.',
+    'If this book has brought joy to your family, please consider leaving a short review where you bought it. Your words help other families find it — and every kind review truly makes our day.',
+    'May Allah bless your home with love, faith and many happy story times.',
+  ],
 };

@@ -28,9 +28,9 @@ export function mix(a, b, t) {
 const esc = (s) => s.replace(/&(?!\w+;)/g, '&amp;');
 export function markup(s) {
   return esc(s)
-    .replace(/\{as\}/g, '<span class="hon" dir="rtl" lang="ar">عليه السلام</span>')
-    .replace(/\{aha\}/g, '<span class="hon" dir="rtl" lang="ar">عليها السلام</span>')
-    .replace(/\{saw\}/g, '<span class="saw">ﷺ</span>')
+    .replace(/\{as\}/g, '<span class="hon" lang="ar" dir="rtl">عليه السلام</span>')
+    .replace(/\{aha\}/g, '<span class="hon" lang="ar" dir="rtl">عليها السلام</span>')
+    .replace(/\{saw\}/g, '<bdi class="saw">ﷺ</bdi>')
     .replace(/~([^~]+)~/g, '<em class="sfx">$1</em>');
 }
 // Plain-text version (for the contents and kickers).
@@ -56,7 +56,7 @@ function duaBlock(dua, { fallbackLabel = 'A dua from the Quran' } = {}) {
   const ayahs = dua.seg.map((x) => x[1]);
   const ref = `Surah ${surahName(s)} ${s}:${ayahs.length > 1 ? `${ayahs[0]}–${ayahs[ayahs.length - 1]}` : a}`;
   return `<aside class="dua"><div class="lbl">${duaIcon('#C9922E')}<span>${dua.label || fallbackLabel}</span></div>
-    <div class="ar" lang="ar">${ar}</div>
+    <div class="ar" lang="ar" dir="rtl">${ar}</div>
     <div class="tr">${dua.tr}</div>
     <div class="en">“${markup(dua.en)}”</div>
     <div class="ref">${ref}</div></aside>`;
@@ -71,7 +71,7 @@ export function storyPage(story, { n, partTitle, accent, tint, page }) {
   <div class="tp-inner">
     <header class="tp-head">
       <div class="kicker">Story ${n}<svg class="dot" viewBox="0 0 10 10" width="7" height="7" aria-hidden="true"><path d="M5 0 L10 5 L5 10 L0 5Z" fill="currentColor"/></svg>${markup(partTitle)}</div>
-      <div class="ar-label" lang="ar">${story.ar}</div>
+      <div class="ar-label" lang="ar" dir="rtl">${story.ar}</div>
       <h2 class="title">${markup(story.title)}</h2>
       ${divider(accent, 200)}
     </header>
@@ -100,7 +100,7 @@ export function contentsPage({ title, groups, page, accent, tint, footer = false
   <div class="toc">${groups
     .map(
       (g) => `<div class="part" style="--pc:${g.color}">${star8Svg(g.color, { size: 13 })}<span>${g.title}</span></div>${g.rows
-        .map((r) => `<div class="row" style="--pc:${g.color}"><span class="n">${r.n ?? ''}</span><span class="t">${r.title}</span><span class="dots"></span><span class="p">${r.page}</span></div>`)
+        .map((r) => `<a class="row" href="#pg-${r.page}" style="--pc:${g.color}"><span class="n">${r.n ?? ''}</span><span class="t">${r.title}</span><span class="dots"></span><span class="p">${r.page}</span></a>`)
         .join('')}`,
     )
     .join('')}</div>${footer ? tocFooter(accent) : ''}`;
@@ -109,7 +109,7 @@ export function contentsPage({ title, groups, page, accent, tint, footer = false
 
 // Surah Yusuf 12:111 at the foot of the contents.
 function tocFooter(accent) {
-  return `<div class="toc-foot"><div class="ar" lang="ar">${duaArabic([[12, 111, null, 'ٱلۡأَلۡبَٰبِ']])}</div>
+  return `<div class="toc-foot"><div class="ar" lang="ar" dir="rtl">${duaArabic([[12, 111, null, 'ٱلۡأَلۡبَٰبِ']])}</div>
   <div class="en">“In their stories there is truly a lesson for those who understand.”</div><div class="ref">Surah Yusuf 12:111</div></div>`;
 }
 
