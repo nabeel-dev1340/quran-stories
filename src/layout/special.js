@@ -1,0 +1,156 @@
+// Front matter, back matter and the other one-off pages.
+import { framedPage, partColors, markup, duaBlock, frameVars, corners, folio } from './pages.js';
+import { star8Svg, divider, lessonIcon, duaIcon } from './ornaments.js';
+import { book, parentsNote as note, belongsTo as owner, prophets, moreProphets as more, closingDua as cdua, goodnight as gn, littleEyes, backCover as bc } from '../content/book.js';
+import { duaArabic } from '../content/quran.js';
+
+const [ACC, TINT] = partColors.front;
+const img = (src, cls = 'bg') => (src ? `<img class="${cls}" src="${src}" alt="">` : '');
+
+export function cover(art) {
+  return `<section class="page cover">${img(art['cover'])}
+  <div class="cover-title">
+    <div class="cover-ar" lang="ar">${duaArabic([[12, 3, 'أَحۡسَنَ', 'ٱلۡقَصَصِ']])}</div>
+    <h1>The Best<br>of Stories</h1>
+    <div class="cover-sub">${book.subtitle}</div>
+  </div>
+  <div class="cover-badge"><span>42</span>stories</div>
+</section>`;
+}
+
+export function endpaper(art) {
+  return `<section class="page endpaper">${img(art['endpaper'])}</section>`;
+}
+
+export function titlePage(art) {
+  return `<section class="page titlepage">${img(art['title'])}
+  <div class="tp-wrap">
+    <div class="tp-verse" lang="ar">${duaArabic(book.titleVerse.seg)}</div>
+    <div class="tp-verse-en">${book.titleVerse.en} <span>Surah Yusuf 12:3</span></div>
+    <h1>The Best<br>of Stories</h1>
+    ${divider('#C9922E', 240)}
+    <div class="tp-sub">${book.subtitle}</div>
+    <div class="tp-small">Retold from the Holy Quran<br>with pictures to love</div>
+  </div>
+</section>`;
+}
+
+export function belongsTo(n) {
+  const body = `
+  <div class="bismillah" lang="ar">${duaArabic(book.bismillah.seg)}</div>
+  <div class="bismillah-en">${book.bismillah.en}</div>
+  <div class="owner"><div class="apex">${star8Svg(ACC, { size: 30, extra: '<circle cx="12" cy="12" r="3.6" fill="#FBF5EA"/>' })}</div>
+    <div class="owner-lbl">${owner.title}</div>
+    <div class="owner-line big"></div>
+    ${owner.lines.map((l) => `<div class="owner-lbl small">${l}</div><div class="owner-line"></div>`).join('')}
+  </div>
+  <div class="owner-foot">${star8Svg(ACC, { size: 14 })}<span>A gift from Allah, and a gift of stories</span>${star8Svg(ACC, { size: 14 })}</div>`;
+  return framedPage({ accent: ACC, tint: TINT, page: 0, body, cls: 'belongs-page' });
+}
+
+export function parentsNote(n) {
+  const tick = star8Svg(ACC, { size: 13 });
+  const body = `<h1>${note.title}</h1>${divider(ACC, 200)}
+  <div class="prose note">
+    ${note.paras.map((p) => `<p>${markup(p)}</p>`).join('')}
+    <ul>${note.points.map((p) => `<li>${tick}${markup(p)}</li>`).join('')}</ul>
+    <p>${markup(note.closing)}</p>
+  </div>`;
+  return framedPage({ accent: ACC, tint: TINT, page: n, body, cls: 'note-page' });
+}
+
+export function prophetsArt(art) {
+  const cells = prophets
+    .map(([en, ar], i) => `<div class="pcell"><div class="plamp">${lampSvg(i)}</div><div class="par" lang="ar">${ar}</div><div class="pen">${en}${i === 24 ? ' <span class="saw">ﷺ</span>' : ''}</div></div>`)
+    .join('');
+  return `<section class="page prophets-page">${img(art['prophets'])}
+  <div class="pp-head"><div class="pp-kicker">Peace be upon them all</div><h1>The 25 Prophets<br>Named in the Quran</h1></div>
+  <div class="pgrid">${cells}</div>
+</section>`;
+}
+
+function lampSvg(i) {
+  const hues = ['#F7C24F', '#F49A8A', '#97DCDD', '#C9B3E3', '#A8D58E'];
+  const glass = hues[i % 5];
+  return `<svg viewBox="0 0 60 92" width="40" height="61" aria-hidden="true">
+    <defs><radialGradient id="lg${i}"><stop offset="0" stop-color="${glass}" stop-opacity="0.75"/><stop offset="1" stop-color="${glass}" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="30" cy="54" r="30" fill="url(#lg${i})"/>
+    <path d="M30 0 V12" stroke="#E5A232" stroke-width="2"/>
+    <circle cx="30" cy="14" r="3.5" fill="none" stroke="#E5A232" stroke-width="2"/>
+    <path d="M21 19 H39 L44 29 H16Z" fill="#E5A232"/>
+    <path d="M14 29 H46 L48 66 L30 78 L12 66Z" fill="${glass}"/>
+    <path d="M24 29 L23 70 M36 29 L37 70" stroke="#C27F22" stroke-width="1.6" opacity="0.8"/>
+    <path d="M12 66 H48 L30 78Z" fill="#C27F22"/>
+    <path d="M30 78 V86" stroke="#E5A232" stroke-width="2"/><circle cx="30" cy="88" r="3" fill="#E5A232"/>
+    <ellipse cx="21" cy="44" rx="2.6" ry="7" fill="#fff" opacity="0.55"/>
+  </svg>`;
+}
+
+export function moreProphets(n) {
+  const [acc, tint] = partColors.p10;
+  const body = `<h1>${more.title}</h1>${divider(acc, 200)}
+  <div class="prose more">
+    <p class="intro">${markup(more.intro)}</p>
+    ${more.list.map(([name, txt, ref]) => `<div class="mp"><div class="mp-name">${markup(name)}</div><div class="mp-txt">${markup(txt)} <span class="mp-ref">${ref}</span></div></div>`).join('')}
+    <p class="outro">${markup(more.closing)}</p>
+  </div>`;
+  return framedPage({ accent: acc, tint, page: n, body, cls: 'more-page' });
+}
+
+export function closingDua(n, art) {
+  const ar = duaArabic(cdua.seg);
+  return `<section class="page closing-page">${img(art['closing'])}
+  <div class="cd-wrap">
+    <h1>${cdua.title}</h1>
+    ${divider('#E9C77E', 220)}
+    <div class="cd-intro">${cdua.intro}</div>
+    <div class="cd-ar" lang="ar">${ar}</div>
+    <div class="cd-tr">${cdua.tr}</div>
+    <div class="cd-en">“${cdua.en}”</div>
+    <div class="cd-ref">Surah al-Furqan 25:74</div>
+  </div>
+</section>`;
+}
+
+export function goodnight(art) {
+  return `<section class="page goodnight-page">${img(art['goodnight'])}
+  <div class="gn-wrap">
+    <h1>${gn.title}</h1>
+    <p>${gn.text}</p>
+    <div class="gn-dua">
+      <div class="gn-ar" lang="ar">${gn.duaAr}</div>
+      <div class="gn-tr">${gn.duaTr}</div>
+      <div class="gn-en">“${gn.duaEn}” <span>${gn.duaRef}</span></div>
+    </div>
+  </div>
+</section>`;
+}
+
+export function littleEyesIntro(art) {
+  return `<section class="page eyes-intro">${img(art['eyes'])}
+  <div class="ei-wrap">
+    <div class="ei-kicker">For our newest readers</div>
+    <h1>${littleEyes.title}</h1>
+    ${littleEyes.text.map((t) => `<p>${t}</p>`).join('')}
+  </div>
+</section>`;
+}
+
+export const littleEyesPages = () => littleEyes.pages;
+
+export function highContrast(word, key, n, art) {
+  const dark = littleEyes.pages.find(([, k]) => k === key)[2];
+  return `<section class="page hc-page ${dark ? 'hc-dark' : 'hc-light'}">${img(art['hc-' + key])}
+  <div class="hc-word"><span>${word}</span></div>
+</section>`;
+}
+
+export function backCover(art) {
+  return `<section class="page back-cover">${img(art['back'])}
+  <div class="bc-wrap">
+    <h2>The Best of Stories</h2>
+    <p class="bc-blurb">${markup(bc.blurb)}</p>
+    <ul>${bc.points.map((p) => `<li>${star8Svg('#E9C77E', { size: 12 })}<span>${p}</span></li>`).join('')}</ul>
+  </div>
+</section>`;
+}

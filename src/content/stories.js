@@ -1,0 +1,670 @@
+// The stories, retold for reading aloud to a baby or toddler.
+//
+// Markup inside paragraphs:
+//   {as}   -> عليه السلام  (peace be upon him)     {aha} -> عليها السلام (peace be upon her)
+//   {saw}  -> ﷺ (peace and blessings be upon him)
+//   ~...~  -> a sound word to say with gusto ("~Splash!~")
+//
+// `dua` pulls the Arabic verbatim from assets/data/quran_en.json (Uthmani text,
+// King Fahd Complex via quran-json): each segment is [surah, ayah, from, to],
+// where `from`/`to` are exact substrings of the verse (null = verse start/end).
+
+export const parts = [
+  { id: 'p1', title: 'In the Beginning' },
+  { id: 'p2', title: 'The First Messengers' },
+  { id: 'p3', title: 'Ibrahim, the Friend of Allah' },
+  { id: 'p4', title: 'Yusuf, the Best of Stories' },
+  { id: 'p5', title: 'Patience and Honesty' },
+  { id: 'p6', title: 'Musa, Who Spoke with Allah' },
+  { id: 'p7', title: 'Wonders of the Prophets' },
+  { id: 'p8', title: 'The Family of ‘Imran' },
+  { id: 'p9', title: 'Stories of Wisdom' },
+  { id: 'p10', title: 'Our Beloved Prophet Muhammad {saw}' },
+];
+
+export const stories = [
+  // ------------------------------------------------------------ In the Beginning
+  {
+    id: 's01', part: 'p1', ar: 'الخلق',
+    title: 'Allah Made Everything',
+    refs: 'Surah al-Anbiya’ 21:30–33 · Surah an-Nahl 16:10–18',
+    text: [
+      'Before anything at all, there was Allah. Then Allah said, “Be!” — and it was.',
+      'Allah made the wide blue sky and the warm, golden sun. He made the silver moon and the twinkly stars, each one gliding along its own path.',
+      'He made tall mountains and deep, deep seas. He sent down the rain — ~pitter-patter!~ — and up came green grass, swaying palm trees and sweet fruits to eat.',
+      'From water, Allah made every living thing: fish that ~splash~, birds that ~flap~, camels that ~clip-clop~, and bees that ~buzz~.',
+      'He made the day for playing and the night for resting.',
+      'And Allah made you, little one — just right, and so very loved.',
+    ],
+    lesson: 'Everything we see is a gift from Allah. Let’s say, “Alhamdulillah!” — all praise is for Allah.',
+  },
+  {
+    id: 's02', part: 'p1', ar: 'آدم',
+    title: 'Adam and the Beautiful Garden',
+    refs: 'Surah al-Baqarah 2:30–38 · Surah al-A‘raf 7:11–25',
+    text: [
+      'Allah made the very first person from clay, and named him Adam {as}. He taught Adam the names of everything — sun and moon, tree and bird. The angels bowed to honour him, all except proud Iblis.',
+      'Adam and his wife, Hawwa, lived in a beautiful Garden full of rivers, flowers and fruit. “Eat whatever you like,” said Allah, “but do not go near this one tree.”',
+      'But Shaytan whispered and whispered, ~psst, psst~, until they forgot, and ate from the tree.',
+      'Oh! Adam and Hawwa felt so sorry, and asked Allah to forgive them. And Allah, the Most Forgiving, forgave them, and sent them to live on the earth — the very first family.',
+    ],
+    lesson: 'When we make a mistake, we say sorry to Allah — and Allah loves to forgive.',
+    dua: {
+      seg: [[7, 23, 'رَبَّنَا', null]],
+      tr: 'Rabbanā ẓalamnā anfusanā, wa in lam taghfir lanā wa tarḥamnā, lanakūnanna minal-khāsirīn.',
+      en: 'Our Lord, we have done wrong. If You do not forgive us and have mercy on us, we will surely be lost.',
+    },
+  },
+  {
+    id: 's03', part: 'p1', ar: 'ابنا آدم',
+    title: 'The Two Sons of Adam',
+    refs: 'Surah al-Ma’idah 5:27–31',
+    text: [
+      'Adam {as} had two sons, Habil and Qabil.',
+      'One day, each of them gave a gift to Allah. Habil gave his very best, with a kind and humble heart, and Allah accepted his gift. But Allah did not accept Qabil’s.',
+      'Qabil grew jealous. Habil told him gently, “Allah accepts from those who are good and careful.”',
+      'But Qabil let his anger grow, and grow, and grow, until he did something terrible to his brother — something that could never be undone.',
+      'Then Allah sent a crow. ~Scratch, scratch, scratch!~ The crow dug a hole in the ground to show Qabil what to do. Qabil hung his head and cried, “Oh, how sorry I am!”',
+    ],
+    lesson: 'Jealousy and anger are like a fire inside us. We put them out with kindness, and we love our brothers and sisters.',
+  },
+
+  // ------------------------------------------------------------ The First Messengers
+  {
+    id: 's04', part: 'p2', ar: 'نوح',
+    title: 'Nuh and the Great Ark',
+    refs: 'Surah Hud 11:25–48 · Surah al-Mu’minun 23:23–30 · Surah al-Qamar 54:9–15',
+    text: [
+      'For years and years, Prophet Nuh {as} told his people, “Worship Allah alone, and be good!” But most of them only laughed.',
+      'So Allah told Nuh to build an ark of wooden planks and nails. ~Bang, bang, bang!~ went his hammer. “A ship? On dry land?” people giggled.',
+      'Then Allah said, “Bring a pair of every kind of animal.” In came the lions and the camels, the elephants and the birds — two by two! “In the name of Allah it sails, and in the name of Allah it stops,” said Nuh.',
+      'Rain poured from the sky, and water gushed from the ground. ~Splish, splash, SPLOOSH!~ The ark rode waves as big as mountains, and everyone inside was safe.',
+      'At last Allah said, “O earth, swallow your water! O sky, hold back your rain!” And the ark came gently to rest on Mount Judi.',
+    ],
+    lesson: 'When we trust Allah and obey Him, He keeps us safe — even in the biggest storm.',
+    dua: {
+      seg: [[23, 29, 'رَّبِّ', null]],
+      tr: 'Rabbi anzilnī munzalan mubārakan wa anta khayrul-munzilīn.',
+      en: 'My Lord, bring me down to a blessed place to stay, for You are the best to bring us safely home.',
+    },
+  },
+  {
+    id: 's05', part: 'p2', ar: 'هود',
+    title: 'Hud and the Mighty Wind',
+    refs: 'Surah al-A‘raf 7:65–72 · Surah al-Ahqaf 46:21–25 · Surah al-Fajr 89:6–8',
+    text: [
+      'The people of ‘Ad were big and strong. They built tall, tall towers and pillars that reached up toward the sky.',
+      'Prophet Hud {as} said to them, “Allah gave you all of this. Thank Him, and worship Him alone!”',
+      'But the people puffed out their chests. “Who is stronger than us?” they boasted. They forgot that Allah is the Strongest of all.',
+      'One day, they saw a big dark cloud rolling toward their valley. “Hooray! Rain is coming!” they cheered. But it was not rain. It was a mighty wind — ~whoosh, WHOOSH!~ — that blew for seven nights and eight days, until their proud towers stood empty and still.',
+      'And Allah kept Prophet Hud and the believers safe, because they trusted Him.',
+    ],
+    lesson: 'Allah is the Strongest of all. We are thankful for His gifts, never proud.',
+  },
+  {
+    id: 's06', part: 'p2', ar: 'صالح',
+    title: 'Salih and the Special She-Camel',
+    refs: 'Surah al-A‘raf 7:73–79 · Surah ash-Shu‘ara’ 26:141–159 · Surah ash-Shams 91:11–15',
+    text: [
+      'The people of Thamud were clever builders. They carved beautiful houses right into the rocky mountains — ~tap, tap, tap!~',
+      'Prophet Salih {as} told them, “Worship Allah alone, and be kind.” But they said, “Show us a sign!”',
+      'So Allah sent a sign: a wonderful she-camel, the camel of Allah! She was gentle and lovely to see.',
+      'Salih said, “Share the water with her. One day it is her turn to drink, and the next day it is yours. Do not harm her.”',
+      'But some unkind people would not listen, and they hurt the camel of Allah. Then a great shaking came, and their carved houses fell silent and empty.',
+      'Allah kept Prophet Salih and the believers safe.',
+    ],
+    lesson: 'Animals are Allah’s creatures too. We are always gentle and kind to them.',
+  },
+
+  // ------------------------------------------------------------ Ibrahim
+  {
+    id: 's07', part: 'p3', ar: 'إبراهيم',
+    title: 'Ibrahim Looks at the Sky',
+    refs: 'Surah al-An‘am 6:74–83',
+    text: [
+      'Ibrahim {as} lived among people who prayed to statues, and to the stars and the moon. Ibrahim wanted to show them the truth.',
+      'One night, he looked up and saw a bright, shining star. “Is this my Lord?” he asked. But the star faded away. “I don’t love things that disappear,” he said.',
+      'Then he saw the moon rising, big and glowing. “Is this my Lord?” But the moon set, too.',
+      'In the morning, up came the sun — so big and so bright! “This is the biggest of all!” But in the evening, the sun went down as well.',
+      'Then Ibrahim said, “My Lord is the One who made the stars, the moon and the sun. He never sets, and He never sleeps. I turn to Him alone!”',
+    ],
+    lesson: 'The moon and stars come and go, but Allah is always here, always taking care of us.',
+  },
+  {
+    id: 's08', part: 'p3', ar: 'إبراهيم',
+    title: 'The Fire That Became Cool',
+    refs: 'Surah al-Anbiya’ 21:51–70 · Surah as-Saffat 37:83–98',
+    text: [
+      'Ibrahim {as} asked his people, “Why do you pray to statues? They cannot see, or hear, or help you!”',
+      'One day, when everyone was away, Ibrahim broke the statues into pieces — all except the biggest one. When the people came back, they cried, “Who did this?”',
+      '“Why not ask the big one?” said Ibrahim. “Can it speak?” The people looked at each other. They knew statues cannot speak!',
+      'But they grew angry, and they built a huge fire — ~crackle, crackle, ROAR!~ — and threw Ibrahim right into the flames.',
+      'Then Allah said, “O fire, be cool, and be safe for Ibrahim!”',
+      'And the fire became cool and gentle. It could not hurt Ibrahim at all. He came out safe and sound, because Allah was with him.',
+    ],
+    lesson: 'Allah is in charge of everything — even fire obeys Him!',
+  },
+  {
+    id: 's09', part: 'p3', ar: 'إبراهيم',
+    title: 'Four Birds Come Flying',
+    refs: 'Surah al-Baqarah 2:260',
+    text: [
+      'Ibrahim {as} loved Allah with all his heart. One day he asked, “My Lord, show me how You bring the dead back to life.”',
+      '“Don’t you believe?” asked Allah.',
+      '“Yes, I do,” said Ibrahim, “but I want my heart to feel calm and sure.”',
+      'So Allah said, “Take four birds, and place a part of them on each of four hills. Then call them, and they will come rushing to you.”',
+      'Ibrahim did just as Allah said. He called out — and Allah gave the birds life again! ~Flap, flap, flutter!~ One, two, three, four — all four birds came flying straight to him.',
+      'Allah can do anything. He is the Almighty, the All-Wise.',
+    ],
+    lesson: 'Allah gives life to everything. Nothing is too hard for Him.',
+  },
+  {
+    id: 's10', part: 'p3', ar: 'إبراهيم',
+    title: 'Welcome, Guests!',
+    refs: 'Surah Hud 11:69–73 · Surah adh-Dhariyat 51:24–30',
+    text: [
+      'Ibrahim {as} loved to welcome guests. One day, some visitors came to his tent. “Salam!” they said. “Salam!” said Ibrahim, with a big smile.',
+      'Quick as can be, he brought them his very best food — a whole roasted calf, hot and delicious!',
+      'But the visitors did not eat a single bite. How strange! They were not people at all. They were angels, sent by Allah.',
+      '“Don’t be afraid,” they said. “We bring you happy news. You and your wife Sarah will have a baby boy named Ishaq — and after him, a grandson named Ya‘qub!”',
+      'Sarah was amazed. “A baby? But I am an old woman, and my husband is old too!”',
+      '“Are you amazed at what Allah decides?” said the angels. “Allah’s mercy and His blessings are upon you, family of this house!”',
+    ],
+    lesson: 'Every baby is a happy gift from Allah — just like you! And we welcome every guest with a smile.',
+  },
+  {
+    id: 's11', part: 'p3', ar: 'زمزم',
+    title: 'Baby Ismail and the Zamzam Spring',
+    refs: 'Surah Ibrahim 14:35–41 · Surah al-Baqarah 2:158 · Sahih al-Bukhari',
+    text: [
+      'Allah told Prophet Ibrahim {as} to take his wife Hajar and their baby, Ismail {as}, to a quiet desert valley with no trees, no people and no water.',
+      '“Did Allah tell you to do this?” Hajar asked. “Yes,” said Ibrahim. “Then Allah will take care of us,” she said bravely.',
+      'Soon the water ran out, and baby Ismail cried and cried. Hajar ran up the hill of Safa to look for help. Nobody! She ran to the hill of Marwa. Nobody! Back and forth she ran — seven times.',
+      'Then — ~splash!~ — water came bubbling up out of the sand, right beside the baby: the spring of Zamzam! Birds came to drink, and people came to live there too. Zamzam still flows in Makkah today.',
+    ],
+    lesson: 'When we trust Allah and keep trying, Allah opens a way for us.',
+    dua: {
+      seg: [[14, 40, null, null]],
+      tr: 'Rabbij‘alnī muqīmaṣ-ṣalāti wa min dhurriyyatī, Rabbanā wa taqabbal du‘ā’.',
+      en: 'My Lord, make me one who keeps up the prayer, and my children too. Our Lord, accept my prayer.',
+    },
+  },
+  {
+    id: 's12', part: 'p3', ar: 'الكعبة',
+    title: 'Building the Ka‘bah',
+    refs: 'Surah al-Baqarah 2:125–129 · Surah Al ‘Imran 3:96 · Surah al-Hajj 22:26–27',
+    text: [
+      'When Ismail {as} grew up, Prophet Ibrahim {as} came back to the valley. “Allah has told me to build a House for Him, right here,” he said. “Then I will help you!” said Ismail.',
+      'Ismail carried the heavy stones, and Ibrahim set them in place, row by row. ~Thud, thud~ — up the walls grew! When they grew too tall, Ibrahim stood on a big stone to reach higher.',
+      'As they worked, they prayed: “Our Lord, accept this from us. You hear everything, and You know everything.”',
+      'At last the Ka‘bah was finished — the first House made for worshipping Allah. And from near and far, people still come to it, every single day.',
+    ],
+    lesson: 'Helping each other and working together for Allah is a beautiful thing.',
+    dua: {
+      seg: [[2, 127, 'رَبَّنَا تَقَبَّلۡ', null]],
+      tr: 'Rabbanā taqabbal minnā, innaka antas-Samī‘ul-‘Alīm.',
+      en: 'Our Lord, accept this from us. You are the All-Hearing, the All-Knowing.',
+    },
+  },
+  {
+    id: 's13', part: 'p3', ar: 'إسماعيل',
+    title: 'The Great Ram',
+    refs: 'Surah as-Saffat 37:99–111',
+    text: [
+      'Prophet Ibrahim {as} had a dream from Allah. In the dream, Allah asked him to give up his dear son Ismail {as} — the son he loved so much.',
+      'Ibrahim told Ismail about the dream. Brave Ismail said, “Father, do what Allah has asked. You will find me patient, insha’Allah.”',
+      'They both trusted Allah with all their hearts. It was a very big test.',
+      'And just then, Allah called out: “O Ibrahim, you have done what you were asked!” Allah sent a big, beautiful ram instead, and Ismail was safe.',
+      'Ibrahim and Ismail were so happy, and they thanked Allah. That is why, every year at Eid al-Adha, families share meat with relatives, friends and the poor — remembering Ibrahim, Ismail, and the great ram.',
+    ],
+    lesson: 'When we obey Allah, He is always kinder to us than we could ever imagine.',
+  },
+
+  // ------------------------------------------------------------ Yusuf
+  {
+    id: 's14', part: 'p4', ar: 'يوسف',
+    title: 'Yusuf’s Dream',
+    refs: 'Surah Yusuf 12:3–20',
+    text: [
+      'Young Yusuf {as} had a wonderful dream. “Father!” he said. “I saw eleven stars, and the sun, and the moon — and they all bowed down to me!”',
+      'His father, Prophet Ya‘qub {as}, knew Allah had chosen Yusuf for something special. “Don’t tell your brothers,” he whispered.',
+      'But Yusuf’s big brothers were jealous. One day they took him out to play — and dropped him into a deep, dark well! Then they went home and told their father a story that wasn’t true. Ya‘qub was very sad, but he stayed beautifully patient.',
+      'Down in the well, Yusuf was not alone: Allah was with him. Soon some travellers stopped for water. Down came a bucket… and up came Yusuf! And off he went, all the way to Egypt.',
+    ],
+    lesson: 'Even in the darkest place, Allah is with us. We stay patient, because Allah’s help is coming.',
+    dua: {
+      seg: [[12, 64, 'فَٱللَّهُ', null]],
+      tr: 'Fallāhu khayrun ḥāfiẓā, wa huwa arḥamur-rāḥimīn.',
+      en: 'Allah is the best Protector, and He is the Most Merciful of all who show mercy.',
+    },
+  },
+  {
+    id: 's15', part: 'p4', ar: 'يوسف',
+    title: 'Yusuf in Egypt',
+    refs: 'Surah Yusuf 12:21–101',
+    text: [
+      'In Egypt, Yusuf {as} grew up kind, wise and truthful. Even when he was put in prison for something he never did, he stayed patient and kept trusting Allah.',
+      'One night, the King had a strange dream: seven fat cows were eaten up by seven thin cows! Allah taught Yusuf what it meant. “Seven years of plenty are coming, then seven hungry years. Save the grain!”',
+      'So the King put Yusuf in charge of the food of Egypt. Yusuf filled great storehouses with wheat, and when the hungry years came, there was bread for everyone.',
+      'One day, his brothers came to buy food. Yusuf did not scold them. He said, “No blame on you today. May Allah forgive you.”',
+      'Then the whole family came to Egypt, hugging and happy at last — just like the dream of the sun, the moon and the eleven stars!',
+    ],
+    lesson: 'Yusuf forgave his brothers. When we forgive, our hearts feel light and happy.',
+  },
+
+  // ------------------------------------------------------------ Patience and Honesty
+  {
+    id: 's16', part: 'p5', ar: 'أيوب',
+    title: 'Ayyub, the Patient One',
+    refs: 'Surah al-Anbiya’ 21:83–84 · Surah Sad 38:41–44',
+    text: [
+      'Prophet Ayyub {as} had everything: a lovely family, flocks of sheep and camels, and good health. And he always said, “Alhamdulillah!”',
+      'Then Allah tested him. Ayyub lost nearly everything he had, and he became very sick for a long, long time.',
+      'But did Ayyub complain? No! He stayed patient, and kept on thanking Allah.',
+      'At last, he prayed softly, “My Lord, I am hurting, and You are the Most Merciful of all.”',
+      'Allah answered, “Stamp your foot on the ground!” ~Stamp!~ Out bubbled a cool, fresh spring. Ayyub washed in it and drank from it — and he was healthy and strong again!',
+      'Allah gave him back his family, with even more blessings than before. Allah said, “What an excellent servant he was!”',
+    ],
+    lesson: 'When things are hard, we stay patient and keep praying. Allah sees, and Allah helps.',
+    dua: {
+      seg: [[21, 83, 'أَنِّي', null]],
+      tr: 'Annī massaniyaḍ-ḍurru wa anta arḥamur-rāḥimīn.',
+      en: 'Hardship has touched me, and You are the Most Merciful of all who show mercy.',
+    },
+  },
+  {
+    id: 's17', part: 'p5', ar: 'شعيب',
+    title: 'Shu‘ayb and the Honest Scales',
+    refs: 'Surah al-A‘raf 7:85–93 · Surah Hud 11:84–95 · Surah ash-Shu‘ara’ 26:176–191',
+    text: [
+      'In the town of Madyan, there was a busy market full of dates, grapes, wheat and spices. But some sellers were sneaky. When they weighed things on their scales, they gave people less than they had paid for!',
+      'Prophet Shu‘ayb {as} said, “Weigh fairly! Measure fully! Don’t cheat people. What Allah gives you honestly is the best for you.”',
+      'But they laughed. “Our money is ours. We’ll do whatever we like!”',
+      'Shu‘ayb kept reminding them, kindly and patiently, again and again. But they would not stop cheating.',
+      'So Allah’s punishment came to the cheaters, and Allah kept Shu‘ayb and the honest believers safe.',
+    ],
+    lesson: 'Allah loves honesty. We always tell the truth, and we are fair to everyone.',
+  },
+
+  // ------------------------------------------------------------ Musa
+  {
+    id: 's18', part: 'p6', ar: 'موسى',
+    title: 'Baby Musa on the River',
+    refs: 'Surah al-Qasas 28:7–13 · Surah Ta-Ha 20:37–40',
+    text: [
+      'Long ago in Egypt lived a cruel king called Pharaoh, who was afraid of the baby boys of Bani Isra’il.',
+      'When baby Musa {as} was born, his mother was worried. Then Allah put a gentle message in her heart: “Feed your baby. If you are afraid for him, put him on the river. Do not fear, and do not be sad. I will bring him back to you.”',
+      'So she tucked Musa into a little wooden chest and set it on the River Nile. ~Bob, bob, bob~, it floated along, while his big sister quietly followed on the bank.',
+      'The chest floated all the way to Pharaoh’s palace! Pharaoh’s kind wife, Asiya, lifted the baby out and smiled. “Let’s keep him,” she said. “He will be a joy for us!”',
+      'But baby Musa would not drink milk from anyone. Then his sister stepped forward: “I know someone who can feed him!” And she brought… his very own mother!',
+      'Allah kept His promise. Musa was back in his mother’s arms.',
+    ],
+    lesson: 'Allah always keeps His promises, and He takes care of every little baby — just like you.',
+  },
+  {
+    id: 's19', part: 'p6', ar: 'موسى',
+    title: 'Musa Helps at the Well',
+    refs: 'Surah al-Qasas 28:20–28',
+    text: [
+      'Prophet Musa {as} travelled a long way across the hot desert to the land of Madyan. He was tired and hungry.',
+      'At the well, shepherds were giving water to their animals. But two young women waited to one side with their thirsty sheep. “Our father is very old,” they said, “so we wait until everyone has gone.”',
+      'Musa watered their whole flock himself! ~Glug, glug, baa!~ Then he sat down in the shade of a tree and prayed, “My Lord, I really need whatever good You send me.”',
+      'Soon one of the young women came back, walking shyly. “My father would like to thank you,” she said. And Musa found a new home with their kind family.',
+    ],
+    lesson: 'We help others even when we are tired — and we ask Allah for everything we need.',
+    dua: {
+      seg: [[28, 24, 'رَبِّ', null]],
+      tr: 'Rabbi innī limā anzalta ilayya min khayrin faqīr.',
+      en: 'My Lord, I truly need whatever good You send down to me.',
+    },
+  },
+  {
+    id: 's20', part: 'p6', ar: 'موسى',
+    title: 'The Light on the Mountain',
+    refs: 'Surah Ta-Ha 20:9–36 · Surah al-Qasas 28:29–35',
+    text: [
+      'One cold, dark night, Musa {as} was travelling with his family when he saw a light on the mountain. “Wait here,” he said. “I’ll bring back a flame to keep us warm.”',
+      'When he came close, he heard a call: “O Musa! I am your Lord. Take off your sandals, for you are in the holy valley of Tuwa.”',
+      '“What is in your hand, Musa?” “My stick,” said Musa. “Throw it down!” And — ~wiggle, wiggle~ — it became a snake! “Pick it up, and don’t be afraid.” And it was a stick again.',
+      'Allah sent Musa to tell Pharaoh to stop being cruel. Musa prayed for help, and Allah sent his brother Harun {as} to help him.',
+    ],
+    lesson: 'When we have a big job to do, we ask Allah to make it easy.',
+    dua: {
+      seg: [[20, 25, 'رَبِّ', null], [20, 26, null, null], [20, 27, null, null], [20, 28, null, null]],
+      tr: 'Rabbish-raḥ lī ṣadrī, wa yassir lī amrī, waḥlul ‘uqdatan min lisānī, yafqahū qawlī.',
+      en: 'My Lord, open my heart, make my task easy, and loosen the knot on my tongue, so they understand what I say.',
+    },
+  },
+  {
+    id: 's21', part: 'p6', ar: 'موسى',
+    title: 'The Sea Opens a Path',
+    refs: 'Surah ash-Shu‘ara’ 26:52–67 · Surah Ta-Ha 20:77–79',
+    text: [
+      'Pharaoh would not stop being cruel to Bani Isra’il. So Allah told Musa {as}, “Lead them out of Egypt by night.”',
+      'Off they went — ~tiptoe, tiptoe~ — into the dark. But by sunrise, Pharaoh and his big army were chasing them! In front of them was the deep blue sea. Behind them came Pharaoh. “We’ll be caught!” the people cried.',
+      'But Musa said, “No! My Lord is with me. He will show me the way.”',
+      'Allah said, “Strike the sea with your stick.” ~Whoosh!~ The sea split in two! Walls of water stood up like great mountains, and in the middle lay a dry path.',
+      'Everyone walked safely across, step by step, with fish peeking out of the water walls!',
+      'When proud Pharaoh tried to follow, the sea closed up again, and he could chase them no more.',
+    ],
+    lesson: 'Even when there seems to be no way out, Allah can make a way.',
+  },
+  {
+    id: 's22', part: 'p6', ar: 'موسى',
+    title: 'Gifts in the Desert',
+    refs: 'Surah al-Baqarah 2:57, 2:60 · Surah al-A‘raf 7:160',
+    text: [
+      'Bani Isra’il walked through the big, hot desert with Prophet Musa {as}. The sun was blazing. “We’re so hot!” they said. So Allah sent soft white clouds to give them shade.',
+      '“We’re so hungry!” they said. So Allah sent them food from the sky: sweet manna, like drops of honey, and plump little birds called quails.',
+      '“We’re so thirsty!” they said. So Allah told Musa, “Strike the rock with your stick.”',
+      '~Tap!~ Out gushed water — not from one spring, but from twelve! One for each of the twelve tribes, so everyone had their own place to drink. ~Gush, gush, gurgle!~',
+      'Allah said, “Eat and drink from what Allah has given you, and do good.”',
+    ],
+    lesson: 'Allah gives us everything we need. Let’s always remember to say, “Alhamdulillah!”',
+  },
+  {
+    id: 's23', part: 'p6', ar: 'البقرة',
+    title: 'The Yellow Cow',
+    refs: 'Surah al-Baqarah 2:67–73',
+    text: [
+      'Among Bani Isra’il, a man had died, and nobody knew who had harmed him. Everyone argued: “Not me!” “Not me!”',
+      'Allah told Prophet Musa {as}, “Tell them to sacrifice a cow.” The people could have chosen any cow. But instead they asked questions — lots of questions!',
+      '“What kind of cow?” — “Not too old, and not too young.” “What colour?” — “Bright yellow, lovely to look at!” “Which one exactly? All cows look alike!” — “One that has never ploughed a field: perfect, with no spots at all.”',
+      'Each question made it harder and harder! At last they found the golden-yellow cow and did as Allah said. Then, by Allah’s power, the man came back to life just long enough to tell them the truth. The mystery was solved!',
+    ],
+    lesson: 'When Allah asks us to do something, we do it happily — and we don’t make easy things hard.',
+  },
+  {
+    id: 's24', part: 'p6', ar: 'الخضر',
+    title: 'Musa and al-Khidr',
+    refs: 'Surah al-Kahf 18:60–82',
+    text: [
+      'Prophet Musa {as} wanted to learn more and more. Allah told him about a wise servant, al-Khidr {as}, who could be found where two seas meet — at the place where Musa’s fish would slip away.',
+      'Musa walked and walked with his young helper. At the meeting of the two seas — ~plip!~ — their fish jumped into the water and swam off, leaving a tunnel in the sea. That was the place!',
+      '“May I follow you, and learn?” Musa asked. “You won’t be patient with me,” said al-Khidr. “I will, insha’Allah!” said Musa.',
+      'But al-Khidr did surprising things. He made a hole in a good boat! He fixed a falling wall for free, in a town that had been unkind to them! Musa couldn’t help asking, “Why?”',
+      'Then al-Khidr explained: the hole saved poor fishermen’s boat from a greedy king, and under the wall was treasure kept safe for two orphans. Allah knows what we cannot see.',
+    ],
+    lesson: 'Sometimes we don’t understand why things happen. But Allah knows best, and He always has a good plan.',
+  },
+
+  // ------------------------------------------------------------ Wonders of the Prophets
+  {
+    id: 's25', part: 'p7', ar: 'داود',
+    title: 'Dawud and the Singing Mountains',
+    refs: 'Surah al-Baqarah 2:251 · Surah al-Anbiya’ 21:79–80 · Surah Saba’ 34:10–11',
+    text: [
+      'When Dawud {as} was young, he was very brave. With Allah’s help, he defeated a mighty warrior named Jalut, and Allah made him a wise king and a prophet.',
+      'Dawud had a beautiful voice. When he praised Allah — “SubhanAllah! Alhamdulillah!” — something amazing happened. The mountains praised Allah along with him, and the birds gathered in the sky and praised Allah too! Morning and evening, the whole valley joined in.',
+      'Allah also made hard iron soft in Dawud’s hands, like dough. He shaped it into little rings and linked them together to make coats of armour that kept people safe.',
+      'And Allah gave Dawud a holy book: the Zabur.',
+    ],
+    lesson: 'Everything praises Allah — the mountains, the birds, and us too! Let’s say, “SubhanAllah!”',
+  },
+  {
+    id: 's26', part: 'p7', ar: 'النملة',
+    title: 'Sulayman and the Little Ant',
+    refs: 'Surah an-Naml 27:15–19',
+    text: [
+      'Prophet Sulayman {as}, the son of Dawud {as}, was a great king. Allah gave him a wonderful gift: he could understand the speech of birds and animals!',
+      'One day, Sulayman marched with his great army of people, jinn and birds — ~stomp, stomp, stomp!~ — until they came to a valley full of ants.',
+      'A tiny ant saw them coming. “Quick, ants!” she called. “Go into your homes, so that Sulayman and his army don’t step on you without noticing!” ~Scurry, scurry, scurry!~ In went all the ants.',
+      'Sulayman heard the little ant, and he smiled and laughed at her words. Then he thanked Allah: “My Lord, help me to be thankful for all Your gifts to me and to my parents, and to do good things that please You.”',
+    ],
+    lesson: 'Every creature matters to Allah — even the tiniest ant. We are gentle with all of them.',
+    dua: {
+      seg: [[27, 19, 'رَبِّ', 'وَٰلِدَيَّ']],
+      tr: 'Rabbi awzi‘nī an ashkura ni‘matakal-latī an‘amta ‘alayya wa ‘alā wālidayy.',
+      en: 'My Lord, help me to be thankful for the blessings You have given me and my parents.',
+    },
+  },
+  {
+    id: 's27', part: 'p7', ar: 'الهدهد',
+    title: 'Sulayman and the Hoopoe',
+    refs: 'Surah an-Naml 27:20–44',
+    text: [
+      'One day, Prophet Sulayman {as} looked over all his birds. “Where is the hoopoe?” he asked. The hoopoe was missing!',
+      'Soon the little hoopoe flew in, puffing up his crest. “I have big news!” he said. “In the land of Saba’, there is a queen with a great throne — but she and her people bow down to the sun instead of Allah!”',
+      'So Sulayman wrote a letter: “In the name of Allah, the Most Kind, the Most Merciful. Come to me, and submit to Allah.” Off flew the hoopoe to drop it before the queen. ~Flap, flap — plop!~',
+      'The queen came to visit Sulayman. By Allah’s power, her own throne was already there, brought in the blink of an eye! Then she walked into a palace with a glass floor so clear that it looked like water.',
+      'The queen understood. She said, “I submit, with Sulayman, to Allah, the Lord of all the worlds.”',
+    ],
+    lesson: 'Allah gave a little bird a big job. Even small helpers can do great good!',
+  },
+  {
+    id: 's28', part: 'p7', ar: 'يونس',
+    title: 'Yunus and the Big Fish',
+    refs: 'Surah al-Anbiya’ 21:87–88 · Surah as-Saffat 37:139–148',
+    text: [
+      'Prophet Yunus {as} told his people about Allah again and again, but they would not listen. So Yunus became upset and left them, before Allah had told him to go.',
+      'He sailed away on a ship. But the ship was too heavy, so the sailors drew lots, and Yunus’s name came up. Into the sea he went — ~splash!~ — and ~GULP!~ — a giant fish swallowed him whole!',
+      'It was dark inside the fish: dark night, dark sea, dark fish! But Yunus knew Allah could hear him, and he prayed: “There is no god but You. Glory be to You! I have done wrong.”',
+      'Allah heard him. The big fish put Yunus out on the shore, and Allah made a leafy plant grow over him for shade, until he was strong again. And back home, all his people had come to believe!',
+    ],
+    lesson: 'Allah hears us everywhere — even in the darkest, deepest place. We can always call on Him.',
+    dua: {
+      seg: [[21, 87, 'لَّآ إِلَٰهَ', null]],
+      tr: 'Lā ilāha illā anta, subḥānaka, innī kuntu minaẓ-ẓālimīn.',
+      en: 'There is no god but You. Glory be to You! I have truly done wrong.',
+    },
+  },
+
+  // ------------------------------------------------------------ Family of 'Imran
+  {
+    id: 's29', part: 'p8', ar: 'زكريا',
+    title: 'Zakariyya’s Prayer',
+    refs: 'Surah Al ‘Imran 3:37–41 · Surah Maryam 19:2–15',
+    text: [
+      'Prophet Zakariyya {as} took care of a special girl named Maryam. In her prayer room he often found fresh fruit — even fruit out of season! “Where did this come from?” he asked. “From Allah,” said Maryam. “Allah gives to whoever He wills.”',
+      'Zakariyya was very old, and he had no children. So he prayed quietly, “My Lord, give me a good child from You. You hear every prayer.”',
+      'While he stood praying, the angels called to him: “Allah gives you good news of a baby boy named Yahya — a name no one has had before!” “How, when I am so old?” wondered Zakariyya. “It is easy for Allah,” came the answer.',
+      'And baby Yahya {as} was born. He grew up gentle and good, and very kind to his mother and father.',
+    ],
+    lesson: 'No prayer is too big for Allah. He hears every whisper, and He gives the best gifts.',
+    dua: {
+      seg: [[3, 38, 'رَبِّ', null]],
+      tr: 'Rabbi hab lī min ladunka dhurriyyatan ṭayyibah, innaka samī‘ud-du‘ā’.',
+      en: 'My Lord, give me a good child from You. You hear every prayer.',
+    },
+  },
+  {
+    id: 's30', part: 'p8', ar: 'مريم',
+    title: 'Maryam and the Date Palm',
+    refs: 'Surah Maryam 19:16–26 · Surah Al ‘Imran 3:42–47',
+    text: [
+      'Allah chose Maryam {aha} above all the women of the world. One day, an angel came to her with amazing news: “Allah will give you a baby boy — a very special one!”',
+      '“But how?” said Maryam. “I have no husband.” The angel said, “It is easy for Allah. He only says ‘Be!’ — and it is.”',
+      'When it was time for the baby to be born, Maryam went to a quiet, faraway place and rested beside the trunk of a date palm. She was tired, and a little worried.',
+      'Then a gentle voice called to her: “Don’t be sad! Allah has made a little stream flow beside you. Shake the palm tree, and fresh, ripe dates will fall for you. Eat, drink, and be happy!”',
+      '~Plop, plop, plop!~ Down came the sweet dates. And Maryam held her new baby, Isa {as}, close to her heart.',
+    ],
+    lesson: 'When we are tired or worried, Allah is close, sending us comfort.',
+  },
+  {
+    id: 's31', part: 'p8', ar: 'عيسى',
+    title: 'The Miracles of Isa',
+    refs: 'Surah Maryam 19:27–36 · Surah Al ‘Imran 3:45–51 · Surah al-Ma’idah 5:110–115',
+    text: [
+      'When Maryam {aha} brought baby Isa {as} home, people began to say unkind things. Maryam did not say a word. She just pointed at her baby.',
+      '“How can we talk to a baby in a cradle?” they laughed. Then baby Isa spoke! “I am a servant of Allah. He has made me a prophet, and made me kind to my mother.”',
+      'Isa grew up, and Allah gave him wonderful miracles. He shaped little birds out of clay and blew on them — and, by Allah’s permission, they flapped their wings and flew away! ~Tweet, tweet!~',
+      'By Allah’s permission, he healed the sick and helped people who could not see to see again. And once, Allah sent down a table full of food from the sky for Isa’s friends.',
+      'Isa always said, “Allah is my Lord and your Lord, so worship Him.” And Allah raised Isa up to Himself, safe and sound.',
+    ],
+    lesson: 'Every miracle happens only by Allah’s permission. He is the Most Powerful.',
+  },
+
+  // ------------------------------------------------------------ Stories of Wisdom
+  {
+    id: 's32', part: 'p9', ar: 'أصحاب الكهف',
+    title: 'The Sleepers of the Cave',
+    refs: 'Surah al-Kahf 18:9–26',
+    text: [
+      'Long ago, some young men believed in Allah, but the people of their town prayed to idols. To stay safe, the young men went to a cave in the mountains — and their faithful dog came too!',
+      'They prayed, “Our Lord, give us mercy from You, and guide us.” Then Allah made them fall into a deep, deep sleep. The sun passed gently by, and their dog lay at the entrance, paws stretched out, keeping watch. ~Zzzz…~',
+      'They slept for three hundred and nine years!',
+      'When they woke up, they yawned and stretched. “Did we sleep a day? Part of a day?” One of them went to town with an old silver coin to buy food — and everything had changed! The people were amazed at Allah’s sign.',
+    ],
+    lesson: 'Allah protects those who trust Him — even while they sleep.',
+    dua: {
+      seg: [[18, 10, 'رَبَّنَآ', null]],
+      tr: 'Rabbanā ātinā min ladunka raḥmatan wa hayyi’ lanā min amrinā rashadā.',
+      en: 'Our Lord, give us mercy from You, and guide us rightly in what we do.',
+    },
+  },
+  {
+    id: 's33', part: 'p9', ar: 'الجنتان',
+    title: 'The Two Gardens',
+    refs: 'Surah al-Kahf 18:32–44',
+    text: [
+      'There was once a man with two beautiful gardens. Grapes hung from the vines, tall date palms stood all around, and a sparkling river flowed right through the middle. ~Yum!~',
+      'But the man became proud. He said to his friend, “I have more money than you, and more helpers too! My gardens will never, ever end.”',
+      'His friend reminded him kindly, “When you went into your garden, why didn’t you say, ‘Masha’Allah — this is what Allah willed; there is no power except with Allah’?”',
+      'But the proud man did not listen. Then Allah’s command came, and all the fruit was ruined. The man looked at his empty gardens and cried, “Oh, I wish I had remembered my Lord!”',
+    ],
+    lesson: 'When we see something lovely, we say “Masha’Allah!” — every good thing comes from Allah.',
+    dua: {
+      seg: [[18, 39, 'مَا شَآءَ', 'بِٱللَّهِ']],
+      tr: 'Mā shā’allāh, lā quwwata illā billāh.',
+      en: 'This is what Allah has willed; there is no power except with Allah.',
+      label: 'Say it with me',
+    },
+  },
+  {
+    id: 's34', part: 'p9', ar: 'أصحاب الجنة',
+    title: 'The Garden Owners Who Forgot to Share',
+    refs: 'Surah al-Qalam 68:17–33',
+    text: [
+      'Some brothers owned an orchard full of juicy fruit. Their kind father had always shared the harvest with poor and hungry people.',
+      'But the brothers made a sneaky plan. “Tomorrow, very early,” they whispered, “we’ll pick ALL the fruit before the poor people come. We won’t share any!” And they didn’t even say, “Insha’Allah.”',
+      'That night, while they slept, Allah’s command came over the orchard.',
+      'In the morning they crept out — ~shh, shh!~ — but oh no! The trees were dark and bare. “This can’t be our garden!” they cried.',
+      'One brother said, “Didn’t I tell you to remember Allah?” They all felt sorry. “Glory be to our Lord! We were wrong,” they said. And they hoped Allah would give them something even better.',
+    ],
+    lesson: 'We share our good things with others, and we always say, “Insha’Allah.”',
+  },
+  {
+    id: 's35', part: 'p9', ar: 'ذو القرنين',
+    title: 'Dhul-Qarnayn and the Great Wall',
+    refs: 'Surah al-Kahf 18:83–98',
+    text: [
+      'Dhul-Qarnayn was a good and mighty king. Allah gave him the means to travel far and wide — all the way to where the sun sets, and all the way to where the sun rises!',
+      'On his journey, he came to a valley between two tall mountains. The people there were frightened. “Wild tribes called Ya’juj and Ma’juj keep coming to harm us,” they said. “We will pay you to build a wall to keep us safe!”',
+      '“Keep your money,” said Dhul-Qarnayn. “What Allah has given me is better. Just help me with your strength!”',
+      '“Bring me blocks of iron!” ~Clang, clang!~ They piled them high between the mountains. “Now blow on the fire!” ~Whoosh!~ The iron glowed red-hot. Then he poured melted copper over it all — ~sizzle!~',
+      'No one could climb that wall, or dig through it. And Dhul-Qarnayn said, “This is a mercy from my Lord.”',
+    ],
+    lesson: 'We use our strength to help others — and every good thing is a mercy from Allah.',
+  },
+  {
+    id: 's36', part: 'p9', ar: 'لقمان',
+    title: 'Luqman’s Advice to His Son',
+    refs: 'Surah Luqman 31:12–19',
+    text: [
+      'Allah gave Luqman wisdom. He loved his son very much, and he gave him the best advice — the very same advice your mama and baba want to give you.',
+      '“My dear son,” said Luqman, “worship Allah alone.”',
+      'And right in the middle of Luqman’s advice, Allah reminds every child: “Be good to your mother and father. Your mother carried you, and cared for you when you were tiny. Be thankful to Me, and to your parents.”',
+      'Luqman went on: “My son, even something as small as a mustard seed, hidden inside a rock — Allah knows all about it. Pray, tell people to do good, and be patient when things are hard.',
+      'Don’t be proud, and don’t turn your face away from people. Walk gently, and speak softly. The loudest voice of all belongs to the donkey — ~hee-haw!~”',
+    ],
+    lesson: 'We listen to our parents’ loving advice, and we are kind, humble and gentle.',
+    dua: {
+      seg: [[17, 24, 'رَّبِّ', null]],
+      tr: 'Rabbir-ḥamhumā kamā rabbayānī ṣaghīrā.',
+      en: 'My Lord, have mercy on my parents, as they cared for me when I was little.',
+    },
+  },
+  {
+    id: 's37', part: 'p9', ar: 'مئة عام',
+    title: 'The Man, the Donkey and a Hundred Years',
+    refs: 'Surah al-Baqarah 2:259',
+    text: [
+      'A man was riding his donkey past an old, empty town. The houses had fallen down, and nobody lived there any more. He wondered, “How will Allah ever bring this place back to life?”',
+      'So Allah showed him. Allah made the man die right there, for one hundred years. Then Allah brought him back to life!',
+      '“How long have you stayed here?” he was asked. “Oh, a day, or part of a day,” said the man, rubbing his eyes.',
+      '“No — one hundred years! Look at your food and drink: still fresh! Now look at your donkey.” And right before his eyes, Allah put the donkey back together and gave it life again! ~Hee-haw!~',
+      'The man said, “Now I know for sure: Allah can do anything!”',
+    ],
+    lesson: 'Allah gives life to everything, and nothing is too hard for Him.',
+  },
+
+  // ------------------------------------------------------------ Prophet Muhammad
+  {
+    id: 's38', part: 'p10', ar: 'الفيل',
+    title: 'The Year of the Elephant',
+    refs: 'Surah al-Fil 105:1–5',
+    text: [
+      'Long ago, a proud king named Abraha wanted to knock down the Ka‘bah. He marched toward Makkah with a huge army and enormous elephants. ~Stomp… stomp… STOMP!~',
+      'The people of Makkah were frightened. But their leader, ‘Abd al-Muttalib, said, “This House belongs to Allah. Allah will protect it.”',
+      'When the great elephant came near Makkah, it sat down — ~plop!~ — and would not move toward the Ka‘bah. “Get up!” the soldiers shouted. But the elephant stayed put!',
+      'Then the sky filled with flocks and flocks of little birds. Each bird carried tiny stones of baked clay, and they dropped them on the army. Abraha’s army was defeated, and the Ka‘bah was safe.',
+      'That very same year, a special baby was born in Makkah: Prophet Muhammad {saw}!',
+    ],
+    lesson: 'Allah protects His House. No one is stronger than Allah.',
+  },
+  {
+    id: 's39', part: 'p10', ar: 'اقرأ',
+    title: 'Read! The First Words',
+    refs: 'Surah al-‘Alaq 96:1–5 · Sahih al-Bukhari',
+    text: [
+      'Even before he became a prophet, Muhammad {saw} was known as al-Amin, the trustworthy one. He loved to sit quietly in a little cave called Hira, high up on the Mountain of Light, thinking about Allah who made everything.',
+      'One night in Ramadan, the angel Jibril came to him in the cave and said, “Read!” “I cannot read,” he answered. “Read!” said Jibril, again — and again.',
+      'Then Jibril brought him the very first words of the Quran: “Read, in the name of your Lord who created… who taught by the pen, taught people what they did not know.”',
+      'The Prophet {saw} hurried home to his wife, Khadijah. “Cover me, cover me!” Khadijah wrapped him in a warm blanket and comforted him: “Allah will always take care of you, because you are so kind to everyone.”',
+      'And that is how the Quran began — the best words ever, sent from Allah.',
+    ],
+    lesson: 'The first word of the Quran was “Read!” Let’s love reading and learning, every day.',
+    dua: {
+      seg: [[20, 114, 'رَّبِّ', null]],
+      tr: 'Rabbi zidnī ‘ilmā.',
+      en: 'My Lord, increase me in knowledge.',
+    },
+  },
+  {
+    id: 's40', part: 'p10', ar: 'الإسراء والمعراج',
+    title: 'The Night Journey',
+    refs: 'Surah al-Isra’ 17:1 · Surah an-Najm 53:13–18 · Sahih al-Bukhari & Muslim',
+    text: [
+      'One very special night, Allah took Prophet Muhammad {saw} on an amazing journey.',
+      'In a single night, he travelled from the Ka‘bah in Makkah all the way to Masjid al-Aqsa in Jerusalem — a journey of a whole month by camel! There, he led all the prophets in prayer.',
+      'Then he went up, up, up — through the seven heavens! There he met Prophet Adam, Prophet Ibrahim, Prophet Musa, Prophet Isa and other prophets, peace be upon them all. They greeted him with joy.',
+      'That night, Allah gave a precious gift to the Prophet {saw} and to all of us: the five daily prayers — Fajr, Dhuhr, ‘Asr, Maghrib and ‘Isha.',
+      'By morning, he was home again in Makkah. SubhanAllah!',
+    ],
+    lesson: 'Salah is Allah’s gift to us from above the heavens. Each prayer is our special time with Allah.',
+  },
+  {
+    id: 's41', part: 'p10', ar: 'الهجرة',
+    title: 'The Cave and the Spider’s Web',
+    refs: 'Surah at-Tawbah 9:40 · Books of seerah',
+    text: [
+      'Some people in Makkah made a plan to harm Prophet Muhammad {saw}. So Allah told him to move to the city of Madinah.',
+      'The Prophet {saw} and his best friend, Abu Bakr, slipped away at night and hid in a cave on a mountain called Thawr.',
+      'Soon they heard footsteps outside — ~crunch, crunch!~ The searchers came right up to the cave! Abu Bakr whispered, “If they look down, they will see us!”',
+      'But the Prophet {saw} said calmly, “Don’t be sad. Allah is with us.”',
+      'The books of seerah tell us that a spider had spun a web across the entrance, and a dove had made her nest there. “No one could have gone in there,” the searchers said — and they went away.',
+      'Allah kept them safe, and soon they reached Madinah, where everyone welcomed them with joy.',
+    ],
+    lesson: 'Allah is always with us. When we feel scared, we remember: “Don’t be sad — Allah is with us.”',
+    dua: {
+      seg: [[9, 40, 'لَا تَحۡزَنۡ', 'مَعَنَا']],
+      tr: 'Lā taḥzan, innallāha ma‘anā.',
+      en: 'Don’t be sad — Allah is with us.',
+      label: 'Say it with me',
+    },
+  },
+  {
+    id: 's42', part: 'p10', ar: 'رحمة للعالمين',
+    title: 'A Mercy to All the Worlds',
+    refs: 'Surah al-Anbiya’ 21:107 · Surah al-Qalam 68:4 · Sahih al-Bukhari',
+    text: [
+      'Allah sent Prophet Muhammad {saw} as a mercy to all the worlds — to people, to animals, to everyone!',
+      'He smiled at everyone he met, and he taught that a smile is a kind of charity.',
+      'He loved children. He played with them, hugged them, and greeted them with “Assalamu ‘alaykum!”',
+      'He was gentle with animals. He taught people to give water to thirsty animals and never to make them carry too much. He even told of a man whom Allah forgave for giving water to a thirsty dog!',
+      'He helped at home, visited the sick, shared his food, and was kind to everyone — even to people who were unkind to him.',
+      'Allah says in the Quran, “Truly, you have a wonderful character.” Whenever we hear his name, we say, “Sallallahu ‘alayhi wa sallam!”',
+    ],
+    lesson: 'Let’s be kind like our beloved Prophet {saw}: smiling, sharing and gentle with everyone.',
+  },
+];

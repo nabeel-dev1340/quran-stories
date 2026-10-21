@@ -1,0 +1,14 @@
+{
+  "name": "quran-stories",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Best of Stories — an illustrated Quran storybook for little ones, rendered to PDF.",
+  "type": "module",
+  "scripts": {
+    "preview": "node tools/preview.mjs",
+    "build": "node tools/build.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
