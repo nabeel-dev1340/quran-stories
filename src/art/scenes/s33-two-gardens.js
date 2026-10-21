@@ -60,7 +60,7 @@ function trellisRow(xa, xb, y, k, R) {
   // leafy canopy: a wavy band riding the top wire
   const top = [];
   const bot = [];
-  for (let x = xa - 8 * k, i = 0; x <= xb + 8 * k; x += 15 * k, i++) {
+  for (let x = xa - 8 * k, i = 0; x <= xb + 8 * k; x += 18 * k, i++) {
     top.push([x, y - H - 16 * k + arc(x) - (i % 2 ? 5 : 0) * k + R.range(-2, 2) * k]);
     bot.push([x, y - H + 6 * k + arc(x) + (i % 3 === 1 ? 6 : 0) * k]);
   }
@@ -232,10 +232,10 @@ export default function render() {
   }
   // little stalks all over the crop fields, larger as they come closer
   let stalks = '';
-  for (let y = HORIZON + 16; y < 880; y += 4 + 22 * depth(y)) {
+  for (let y = HORIZON + 16; y < 880; y += 5 + 26 * depth(y)) {
     const k = 0.2 + depth(y) * 1.6;
     for (const [a, b] of [[gardenL(y), bankL(y)], [bankR(y), gardenR(y)]]) {
-      const n = Math.max(2, Math.round((b - a) / (11 * k)));
+      const n = Math.max(2, Math.round((b - a) / (13 * k)));
       for (let j = 0; j < n; j++) {
         const x = lerp(a, b, (j + 0.5 + R.range(-0.3, 0.3)) / n);
         stalks += `M${r1(x)},${r1(y)} l${r1(-1.5 * k)},${r1(-7 * k)} M${r1(x)},${r1(y)} l${r1(1.5 * k)},${r1(-7 * k)} `;
@@ -268,7 +268,7 @@ export default function render() {
   body += path('M' + plotR.map((p) => p.map(r1).join(',')).join(' L') + 'Z', { fill: `url(#${id('plot')})` });
   // palms bordering the far edge of each garden
   const tintAt = (y) => (c) => haze(c, y);
-  for (const [px, h, sd] of [[60, 104, 1], [168, 124, 3], [262, 92, 4], [372, 110, 5], [438, 84, 6], [586, 86, 7], [650, 112, 8], [752, 96, 9], [846, 126, 10], [944, 100, 11]]) {
+  for (const [px, h, sd] of [[60, 104, 1], [168, 124, 3], [290, 96, 4], [410, 100, 5], [600, 92, 7], [700, 116, 8], [846, 126, 10], [944, 100, 11]]) {
     body += farPalm(px + R.range(-6, 6), yBack + 4, h, sd, tintAt(yBack + 30));
   }
   const rowsD = [0.15, 0.25, 0.36, 0.49, 0.63];

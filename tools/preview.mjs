@@ -50,7 +50,7 @@ for (const f of files) {
   await page.goto(pathToFileURL(svgFile).href);
   const xmlError = await page.evaluate(() => document.querySelector('parsererror')?.textContent || '');
   if (xmlError) throw new Error(`${f}: invalid SVG/XML -> ${xmlError.slice(0, 300)}`);
-  const wrapper = path.join(pngOut, `_${name}.html`);
+  const wrapper = path.join(pngOut, `_${name}-${process.pid}.html`);
   fs.writeFileSync(wrapper, `<html><body style="margin:0;background:#fff"><img src="${pathToFileURL(svgFile).href}" style="width:${size}px;height:${size}px;display:block"></body></html>`);
   await page.goto(pathToFileURL(wrapper).href);
   await page.waitForLoadState('load');
@@ -69,7 +69,7 @@ if (wantSheet) {
     .join('')}</body></html>`;
   const rows = Math.ceil(done.length / cols);
   await page.setViewportSize({ width: cols * (cell + 8) + 8, height: rows * (cell + 26) + 16 });
-  const sheetHtml = path.join(pngOut, '_sheet.html');
+  const sheetHtml = path.join(pngOut, `_sheet-${process.pid}.html`);
   fs.writeFileSync(sheetHtml, html);
   await page.goto(pathToFileURL(sheetHtml).href);
   await page.waitForLoadState('load');

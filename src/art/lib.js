@@ -380,7 +380,7 @@ export function frond(x, y, angDeg, L, { leaf = C.leaf3, leafDark = C.leaf4, dro
   );
 }
 // Round-canopy tree. (x, y) = base of trunk.
-export function tree(x, y, { r = 90, trunkH = 90, seed = 11, leaf = C.leaf3, leafDark = C.leaf4, leafLight = C.leaf2, trunk = C.wood2, fruit, fruitN = 9, clipId } = {}) {
+export function tree(x, y, { r = 90, trunkH = 90, seed = 11, leaf = C.leaf3, leafDark = C.leaf4, leafLight = C.leaf2, trunk = C.wood2, fruit, fruitN = 9 } = {}) {
   const R = rng(seed);
   const cy = y - trunkH - r * 0.75;
   let s = path(`M${r1(x - r * 0.1)},${r1(y)} Q${r1(x - r * 0.06)},${r1(y - trunkH * 0.6)} ${r1(x - r * 0.22)},${r1(cy + r * 0.2)} L${r1(x + r * 0.22)},${r1(cy + r * 0.2)} Q${r1(x + r * 0.06)},${r1(y - trunkH * 0.6)} ${r1(x + r * 0.1)},${r1(y)}Z`, { fill: trunk });

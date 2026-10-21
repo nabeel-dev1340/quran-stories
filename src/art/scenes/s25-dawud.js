@@ -167,9 +167,9 @@ export default function render() {
   body += path(ridge(range, 760), { fill: `url(#${id('dawnLight')})` });
   // lesser peaks on the shoulders give the range its grandeur
   body += path(ridge([[-30, 600], [30, 520], [80, 420], [122, 352], [148, 334], [172, 352], [212, 420], [256, 510], [300, 600], [330, 660]], 700), { fill: '#957BB0' });
-  body += path('M122,352 C136,334 150,330 164,346 C176,362 186,384 196,410 C180,392 160,380 140,378Z', { fill: '#F2C2C6', opacity: 0.7 });
+  body += path('M122,352 C136,334 150,330 164,346 C176,362 186,384 196,410 C180,392 160,380 140,378Z', { fill: '#F2C2C6', opacity: 0.45 });
   body += path(ridge([[700, 660], [740, 590], [790, 500], [846, 410], [890, 344], [912, 330], [934, 346], [970, 400], [1000, 450], [1030, 490]], 700), { fill: '#957BB0' });
-  body += path('M890,342 C904,328 918,328 930,344 C916,348 904,360 894,376 C886,366 878,360 870,364Z', { fill: '#F2C2C6', opacity: 0.7 });
+  body += path('M890,342 C904,328 918,328 930,344 C916,348 904,360 894,376 C886,366 878,360 870,364Z', { fill: '#F2C2C6', opacity: 0.45 });
   // snow-light on the two summits, rosy with the dawn
   body += path('M246,190 C258,178 270,170 282,172 C298,174 310,186 318,198 C308,202 300,212 292,216 C286,206 278,214 270,224 C264,210 256,216 246,224 C240,210 242,198 246,190Z', { fill: '#FFF1EE' });
   body += path('M740,228 C752,214 764,206 778,204 C792,204 802,208 810,214 C800,222 794,228 788,238 C780,228 774,234 766,242 C760,232 752,234 744,242 C740,236 738,232 740,228Z', { fill: '#FFF1EE' });
@@ -178,7 +178,7 @@ export default function render() {
   body += path(smooth(range.slice(3, 7)), { fill: 'none', stroke: '#FFE9CC', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.6 });
   body += path(smooth(range.slice(17, 21)), { fill: 'none', stroke: '#FFE9CC', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.6 });
   // soft gullies and shoulders
-  for (const d of ['M214,226 C196,300 182,380 166,470', 'M150,330 C134,400 118,470 98,540', 'M846,252 C860,330 872,400 884,480', 'M904,320 C918,390 934,450 954,520', 'M394,320 C384,380 380,440 376,520', 'M654,336 C666,400 672,460 676,530']) {
+  for (const d of ['M214,226 C196,300 182,380 166,470', 'M150,330 C134,400 118,470 98,540', 'M846,252 C860,330 872,400 884,480', 'M904,320 C918,390 934,450 954,520']) {
     body += path(d, { fill: 'none', stroke: '#7C6AA6', 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.4 });
   }
 
@@ -187,14 +187,13 @@ export default function render() {
   const rB = [[-40, 330], [120, 372], [300, 346], [470, 276], [640, 256], [820, 318], [1060, 352]];
   body += ribbon(rA, { w: 11, fill: `url(#${id('ribbonA')})`, op: 0.95 });
   body += ribbon(rB, { w: 8, fill: `url(#${id('ribbonB')})`, op: 0.9 });
-  body += ribbon([[160, 140], [320, 112], [500, 140], [660, 120], [860, 100]], { w: 6, fill: `url(#${id('ribbonA')})`, op: 0.75 });
-  for (const [x, y] of [...rA.slice(1, -1), ...rB.slice(1, -1)]) body += sparkle(x + 14, y - 14, 6, '#FFF9EC', { opacity: 0.9 });
+  for (const [x, y] of [...rA.slice(1, -1), ...rB.slice(1, -1)].filter((_, i) => i % 2 === 0)) body += sparkle(x + 14, y - 14, 6, '#FFF9EC', { opacity: 0.9 });
 
   // ---- flocks of birds circling in harmony
   const flock = (cx, cy, rx, ry, n, s, phase) => {
     let back = '';
     let front = '';
-    back += ellipse(cx, cy, rx, ry, { fill: 'none', stroke: '#FFF6E6', 'stroke-width': 3, opacity: 0.45, 'stroke-dasharray': '4 16', 'stroke-linecap': 'round' });
+    back += ellipse(cx, cy, rx, ry, { fill: 'none', stroke: '#FFF6E6', 'stroke-width': 3, opacity: 0.32, 'stroke-dasharray': '4 16', 'stroke-linecap': 'round' });
     for (let i = 0; i < n; i++) {
       const a = phase + (Math.PI * 2 * i) / n;
       const x = cx + Math.cos(a) * rx;
@@ -259,7 +258,7 @@ export default function render() {
   body += path('M300,846 C360,830 440,824 520,824', { fill: 'none', stroke: '#F7DAD2', 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.6 });
   body += path(blob([[420, 828], [560, 824], [700, 830], [760, 850], [640, 852], [480, 846]]), { fill: '#F2C6B8', opacity: 0.35 });
   body += path(blob([[540, 950], [600, 900], [700, 880], [796, 900], [800, 940], [700, 962]]), { fill: '#76607F', opacity: 0.6 });
-  body += path('M250,900 C262,870 290,850 330,842 C300,862 280,884 270,914Z', { fill: '#C9A9BC', opacity: 0.7 });
+  body += path('M250,900 C262,870 290,850 330,842 C300,862 280,884 270,914Z', { fill: '#C9A9BC', opacity: 0.4 });
   for (const [gx, gy, gh, sd] of [[248, 950, 30, 61], [300, 962, 22, 62], [790, 948, 28, 63], [740, 962, 20, 64]]) body += grass(gx, gy, { h: gh, fill: '#6E8F7E', n: 5, seed: sd });
   for (const [px, py, pw] of [[200, 970, 12], [850, 966, 10], [880, 980, 7]]) body += ellipse(px, py, pw, pw * 0.55, { fill: '#8C7392' }) + ellipse(px - pw * 0.3, py - pw * 0.2, pw * 0.4, pw * 0.2, { fill: '#E6C6D2', opacity: 0.6 });
   body += circle(400, 830, 190, { fill: `url(#${id('scrollGlow')})` });
@@ -270,7 +269,7 @@ export default function render() {
   for (const [sx, sy, ss] of [[270, 770, 10], [500, 744, 12], [400, 720, 8], [560, 800, 7], [230, 820, 6]]) body += sparkle(sx, sy, ss, '#FFF6DC', { opacity: 0.95 });
   // two little birds perched on the rock, singing along
   body += singer(790, 872, { s: 0.6, flip: true });
-  body += singer(262, 884, { s: 0.54, body: C.sky0, wing: '#4F98BC', belly: C.sky2 });
+  body += singer(244, 900, { s: 0.54, body: C.sky0, wing: '#4F98BC', belly: C.sky2 });
 
   // ---- framing flowers and grasses
   for (const [gx, gh, sd] of [[20, 120, 1], [70, 86, 2], [130, 60, 3], [880, 70, 4], [940, 110, 5], [990, 90, 6]]) body += grass(gx, 1006, { h: gh, fill: '#4E6F6A', n: 6, seed: sd, spread: 1.3 });
