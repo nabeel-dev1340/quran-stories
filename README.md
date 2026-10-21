@@ -19,8 +19,9 @@ The print interior keeps all text at least 0.375 in inside the trim, as KDP requ
 
 The publishing guide is in [`publishing/`](publishing/):
 
+- [`kdp-step-by-step.md`](publishing/kdp-step-by-step.md) — publishing the paperback and Kindle ebook on Amazon KDP, field by field.
 - [`listing.md`](publishing/listing.md) — title, description, keywords, categories, prices, Etsy text and the answers for store forms.
-- [`where-to-sell.md`](publishing/where-to-sell.md) — online shops and marketplaces for the US, UK and Europe, Pakistan and India, the Gulf, and Malaysia and Indonesia.
+- [`where-to-sell.md`](publishing/where-to-sell.md) — online shops and marketplaces for the US, UK and Europe, Pakistan and India, the Gulf, and Malaysia and Indonesia, with fees and payouts.
 
 ## Inside the book
 

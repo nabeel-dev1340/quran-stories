@@ -1,6 +1,6 @@
 # Store listing kit
 
-Copy-paste text for store listings. Prices and fees were checked in October 2026; check each store's own calculator before you publish.
+Copy-paste text for store listings. Prices and fees were checked in October 2026; check each store's own calculator before you publish. Where to sell, store by store, is in [`where-to-sell.md`](where-to-sell.md).
 
 ## Book details
 
@@ -61,15 +61,17 @@ KDP's description box takes simple HTML (bold, italic, paragraphs, lists), so yo
 
 ## Prices
 
+8.5 × 8.5 in counts as a **large trim** at KDP (anything wider than 6.12 in), so colour printing costs more per page than KDP's headline rates.
+
 | Format | Suggested price | Approximate earnings per sale |
 | --- | --- | --- |
-| Paperback, KDP **premium colour** (recommended) | $19.99 | about $4.10. Printing costs about $1.00 + $0.065 per page = $7.89, and you get 60% of the price minus printing. |
-| Paperback, KDP standard colour | $14.99 | about $5.29 (printing about $3.70). The paper is thinner and colours are less rich, so order a proof before choosing it. |
-| Kindle ebook | $6.99 | 70% of the price minus a delivery fee of $0.15 per MB. You must choose a price between $2.99 and $12.99 and at least 20% below the paperback price to get 70%. If KDP's converted file is large, the 35% option can pay more; KDP shows both after you upload. |
-| Apple Books, Kobo, Google Play | $6.99 | roughly 52–70% depending on the store |
-| Your own PDF + EPUB download (Etsy, Payhip, Gumroad) | $8.99 | price minus platform and payment fees |
+| Paperback, KDP **premium colour** (richest colours; recommended) | $22.99 | about $4.31: 60% of the price ($13.79) minus printing of about $9.48 ($1.00 + 106 pages × $0.08). At $19.99 you would earn about $2.51, and KDP won't accept a price below about $15.80. |
+| Paperback, KDP standard colour | $16.99 | about $4.93 (printing about $5.26). The paper is thinner and the colours are less rich, and the many night scenes may print darker, so order a proof copy before choosing it. |
+| Kindle ebook | $6.99 | 70% option: 70% of (the price minus a delivery fee of $0.15 per MB of the file Amazon delivers), so about $4.58 for a 3 MB file. 35% option: $2.45, with no delivery fee. For 70% the price must be between $2.99 and $12.99 and at least 20% below the paperback. KDP shows the file size after upload; if it is over about 23 MB, the 35% option pays more. |
+| Apple Books, Kobo, Barnes & Noble (through PublishDrive's free plan) | $6.99 | about 70% of the price at Apple, and at Kobo for prices of $2.99 or more; no PublishDrive commission on the free plan |
+| Your own PDF + EPUB download | $8.99 | about $7.32 on Etsy and about $7.83 on Lemon Squeezy, after their fees |
 
-Order a printed proof from KDP before you publish. It usually costs about the printing cost plus shipping.
+Order a printed proof from KDP before you publish; it costs about the printing cost plus shipping. If you sell the PDF or EPUB anywhere else (Etsy, your own link, Apple…), **don't enrol the Kindle ebook in KDP Select**: Select requires the ebook to be sold only on Amazon.
 
 ## Etsy listing
 
@@ -80,6 +82,8 @@ Quran Stories for Kids Ebook, 42 Illustrated Prophet Stories, Islamic Baby Gift,
 quran stories · islamic kids book · muslim baby gift · prophet stories · ramadan gift kids · eid gift for kids · islamic ebook pdf · muslim toddler book · bedtime stories · aqiqah gift · high contrast book · dua book for kids · islamic baby book
 
 **Files to upload:** `dist/ebook/The-Best-of-Stories.pdf` (15.5 MB) and `dist/ebook/The-Best-of-Stories.epub` (2.9 MB). Both are under Etsy's 20 MB per-file limit.
+
+**Required by Etsy:** say in the description that the illustrations and text were made with the help of AI tools.
 
 **Photos:** use the images in `dist/marketing/` (see below).
 
