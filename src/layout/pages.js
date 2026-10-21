@@ -70,7 +70,7 @@ export function storyPage(story, { n, partTitle, accent, tint, page }) {
   <div class="panel"></div>${corners(accent)}
   <div class="tp-inner">
     <header class="tp-head">
-      <div class="kicker">Story ${n}<span class="dot">◆</span>${plain(partTitle)}</div>
+      <div class="kicker">Story ${n}<svg class="dot" viewBox="0 0 10 10" width="7" height="7" aria-hidden="true"><path d="M5 0 L10 5 L5 10 L0 5Z" fill="currentColor"/></svg>${markup(partTitle)}</div>
       <div class="ar-label" lang="ar">${story.ar}</div>
       <h2 class="title">${markup(story.title)}</h2>
       ${divider(accent, 200)}
