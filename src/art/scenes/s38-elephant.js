@@ -5,7 +5,7 @@
 // each carrying tiny pebbles in its beak and claws, sweep across a dramatic
 // orange-purple sky in waves. No soldiers, no people, no violence.
 import {
-  mountain, rock,
+  mountain,
   C, svgDoc, ids, rng, mix, lerp, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob,
   sparkle, farBird, kaaba, house, star8, grass, r1, T, eye,
 } from '../lib.js';
@@ -213,11 +213,10 @@ function sunsetCloud(x, y, w, gid, defsOut, { top, bottom, seed = 1, op = 1 } = 
   return g({ fill: `url(#${gid})`, opacity: op }, parts);
 }
 
-// Kit mountain / rock mirrored so the sunny face is on the right (the low
-// sun is on the right in this scene).
+// Kit mountain mirrored so the sunny face is on the right (the low sun is
+// on the right in this scene).
 const mirror = (cx, svg) => g({ transform: `translate(${r1(cx * 2)} 0) scale(-1 1)` }, svg);
 const mtn = (x, baseY, w, h, o) => mirror(x, mountain(x, baseY, w, h, o));
-const stone = (x, y, o) => mirror(x, rock(x, y, o));
 
 // A rounded boulder lit from the right (the low sun), shaded inside its own
 // clip so the shading never spills. (x, y) = bottom centre.

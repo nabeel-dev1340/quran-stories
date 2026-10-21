@@ -4,7 +4,7 @@
 // Far below sleeps the valley of Makkah with its tiny houses and the Ka'bah;
 // a crescent moon and stars above. No people, no angel - only light.
 import {
-  C, svgDoc, ids, rng, mix, lerp, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob, smooth,
+  C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob,
   sparkle, starField, crescent, kaaba, r1, T, eye,
 } from '../lib.js';
 

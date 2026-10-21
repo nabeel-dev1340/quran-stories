@@ -66,6 +66,7 @@ export default function render() {
     linear(id('rock'), [[0, '#B98468'], [0.55, '#D9A487'], [1, '#F2C7A8']], { x1: 0, y1: 0.4, x2: 1, y2: 0.2 }),
     linear(id('sand'), [[0, '#F6DDAF'], [1, '#E8C186']], { x2: 0, y2: 1 }),
     vignetteDef(id('vig'), C.ink, 0.2),
+    `<clipPath id="${id('seaClip')}"><rect x="0" y="${HZ}" width="1000" height="${1000 - HZ}"/></clipPath>`,
   ].join('');
 
   const far = (c) => mix(c, '#F3D2B4', 0.5);
@@ -82,24 +83,27 @@ export default function render() {
   // ---- the far hill with the village and its leaning wall
   body += path(ridge([[-20, 430], [60, 384], [150, 352], [250, 350], [340, 384], [420, 440], [470, HZ]], HZ + 4), { fill: far(C.leaf3) });
   body += path(ridge([[300, 452], [380, 430], [460, 446], [520, HZ]], HZ + 4), { fill: far(C.leaf2) });
-  for (const [hx, hy, hw, hh] of [[64, 396, 52, 40], [122, 374, 56, 46], [304, 384, 54, 42]]) body += house(hx, hy, { w: hw, h: hh, fill: far(C.sand1), dark: far(C.sand3), door: far(C.wood3), windows: 1 });
+  for (const [hx, hy, hw, hh] of [[64, 396, 52, 40], [122, 374, 56, 46], [330, 392, 54, 42]]) body += house(hx, hy, { w: hw, h: hh, fill: far(C.sand1), dark: far(C.sand3), door: far(C.wood3), windows: 1 });
   // the leaning wall: old stones, tilting, about to fall
-  // the leaning wall: old stones on the hilltop, tilting, about to fall (18:77)
+  // the leaning wall: a long old garden wall on the hilltop, its base on the
+  // ground and its body sagging over, about to fall (18:77)
   const stones = [];
   for (let row = 0; row < 4; row++) {
-    for (let k = 0; k < 4; k++) {
-      const xx = -36 + k * 18 + (row % 2) * 9;
-      if (xx > 30) continue;
-      stones.push(rect(xx, -46 + row * 11, 16, 9.5, { rx: 2.5, fill: far(row % 2 ? C.stone1 : C.stone0) }));
+    for (let k = 0; k < 7; k++) {
+      const xx = -50 + k * 17 + (row % 2) * 8.5;
+      if (xx + 15.5 > 51) continue;
+      stones.push(rect(xx, -44 + row * 10.5, 15.5, 9, { rx: 2.5, fill: far(row % 2 ? C.stone1 : C.stone0) }));
     }
   }
-  body += ellipse(212, 354, 44, 5, { fill: far(C.leaf5), opacity: 0.5 });
-  body += g({ transform: 'translate(212 354) rotate(-13)' },
-    rect(-38, -48, 74, 48, { rx: 3, fill: far(C.stone2) }),
+  body += ellipse(206, 356, 62, 6, { fill: far(C.leaf5), opacity: 0.45 });
+  body += g({ transform: 'translate(206 356) rotate(-3) skewX(-24)' },
+    rect(-52, -46, 104, 46, { rx: 3, fill: far(C.stone2) }),
     ...stones,
-    rect(4, -48, 32, 48, { fill: far(C.stone3), opacity: 0.3 }),
-    rect(-40, -52, 78, 6, { rx: 3, fill: far(C.stone0) }),
+    rect(18, -46, 34, 46, { fill: far(C.stone3), opacity: 0.25 }),
+    rect(-54, -50, 108, 6, { rx: 3, fill: far(C.stone0) }),
   );
+  // two stones already fallen at its foot
+  body += ellipse(272, 358, 8, 5, { fill: far(C.stone1) }) + ellipse(286, 362, 6, 4, { fill: far(C.stone0) });
   // olive trees on the hill
   for (const [tx, ty, tr] of [[40, 400, 20], [356, 404, 18], [400, 430, 15]]) {
     body += path(`M${tx - 2},${ty} L${tx - 2},${ty - tr} L${tx + 2},${ty - tr} L${tx + 2},${ty}Z`, { fill: far(C.wood2) });
@@ -117,9 +121,12 @@ export default function render() {
   body += ellipse(SX, HZ + 20, 120, 30, { fill: `url(#${id('sunPath')})` });
   body += shimmer(SX, HZ + 12, { n: 10, w: 170, gap: 13, color: '#FFF0C8', op: 0.85, seed: 4 });
   // soft frothy seam where the two waters meet but do not mix
-  body += path(lineD, { fill: 'none', stroke: '#7FB9C8', 'stroke-width': 34, opacity: 0.35, 'stroke-linecap': 'round' });
-  body += path(lineD, { fill: 'none', stroke: '#A8DCD8', 'stroke-width': 14, opacity: 0.45, 'stroke-linecap': 'round' });
-  body += path(lineD, { fill: 'none', stroke: C.white, 'stroke-width': 3, opacity: 0.55, 'stroke-linecap': 'round' });
+  const seamD = smooth([[602, HZ + 1], ...line.slice(1)]);
+  body += g({ 'clip-path': `url(#${id('seaClip')})` },
+    path(seamD, { fill: 'none', stroke: '#7FB9C8', 'stroke-width': 34, opacity: 0.35 }),
+    path(seamD, { fill: 'none', stroke: '#A8DCD8', 'stroke-width': 14, opacity: 0.45 }),
+    path(seamD, { fill: 'none', stroke: C.white, 'stroke-width': 3, opacity: 0.55 }),
+  );
   {
     const FR = rng(240);
     for (let i = 0; i < 46; i++) {
@@ -140,6 +147,11 @@ export default function render() {
     const w = 20 + k * 60;
     body += path(`M${r1(x)},${r1(y)} q${r1(w / 2)},${r1(-4 - k * 6)} ${r1(w)},0`, { fill: 'none', stroke: C.white, 'stroke-width': r1(1.6 + k * 2.4), 'stroke-linecap': 'round', opacity: 0.35 });
   }
+  // golden glints of the low sun dancing on the deep water
+  for (const [gx, gy, gw] of [[860, 640, 40], [770, 700, 30], [930, 760, 46], [820, 850, 36], [950, 600, 28], [700, 600, 24]]) {
+    body += path(`M${gx - gw / 2},${gy} q${gw / 4},-5 ${gw / 2},0 t${gw / 2},0`, { fill: 'none', stroke: '#FFE7B8', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.55 });
+  }
+  for (const [sx, sy, ss] of [[880, 620, 7], [800, 760, 6], [940, 700, 5]]) body += sparkle(sx, sy, ss, '#FFF3D6', { opacity: 0.85 });
   // a small boat sailing far off
   body += boat(708, HZ + 22, 0.62);
 
@@ -147,9 +159,9 @@ export default function render() {
   const tun = [];
   for (let i = 0; i <= 12; i++) {
     const t = i / 12; // 0 near .. 1 far
-    const x = 470 - Math.sin(t * Math.PI * 0.9) * 70 + t * 40;
-    const y = 760 - (760 - (HZ + 26)) * Math.pow(t, 0.75);
-    const w = 150 * Math.pow(1 - t, 1.3) + 14;
+    const x = 486 - Math.sin(t * Math.PI * 0.9) * 76 + t * 34;
+    const y = 784 - (784 - (HZ + 26)) * Math.pow(t, 0.72);
+    const w = 196 * Math.pow(1 - t, 1.35) + 14;
     tun.push([x, y, w]);
   }
   body += path(smooth(tun.map(([x, y]) => [x, y])), { fill: 'none', stroke: `url(#${id('tunnelGlow')})`, 'stroke-width': 40, 'stroke-linecap': 'round', opacity: 0.8 });
@@ -187,13 +199,15 @@ export default function render() {
   body += gull(262, 600, 0.8);
 
   // ---- the fish, leaping from the shore into the sea
-  const FX = 404;
-  const FY = 628;
-  body += path(`M330,820 C350,720 384,672 ${FX - 30},${FY + 10}`, { fill: 'none', stroke: C.white, 'stroke-width': 4, opacity: 0.6, 'stroke-dasharray': '2 12', 'stroke-linecap': 'round' });
-  for (const [dx, dy, rr] of [[-60, 70, 5], [-76, 104, 4], [-90, 140, 3.4], [-48, 40, 3]]) body += circle(FX + dx, FY + dy, rr, { fill: '#E9FFFB', opacity: 0.9 });
-  body += circle(FX, FY, 70, { fill: `url(#${id('tunnelGlow')})` });
-  body += g({ transform: `translate(${FX} ${FY}) rotate(28)` }, fish(0, 0, { s: 0.95, body: '#BFD8E6', fin: '#7FA9C9', belly: '#F4FBFF', stripes: false }));
-  body += sparkle(FX + 44, FY - 36, 10, C.white) + sparkle(FX - 30, FY - 40, 7, C.white);
+  const FX = 418;
+  const FY = 622;
+  // its leap: a trail of sparkles arcing from the basket on the rock
+  body += path(`M196,552 C250,452 340,470 ${FX - 40},${FY - 26}`, { fill: 'none', stroke: '#FFF8E4', 'stroke-width': 5, opacity: 0.75, 'stroke-dasharray': '1 14', 'stroke-linecap': 'round' });
+  for (const [sx, sy, ss] of [[232, 500, 8], [290, 470, 9], [346, 492, 7]]) body += sparkle(sx, sy, ss, '#FFFBEA', { opacity: 0.95 });
+  for (const [dx, dy, rr] of [[-58, -34, 4], [-74, -46, 3.2], [-44, -18, 3]]) body += circle(FX + dx, FY + dy, rr, { fill: '#E9FFFB', opacity: 0.9 });
+  body += circle(FX, FY, 90, { fill: `url(#${id('tunnelGlow')})` });
+  body += g({ transform: `translate(${FX} ${FY}) rotate(34)` }, fish(0, 0, { s: 1.22, body: '#C3DCEA', fin: '#7FA9C9', belly: '#F6FCFF', stripes: false }));
+  body += sparkle(FX + 56, FY - 40, 11, C.white) + sparkle(FX - 20, FY - 56, 8, C.white);
 
   // ---- foreground shore details
   for (const [px, py, pw] of [[400, 950, 16], [300, 930, 12], [110, 950, 18], [200, 980, 11], [470, 990, 10]]) body += ellipse(px, py, pw, pw * 0.55, { fill: C.stone1 }) + ellipse(px - pw * 0.3, py - pw * 0.2, pw * 0.4, pw * 0.2, { fill: C.white, opacity: 0.6 });

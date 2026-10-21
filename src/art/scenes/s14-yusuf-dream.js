@@ -329,8 +329,8 @@ export default function render() {
   body += flower(930, 880, { r: 8, fill: '#F5D9E6', center: C.gold1 }) + flower(968, 862, { r: 7, fill: '#E9E0F5', center: C.gold1 }) + flower(866, 912, { r: 7, fill: '#D7C7F0', center: C.gold1 });
 
   // the old well, framing the bottom-left
-  body += ellipse(180, 962, 175, 24, { fill: '#0B1228', opacity: 0.3 });
-  body += stoneWell(id('well'), 180, 958, 250, { seed: 12 });
+  body += ellipse(196, 962, 175, 24, { fill: '#0B1228', opacity: 0.3 });
+  body += stoneWell(id('well'), 196, 958, 250, { seed: 12 });
   body += grass(70, 975, { h: 46, fill: '#2C456C', n: 7, seed: 3 }) + grass(330, 970, { h: 40, fill: '#33507A', n: 6, seed: 8 });
   body += flower(98, 950, { r: 9, fill: '#F5D9E6', center: C.gold1 }) + flower(318, 952, { r: 8, fill: '#E9E0F5', center: C.gold1 });
 

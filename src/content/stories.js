@@ -75,8 +75,8 @@ export const stories = [
     title: 'Nuh and the Great Ark',
     refs: 'Surah Hud 11:25–48 · Surah al-Mu’minun 23:23–30 · Surah al-Qamar 54:9–15',
     text: [
-      'For years and years, Prophet Nuh {as} told his people, “Worship Allah alone, and be good!” But most of them only laughed.',
-      'So Allah told Nuh to build an ark of wooden planks and nails. ~Bang, bang, bang!~ went his hammer. “A ship? On dry land?” people giggled.',
+      'For years and years, Prophet Nuh {as} told his people, “Worship Allah alone!” But most of them only laughed.',
+      'So Allah told Nuh to build an ark of wooden planks and nails. ~Bang, bang, bang!~ “A ship? On dry land?” people giggled.',
       'Then Allah said, “Bring a pair of every kind of animal.” In came the lions and the camels, the elephants and the birds — two by two! “In the name of Allah it sails, and in the name of Allah it stops,” said Nuh.',
       'Rain poured from the sky, and water gushed from the ground. ~Splish, splash, SPLOOSH!~ The ark rode waves as big as mountains, and everyone inside was safe.',
       'At last Allah said, “O earth, swallow your water! O sky, hold back your rain!” And the ark came gently to rest on Mount Judi.',
@@ -323,7 +323,7 @@ export const stories = [
     title: 'The Light on the Mountain',
     refs: 'Surah Ta-Ha 20:9–36 · Surah al-Qasas 28:29–35',
     text: [
-      'One cold, dark night, Musa {as} was travelling with his family when he saw a light on the mountain. “Wait here,” he said. “I’ll bring back a flame to keep us warm.”',
+      'One cold, dark night, Musa {as} saw a light on a mountain. “Wait here,” he told his family. “I’ll bring back a flame to keep us warm.”',
       'When he came close, he heard a call: “O Musa! I am your Lord. Take off your sandals, for you are in the holy valley of Tuwa.”',
       'Allah asked, “What is in your hand, Musa?” “My stick,” he said. “Throw it down!” And — ~wiggle, wiggle~ — it became a snake! “Pick it up, and don’t be afraid.” And it was a stick again.',
       'Allah sent Musa to tell Pharaoh to stop being cruel. Musa prayed for help, and Allah sent his brother Harun {as} to help him.',
@@ -436,10 +436,10 @@ export const stories = [
     title: 'Yunus and the Big Fish',
     refs: 'Surah al-Anbiya’ 21:87–88 · Surah as-Saffat 37:139–148',
     text: [
-      'Prophet Yunus {as} told his people about Allah again and again, but they would not listen. So Yunus became upset and left them, before Allah had told him to go.',
+      'Prophet Yunus {as} told his people about Allah again and again, but they would not listen. Yunus grew upset and left them — before Allah had told him to go.',
       'He sailed away on a ship. But the ship was too heavy, so the sailors drew lots, and Yunus’s name came up. Into the sea he went — ~splash!~ — and ~GULP!~ — a giant fish swallowed him whole!',
       'It was dark inside the fish: dark night, dark sea, dark fish! But Yunus knew Allah could hear him, and he prayed: “There is no god but You. Glory be to You! I have done wrong.”',
-      'Allah heard him. The big fish put Yunus out on the shore, and Allah made a leafy plant grow over him for shade, until he was strong again. And back home, all his people had come to believe!',
+      'Allah heard him. The big fish put Yunus out on the shore, and Allah made a leafy plant grow over him for shade until he was strong. And back home, all his people had come to believe!',
     ],
     lesson: 'Allah hears us everywhere — even in the darkest, deepest place. We can always call on Him.',
     dua: {
@@ -592,7 +592,7 @@ export const stories = [
   {
     id: 's38', part: 'p10', ar: 'الفيل',
     title: 'The Year of the Elephant',
-    refs: 'Surah al-Fil 105:1–5',
+    refs: 'Surah al-Fil 105:1–5 · Books of seerah',
     text: [
       'Long ago, a proud king named Abraha wanted to knock down the Ka‘bah. He marched toward Makkah with a huge army and enormous elephants. ~Stomp… stomp… STOMP!~',
       'The people of Makkah were frightened. But their leader, ‘Abd al-Muttalib, said, “This House belongs to Allah. Allah will protect it.”',

@@ -101,6 +101,37 @@ function restingCamel(x, y, { s = 1, flip = false, body = C.sand3, dark = C.sand
   );
 }
 
+// A little fennec fox curled up asleep, tail wrapped round. (x, y) = bottom centre.
+function fennec(x, y, { s = 1 } = {}) {
+  const fur = '#E9A062';
+  const shade = '#C47F4A';
+  const cream = '#FFF0DA';
+  const inner = '#F8CDB4';
+  return g({ transform: T(x, y, s) },
+    ellipse(2, 2, 72, 9, { fill: C.ink, opacity: 0.16 }),
+    // round curled body
+    ellipse(-8, -30, 46, 29, { fill: fur }),
+    path('M-48,-40 C-38,-56 -14,-62 8,-58 C-14,-52 -34,-48 -48,-40Z', { fill: '#F6C28C', opacity: 0.9 }),
+    // big wide fennec ears
+    path('M10,-38 C4,-58 2,-80 6,-92 C20,-84 32,-64 34,-44Z', { fill: shade }),
+    path('M13,-44 C9,-62 9,-76 11,-84 C21,-76 28,-62 29,-48Z', { fill: inner, opacity: 0.75 }),
+    path('M30,-42 C38,-64 50,-82 64,-88 C66,-72 58,-54 50,-38Z', { fill: fur }),
+    path('M35,-46 C42,-64 51,-76 60,-80 C61,-68 55,-56 48,-44Z', { fill: inner }),
+    // head, a little apart from the body
+    circle(33, -24, 25, { fill: shade, opacity: 0.55 }),
+    circle(30, -26, 23, { fill: fur }),
+    path('M14,-36 C20,-46 34,-48 44,-42 C34,-42 22,-40 14,-36Z', { fill: '#F6C28C', opacity: 0.9 }),
+    path('M38,-30 C52,-30 64,-23 68,-16 C60,-9 46,-9 38,-14Z', { fill: cream }),
+    circle(67, -17, 3.4, { fill: C.ink }),
+    eye(29, -29, 4.4, true),
+    ellipse(41, -17, 6, 3.6, { fill: C.cheek, opacity: 0.65 }),
+    // bushy tail curled round the front with a cream tip
+    path('M-54,-18 C-66,8 -18,14 24,8 C42,5 56,0 62,-4 C40,-2 12,-2 -14,-6 C-32,-9 -46,-12 -54,-18Z', { fill: '#D88E52' }),
+    path('M-52,-14 C-54,0 -20,6 18,2 C-10,0 -36,-4 -52,-14Z', { fill: '#F2B57A', opacity: 0.8 }),
+    path('M34,6 C46,4 56,0 62,-4 C52,-4 44,-3 36,-2Z', { fill: cream }),
+  );
+}
+
 // A very tall carved stone pillar. (x, y) = bottom centre.
 function pillar(x, y, h, w, { lit = C.rock0, mid = C.rock1, shade = C.rock2, deep = C.rock3, carve = C.sand1 } = {}) {
   let out = '';
@@ -296,12 +327,23 @@ export default function render() {
       }
     }
   }
-  // desert shrubs framing the lower left, pebbles on the right
-  for (const [bx, by, bw] of [[40, 1004, 120], [130, 1006, 80]]) {
+  // lower left, the calm side: a sunlit rock, shrubs with tiny flowers and a sleeping fennec
+  body += path(blob([[-30, 1010], [-30, 900], [20, 872], [80, 880], [120, 920], [140, 1010]], 1), { fill: '#D9956C' });
+  body += path(blob([[40, 1010], [60, 930], [96, 900], [122, 924], [140, 1010]], 1), { fill: '#B97A5C', opacity: 0.6 });
+  body += path('M0,890 C24,874 60,872 84,882', { fill: 'none', stroke: '#F6C99A', 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.8 });
+  for (const [bx, by, bw] of [[150, 1010, 120], [70, 1012, 80], [330, 1014, 70]]) {
     body += g({ fill: '#8C8F5E' }, circle(bx - bw * 0.25, by - bw * 0.2, bw * 0.24), circle(bx, by - bw * 0.32, bw * 0.3), circle(bx + bw * 0.27, by - bw * 0.18, bw * 0.22));
     body += g({ fill: '#A7A86E' }, circle(bx - bw * 0.3, by - bw * 0.28, bw * 0.16), circle(bx - bw * 0.04, by - bw * 0.42, bw * 0.17));
+    body += g({ fill: C.gold1 }, circle(bx - bw * 0.1, by - bw * 0.46, 4), circle(bx + bw * 0.2, by - bw * 0.3, 3.5), circle(bx - bw * 0.36, by - bw * 0.22, 3.5));
   }
-  for (const [px, py, pw] of [[880, 960, 46], [930, 976, 30], [820, 984, 24]]) body += ellipse(px, py, pw / 2, pw * 0.32, { fill: '#9E6A63' }) + ellipse(px - pw * 0.12, py - pw * 0.1, pw * 0.22, pw * 0.1, { fill: '#D7A487', opacity: 0.8 });
+  body += fennec(236, 958, { s: 0.9 });
+  // lower right, the windy side: cool rocks with sand drifting against them
+  for (const [rx, ry, rw, rh] of [[930, 1010, 170, 90], [830, 1012, 90, 46], [1000, 1010, 90, 120]]) {
+    body += path(blob([[rx - rw / 2, ry], [rx - rw * 0.44, ry - rh * 0.6], [rx - rw * 0.1, ry - rh], [rx + rw * 0.3, ry - rh * 0.9], [rx + rw / 2, ry - rh * 0.4], [rx + rw / 2, ry]], 1), { fill: '#A7727A' });
+    body += path(blob([[rx, ry], [rx + rw * 0.1, ry - rh * 0.7], [rx + rw * 0.4, ry - rh * 0.6], [rx + rw / 2, ry]], 1), { fill: '#86607A', opacity: 0.6 });
+    body += ellipse(rx - rw * 0.2, ry - rh * 0.78, rw * 0.14, rh * 0.06, { fill: '#D6A79A', opacity: 0.8 });
+  }
+  body += streak([[1040, 900], [960, 884], [880, 892], [820, 912]], 10, '#F3CB95', 0.65);
 
   body += vignette(id('vig'));
   return svgDoc({ defs, body });

@@ -10,7 +10,7 @@ export default function render() {
     radial(id('hz'), [[0, '#FFE2B8', 0.8], [1, '#FFE2B8', 0]]),
   ].join('');
   let b = rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
-  b += starField({ seed: 77, n: 110, area: [0, 0, 1000, 640], twinkles: 14 });
+  b += starField({ seed: 77, n: 80, area: [0, 0, 1000, 640], twinkles: 10, avoid: [[500, 250, 330], [170, 260, 170], [830, 260, 170]] });
   b += glow(500, 640, 260, id('moon')) + crescent(500, 640, 52, { fill: '#FFF0C8', angle: -25, thickness: 0.5 });
   b += ellipse(500, 760, 600, 140, { fill: `url(#${id('hz')})` });
   const haze = (c, t) => mix(c, '#B98AAE', t);
@@ -21,7 +21,7 @@ export default function render() {
   // caravan silhouettes on the middle dune
   const sil = '#6E4A5C';
   for (const [x, s] of [[300, 0.42], [400, 0.4], [495, 0.38], [575, 0.26]]) b += camel(x, 852 - (x - 300) * 0.02, { s, body: sil, dark: sil, light: sil });
-  for (let i = 0; i < 12; i++) b += sparkle(R() * 1000, 300 + R() * 300, R.range(4, 8), '#FFF1CF', { opacity: 0.7 });
+  for (let i = 0; i < 12; i++) b += sparkle(R() < 0.5 ? R() * 120 : 880 + R() * 120, 300 + R() * 300, R.range(4, 8), '#FFF1CF', { opacity: 0.7 });
   b += star8(500, 520, 9, C.gold1);
   return svgDoc({ defs, body: b });
 }

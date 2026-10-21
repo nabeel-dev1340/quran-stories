@@ -152,15 +152,17 @@ function farPalm(x, y, h, { trunk, leaf, lean = 0.06 }) {
   return s;
 }
 
-// A Nile sailing boat (felucca) with a tall slanting sail. (x, y) = waterline centre.
-function felucca(x, y, s = 1) {
+// An ancient Nile boat: upturned hull, mast and a square sail between two
+// yards. (x, y) = waterline centre.
+function nileBoat(x, y, s = 1) {
   return g({ transform: T(x, y, s) },
-    path('M2,-6 L2,-118', { stroke: '#8A6A4E', 'stroke-width': 3 }),
-    path('M-30,-14 L60,-132 Q40,-70 46,-16Z', { fill: '#FFFBF2' }),
-    path('M20,-60 L60,-132 Q40,-70 46,-16 L28,-14Z', { fill: '#EADFCC', opacity: 0.8 }),
-    path('M-46,-10 L48,-10 Q40,6 22,8 L-26,8 Q-40,4 -46,-10Z', { fill: '#9A6A44' }),
-    path('M-44,-8 L46,-8 L44,-3 L-42,-3Z', { fill: '#C28D5E' }),
-    ellipse(0, 12, 54, 4, { fill: '#2E7E98', opacity: 0.3 }),
+    path('M0,-6 L0,-120', { stroke: '#8A6A4E', 'stroke-width': 3.4 }),
+    path('M-40,-112 L40,-112 Q48,-74 40,-36 L-40,-36 Q-32,-74 -40,-112Z', { fill: '#FFFBF2' }),
+    path('M10,-112 L40,-112 Q48,-74 40,-36 L10,-36 Q16,-74 10,-112Z', { fill: '#EADFCC', opacity: 0.85 }),
+    path('M-44,-114 L44,-114 M-44,-34 L44,-34', { stroke: '#8A6A4E', 'stroke-width': 3.4, 'stroke-linecap': 'round' }),
+    path('M-74,-30 C-62,-6 -40,6 0,6 C40,6 62,-6 74,-30 C58,-16 40,-10 0,-10 C-40,-10 -58,-16 -74,-30Z', { fill: '#9A6A44' }),
+    path('M-60,-16 C-40,-8 40,-8 60,-16 L56,-11 C40,-4 -40,-4 -56,-11Z', { fill: '#C28D5E' }),
+    ellipse(0, 12, 64, 4, { fill: '#2E7E98', opacity: 0.3 }),
   );
 }
 
@@ -208,8 +210,8 @@ export default function render() {
   body += path('M-20,470 C200,466 420,474 620,468 C800,462 900,468 1020,466 L1020,540 C820,548 600,534 400,546 C220,556 100,546 -20,552Z', { fill: `url(#${id('nile')})` });
   body += shimmer(240, 498, { n: 4, w: 120, gap: 12, color: C.white, op: 0.6, seed: 2 });
   body += shimmer(760, 494, { n: 4, w: 110, gap: 12, color: C.white, op: 0.55, seed: 5 });
-  body += felucca(470, 512, 0.55);
-  body += felucca(880, 500, 0.36);
+  body += nileBoat(548, 512, 0.52);
+  body += nileBoat(880, 500, 0.34);
 
   // near bank: a tall golden wheat field (right) and the granaries (left)
   body += path(ridge([[-20, 548], [200, 540], [420, 548], [640, 538], [860, 546], [1020, 540]], 720), { fill: '#9CCB7A' });

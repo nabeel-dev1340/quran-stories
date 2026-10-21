@@ -3,8 +3,8 @@
 // fields of crops between them and a river gushing through the middle
 // (18:32-33). A bright, abundant summer day.
 import {
-  C, svgDoc, ids, rng, mix, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, cloud, palm, sun, farBird, shimmer, grass, flower, bush, eye, r1, T, lerp,
+  C, svgDoc, ids, rng, mix, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth,
+  sparkle, cloud, palm, sun, farBird, grass, flower, bush, eye, r1, T, lerp,
 } from '../lib.js';
 
 const SKY = '#D4ECEE';
@@ -68,8 +68,13 @@ function trellisRow(xa, xb, y, k, R) {
   s += path(band(6 * k), { fill: tint(C.leaf4) });
   s += path(band(0), { fill: tint(C.leaf3) });
   let hl = '';
-  for (let x = xa + 10 * k; x < xb; x += 34 * k) hl += ellipse(x + R.range(-4, 4) * k, y - H - 10 * k + arc(x), 10 * k, 5 * k);
-  s += `<g fill="${tint(C.leaf2)}" opacity="0.9">${hl}</g>`;
+  let lo = '';
+  for (let x = xa + 10 * k; x < xb; x += R.range(22, 40) * k) {
+    const w = R.range(6, 13) * k;
+    hl += ellipse(x, y - H - R.range(7, 14) * k + arc(x), w, w * R.range(0.45, 0.6));
+    if (R() < 0.4) lo += ellipse(x + 12 * k, y - H + 2 * k + arc(x), 7 * k, 3.5 * k);
+  }
+  s += `<g fill="${tint(C.leaf2)}" opacity="0.9">${hl}</g><g fill="${tint(C.leaf4)}" opacity="0.7">${lo}</g>`;
   for (let x = xa + 34 * k; x < xb - 14 * k; x += 60 * k) {
     s += bunch(x + R.range(-8, 8) * k, y - H + 6 * k + arc(x), k * R.range(0.85, 1.1), { fill: tint(C.plum3), dark: tint(C.plum4), light: tint(C.plum1) });
   }
@@ -100,17 +105,13 @@ function farPalm(x, y, h, seed, tint) {
 }
 
 // A big grape leaf with five rounded lobes. (x, y) = stem point, a = angle.
+const LEAF_D = 'M0,4 C-10,5 -26,8 -32,-4 C-36,-14 -27,-17 -21,-14 C-34,-21 -38,-35 -26,-41 C-18,-45 -12,-39 -9,-33 C-12,-46 -5,-55 0,-55 C5,-55 12,-46 9,-33 C12,-39 18,-45 26,-41 C38,-35 34,-21 21,-14 C27,-17 36,-14 32,-4 C26,8 10,5 0,4Z';
 function grapeLeaf(x, y, size, a, { fill = C.leaf3, dark = C.leaf4, vein = C.leaf2 } = {}) {
-  const k = size / 40;
-  const lobe = (ang, len, w) => {
-    const r = (ang * Math.PI) / 180;
-    return ellipse(Math.cos(r) * len, Math.sin(r) * len, w, w * 0.8, { transform: `rotate(${ang} ${r1(Math.cos(r) * len)} ${r1(Math.sin(r) * len)})` });
-  };
-  const shape = [lobe(-90, 22, 18), lobe(-150, 18, 15), lobe(-30, 18, 15), lobe(150, 14, 12), lobe(30, 14, 12), circle(0, -12, 17)];
+  const k = size / 44;
   return g({ transform: `translate(${r1(x)} ${r1(y)}) rotate(${r1(a)}) scale(${r1(k * 100) / 100})` },
-    g({ fill: dark, transform: 'translate(2 3)' }, shape),
-    g({ fill }, shape),
-    path('M0,6 L0,-36 M0,-12 L-28,-28 M0,-12 L28,-28 M0,-4 L-22,6 M0,-4 L22,6', { stroke: vein, 'stroke-width': 2.2, 'stroke-linecap': 'round', fill: 'none', opacity: 0.8 }),
+    path(LEAF_D, { fill: dark, transform: 'translate(2 3)' }),
+    path(LEAF_D, { fill }),
+    path('M0,4 L0,-46 M0,-14 L-24,-34 M0,-14 L24,-34 M0,-6 L-24,-6 M0,-6 L24,-6', { stroke: vein, 'stroke-width': 2.2, 'stroke-linecap': 'round', fill: 'none', opacity: 0.8 }),
   );
 }
 
@@ -231,7 +232,7 @@ export default function render() {
   }
   // little stalks all over the crop fields, larger as they come closer
   let stalks = '';
-  for (let y = HORIZON + 16; y < 1000; y += 4 + 22 * depth(y)) {
+  for (let y = HORIZON + 16; y < 880; y += 4 + 22 * depth(y)) {
     const k = 0.2 + depth(y) * 1.6;
     for (const [a, b] of [[gardenL(y), bankL(y)], [bankR(y), gardenR(y)]]) {
       const n = Math.max(2, Math.round((b - a) / (11 * k)));
@@ -270,8 +271,9 @@ export default function render() {
   for (const [px, h, sd] of [[60, 104, 1], [168, 124, 3], [262, 92, 4], [372, 110, 5], [438, 84, 6], [586, 86, 7], [650, 112, 8], [752, 96, 9], [846, 126, 10], [944, 100, 11]]) {
     body += farPalm(px + R.range(-6, 6), yBack + 4, h, sd, tintAt(yBack + 30));
   }
-  // rows of vines, far to near, with a palm at each inner corner
   const rowsD = [0.15, 0.25, 0.36, 0.49, 0.63];
+  body += ellipse(500, 470, 560, 26, { fill: C.white, opacity: 0.22 });
+  // rows of vines, far to near
   rowsD.forEach((d) => {
     const y = HORIZON + d * 606;
     const k = 0.22 + 0.78 * ((d - 0.15) / 0.48);

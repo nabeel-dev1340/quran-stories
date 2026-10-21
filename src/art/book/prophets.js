@@ -5,7 +5,7 @@ export default function render() {
   const id = ids('proph');
   const defs = [linear(id('sky'), [[0, '#121E3E'], [0.55, '#1D3266'], [1, '#2C3F78']]), glowDef(id('moon'), '#FFF2C6', 0.4)].join('');
   let b = rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
-  b += starField({ seed: 25, n: 90, area: [0, 0, 1000, 1000], twinkles: 10, avoid: [[500, 560, 380]] });
+  b += starField({ seed: 25, n: 90, area: [0, 0, 1000, 1000], twinkles: 10, avoid: [[500, 560, 380], [500, 110, 300], [180, 110, 120], [820, 110, 120]] });
   b += glow(900, 90, 160, id('moon')) + crescent(900, 90, 34, { fill: '#FFF0C8', angle: -30, thickness: 0.5 });
   // arcade of arches along the bottom
   let arc = 'M0,1000 L0,930';

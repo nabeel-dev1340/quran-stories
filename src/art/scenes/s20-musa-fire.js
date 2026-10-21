@@ -239,7 +239,7 @@ export default function render() {
   body += ellipse(800, 800, 230, 46, { fill: `url(#${id('pool')})` });
   body += restingSheep(870, 840, { s: 0.98, flip: true, seed: 4 });
   body += restingSheep(722, 820, { s: 0.8, flip: true, seed: 7 });
-  body += restingSheep(960, 790, { s: 0.6, flip: true, seed: 9 });
+  body += restingSheep(922, 784, { s: 0.6, flip: true, seed: 9 });
   for (const [gx, gy, gh, sd] of [[640, 826, 34, 11], [790, 850, 30, 12], [948, 852, 36, 13], [990, 800, 26, 14]]) body += grass(gx, gy, { h: gh, fill: '#3A3F74', n: 5, seed: sd });
 
   // ---- foreground ground

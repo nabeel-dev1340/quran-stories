@@ -126,8 +126,6 @@ export default function render() {
   body += palm(56, 492, { h: 110, seed: 8, dates: false, trunk: far(C.wood2), trunkDark: far(C.wood3), leaf: far(C.leaf3), leafMid: far(C.leaf4), leafDark: far(C.leaf5) });
   body += palm(390, 486, { h: 96, seed: 9, lean: -0.1, dates: false, trunk: far(C.wood2), trunkDark: far(C.wood3), leaf: far(C.leaf3), leafMid: far(C.leaf4), leafDark: far(C.leaf5) });
   for (const [tx, ty, tr] of [[120, 520, 30], [320, 522, 28], [430, 528, 24]]) body += tree(tx, ty, { r: tr, trunkH: 22, seed: tx, leaf: far('#8FB38A'), leafDark: far('#6F9A72'), leafLight: far('#B5CFA6'), trunk: far(C.wood2) });
-  // a winding path from the village down to the meadow
-  body += path('M246,508 C262,536 236,556 252,582 C266,604 250,620 256,640 L284,640 C276,618 294,602 280,580 C264,556 290,534 272,508Z', { fill: mix(C.sand2, '#CBE9EE', 0.45), opacity: 0.85 });
   // nearer rolling hill on the right with olive trees
   body += path(ridge([[460, 600], [600, 556], [740, 540], [880, 548], [1020, 530]], 760), { fill: mid(C.leaf2) });
   for (const [tx, ty, tr] of [[720, 552, 34], [800, 550, 28], [900, 548, 36], [970, 540, 26]]) body += tree(tx, ty, { r: tr, trunkH: 26, seed: tx, leaf: mid('#88B47E'), leafDark: mid('#6A9A6E'), leafLight: mid('#AFD09A'), trunk: mid(C.wood2) });

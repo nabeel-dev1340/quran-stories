@@ -72,7 +72,7 @@ window.fitText = () => {
     const inner = pg.querySelector('.tp-inner');
     const body = pg.querySelector('.tp-body');
     const story = pg.querySelector('.story');
-    let fs = 15;
+    let fs = 14;
     const fits = () => {
       inner.style.setProperty('--fs', fs + 'pt');
       body.style.justifyContent = 'flex-start';
@@ -96,10 +96,11 @@ await page.evaluate(() => document.fonts.ready);
 const fit = await page.evaluate(() => window.fitText());
 const small = fit.filter(([, fs]) => fs < 13);
 if (small.length) console.warn('! text shrunk below 13pt on:', small.map(([id, fs]) => `${id}@${fs}`).join(', '));
+if (args.includes('--sizes')) console.log('sizes:', fit.map(([id, fs]) => `${id}:${fs}`).join(' '));
 const tooSmall = fit.filter(([, fs]) => fs <= 11);
 if (tooSmall.length) console.warn('!! text may overflow on:', tooSmall.map(([id]) => id).join(', '));
 const pdfFile = path.join(out, onlyArg ? 'preview.pdf' : bleed ? 'The-Best-of-Stories-print-bleed.pdf' : 'The-Best-of-Stories.pdf');
-await page.pdf({ path: pdfFile, preferCSSPageSize: true, printBackground: true });
+await page.pdf({ path: pdfFile, preferCSSPageSize: true, printBackground: true, tagged: true });
 await browser.close();
 if (!onlyArg) {
   // Bookmarks, metadata and spread layout are added with pypdf.

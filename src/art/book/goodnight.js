@@ -19,8 +19,8 @@ export default function render() {
   const defs = [linear(id('sky'), [[0, '#101B38'], [0.6, '#1F3468'], [1, '#3A4C8A']]), glowDef(id('moon'), '#FFF2C6', 0.5), glowDef(id('win'), '#FFD98A', 0.75)].join('');
   const night = (c, t = 0.55) => mix(c, '#1F3468', t);
   let b = rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
-  b += starField({ seed: 9, n: 120, area: [0, 0, 1000, 620], twinkles: 16 });
-  b += glow(120, 560, 180, id('moon')) + crescent(120, 560, 40, { fill: '#FFF0C8', angle: -28, thickness: 0.5 });
+  b += starField({ seed: 9, n: 90, area: [0, 0, 1000, 640], twinkles: 12, avoid: [[500, 220, 330], [180, 180, 160], [820, 180, 160]] });
+  b += glow(860, 470, 170, id('moon')) + crescent(860, 470, 40, { fill: '#FFF0C8', angle: -28, thickness: 0.5 });
   b += cloud(150, 640, 260, { fill: '#2C3F78', seed: 3, opacity: 0.9 }) + cloud(880, 600, 220, { fill: '#2C3F78', seed: 8, opacity: 0.8 });
   // far hills
   b += path(ridge([[-20, 700], [200, 650], [420, 690], [650, 640], [860, 680], [1020, 650]], 1000), { fill: night(C.leaf4, 0.7) });

@@ -5,8 +5,8 @@
 // gently away - walk humbly (31:18-19) - and a small donkey grazes far off
 // (31:19).
 import {
-  C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, cloud, sun, rays, farBird, grass, flower, bush, shadow, eye, r1, T, lerp,
+  C, svgDoc, ids, rng, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob, sparkle,
+  cloud, sun, rays, farBird, grass, flower, eye, r1, T,
 } from '../lib.js';
 
 // A cute donkey standing, facing right. (x, y) = ground between the feet.
@@ -59,8 +59,8 @@ function leafCluster(cx, cy, r, R, col) {
   return {
     back: path(blob(shift(r * 0.1, r * 0.14, 1)), { fill: col.dk }),
     mid: path(blob(shift(0, 0, 0.94)), { fill: col.md }),
-    hi: path(blob(shift(-r * 0.24, -r * 0.24, 0.56)), { fill: col.lt, opacity: 0.9 }),
-    glint: path(blob(shift(-r * 0.42, -r * 0.36, 0.24)), { fill: col.gl, opacity: 0.75 }),
+    hi: path(blob(shift(-r * 0.3, -r * 0.3, 0.5)), { fill: col.lt, opacity: 0.8 }),
+    glint: path(blob(shift(-r * 0.46, -r * 0.4, 0.22)), { fill: col.gl, opacity: 0.7 }),
   };
 }
 
@@ -96,8 +96,11 @@ function oldTree(x, y, R) {
     [x - 250, y - 420, 74], [x - 160, y - 500, 96], [x - 40, y - 570, 112], [x + 100, y - 580, 112], [x + 230, y - 520, 100], [x + 300, y - 430, 76],
     [x - 190, y - 410, 70], [x - 80, y - 450, 96], [x + 60, y - 470, 104], [x + 190, y - 440, 92], [x + 290, y - 360, 60], [x - 30, y - 660, 70], [x + 120, y - 680, 64],
   ];
-  const parts = clusters.map(([cx, cy, r]) => leafCluster(cx, cy, r, R, col));
-  s += parts.map((q) => q.back).join('') + parts.map((q) => q.mid).join('') + parts.map((q) => q.hi).join('') + parts.map((q) => q.glint).join('');
+  const parts = clusters.map(([cx, cy, r]) => [cy, cx, leafCluster(cx, cy, r, R, col)]);
+  // highlights only where the low sun reaches: the top and the left side
+  const lit = parts.filter(([cy, cx]) => cy < y - 480 || cx < x - 120);
+  const top = parts.filter(([cy]) => cy < y - 540);
+  s += parts.map(([, , q]) => q.back).join('') + parts.map(([, , q]) => q.mid).join('') + lit.map(([, , q]) => q.hi).join('') + top.map(([, , q]) => q.glint).join('');
   return s;
 }
 
@@ -150,8 +153,9 @@ function seedRock(x, y, glowId, sparkId) {
   p.push(path('M-4,-137 C-10,-120 -6,-104 -14,-88 C-22,-74 -24,-56 -16,-40 C-10,-26 -16,-12 -10,0 L6,0 C2,-14 8,-28 4,-42 C0,-56 8,-72 12,-86 C16,-100 6,-118 8,-136Z', { fill: '#5E5249' }));
   p.push(ellipse(-4, -64, 22, 18, { fill: '#4A3F38' }));
   // the seed and its glow
-  p.push(circle(-4, -64, 70, { fill: `url(#${glowId})` }));
-  p.push(circle(-4, -64, 24, { fill: `url(#${sparkId})` }));
+  p.push(circle(-4, -64, 92, { fill: `url(#${glowId})` }));
+  p.push(rays(-4, -64, { n: 8, len: 46, spread: 315, dir: -90, width: 9, color: '#FFF4C8', op: 0.35 }));
+  p.push(circle(-4, -64, 26, { fill: `url(#${sparkId})` }));
   p.push(circle(-4, -64, 5.5, { fill: '#FFE07A' }) + circle(-5.5, -65.5, 2, { fill: C.white }));
   p.push(sparkle(-38, -104, 9, '#FFF3C4'), sparkle(30, -92, 7, '#FFF3C4'), sparkle(-30, -30, 6, '#FFF3C4'), sparkle(22, -40, 5, '#FFF3C4'));
   // a little moss and a flower at the foot

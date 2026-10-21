@@ -6,7 +6,7 @@
 // comes down in soft light (5:114). No one is shown - no hands.
 import {
   C, svgDoc, ids, rng, mix, linear, radial, glowDef, glow, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, cloud, tree, cypress, grass, flower, house, rays, eye, T, r1,
+  sparkle, cloud, tree, cypress, bush, grass, flower, house, rays, eye, T, r1,
 } from '../lib.js';
 
 const line = (c, w, a = {}) => ({ fill: 'none', stroke: c, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...a });
@@ -165,13 +165,13 @@ export default function render() {
   body += path(blob([[214, 790], [252, 752], [490, 740], [734, 750], [770, 790], [490, 810]]), { fill: `url(#${id('stoneTop')})` });
   body += ellipse(330, 762, 50, 8, { fill: C.white, opacity: 0.5 });
   // a little pot of wet clay beside them
-  body += path('M236,790 C228,766 236,752 250,750 L284,750 C298,752 306,766 298,790Z', { fill: C.rock3 }) + ellipse(267, 750, 18, 5, { fill: CLAY.line }) + ellipse(267, 749, 12, 3, { fill: CLAY.body });
+  body += path('M212,792 C204,768 212,754 226,752 L258,752 C272,754 280,768 272,792Z', { fill: C.rock3 }) + ellipse(242, 752, 17, 5, { fill: CLAY.line }) + ellipse(242, 751, 11, 3, { fill: CLAY.body });
   // the row: clay birds still sitting, then one coming to life
-  body += clayBird(352, 784, 1.28);
-  body += clayBird(452, 780, 1.28);
-  body += clayBird(552, 780, 1.28);
-  body += circle(664, 736, 92, { fill: `url(#${id('wonder')})` });
-  body += clayBird(660, 782, 1.28, { tint: C.gold2, open: 0.8 });
+  body += clayBird(344, 784, 1.22);
+  body += clayBird(454, 780, 1.22);
+  body += clayBird(564, 780, 1.22);
+  body += circle(676, 736, 92, { fill: `url(#${id('wonder')})` });
+  body += clayBird(674, 782, 1.22, { tint: C.gold2, open: 0.8 });
   for (const [sx, sy, ss] of [[622, 690, 10], [708, 684, 14], [668, 656, 8], [730, 744, 7], [606, 742, 6]]) body += sparkle(sx, sy, ss, C.white, { opacity: 0.95 });
 
   // ------------------------------------------------ living birds flying up along a trail of sparkles
@@ -193,6 +193,12 @@ export default function render() {
   for (const [gx, gy, gh, sd] of [[60, 900, 50, 1], [150, 960, 44, 2], [350, 900, 30, 3], [640, 910, 34, 4], [860, 940, 48, 5], [950, 880, 44, 6], [500, 970, 36, 7], [20, 1000, 90, 8], [90, 1004, 70, 9], [980, 1000, 96, 10], [910, 1004, 70, 11]]) body += grass(gx, gy, { h: gh, n: 7, seed: sd, fill: R() < 0.5 ? C.leaf4 : C.leaf3 });
   const anemone = (fx, fy, fr) => flower(fx, fy, { r: fr, fill: C.coral3, center: C.ink2, petals: 6 }) + circle(fx, fy, fr * 0.2, { fill: C.ink });
   for (const [fx, fy, fr] of [[100, 880, 16], [190, 930, 14], [880, 900, 16], [930, 960, 13], [420, 920, 10], [740, 930, 11]]) body += anemone(fx, fy, fr);
+  // a clump of tall anemones and a small bush framing the bottom right
+  body += bush(935, 1012, { w: 170, fill: C.leaf3, dark: C.leaf4, light: C.leaf2, seed: 6 });
+  for (const [sx, sy, ex, ey, fr] of [[930, 1004, 900, 846, 20], [960, 1004, 958, 820, 17], [890, 1004, 850, 888, 15], [990, 1004, 1004, 870, 15]]) {
+    body += path(`M${sx},${sy} Q${(sx + ex) / 2 + 10},${(sy + ey) / 2} ${ex},${ey}`, line(C.leaf4, 4));
+    body += anemone(ex, ey, fr);
+  }
   for (const [fx, fy, fr] of [[60, 950, 13], [250, 900, 11], [820, 960, 12], [970, 920, 11], [560, 950, 9]]) body += flower(fx, fy, { r: fr, fill: C.white, center: C.gold2 });
   for (const [fx, fy, fr] of [[290, 960, 10], [690, 970, 10], [130, 990, 11]]) body += flower(fx, fy, { r: fr, fill: C.gold1, center: C.gold3 });
 

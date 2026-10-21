@@ -5,8 +5,8 @@
 // light - "This is a mercy from my Lord" (18:98). Nothing behind the wall
 // is shown.
 import {
-  C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, cloud, sun, farBird, grass, flower, tree, bush, sheep, shadow, cypress, r1, T, lerp,
+  C, svgDoc, ids, rng, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, sparkle,
+  cloud, sun, farBird, grass, flower, tree, bush, sheep, shadow, cypress, r1, lerp,
 } from '../lib.js';
 
 const STEEL = { hi: '#9DB4D3', light: '#7590B6', mid: '#5A7399', dark: '#435A7D', deep: '#30425F' };
@@ -38,13 +38,13 @@ export default function render() {
   const id = ids('s35');
   const R = rng(35);
   const defs = [
-    linear(id('sky'), [[0, '#2E4366'], [0.35, '#4F6890'], [0.62, '#9C8FA8'], [0.8, '#EBA585'], [1, '#F8C98E']]),
+    linear(id('sky'), [[0, '#2B3F63'], [0.2, '#475F8C'], [0.4, '#9488AE'], [0.6, '#DC9F95'], [0.82, '#F4BD8E'], [1, '#F9D49C']]),
     linear(id('wall'), [[0, '#8C7E8E'], [0.18, STEEL.light], [0.55, STEEL.mid], [1, STEEL.dark]], { x1: 0, y1: WALL_TOP, x2: 0, y2: WALL_BASE, units: 'userSpaceOnUse' }),
     linear(id('copper'), [[0, COPPER.white], [0.35, COPPER.hot], [0.75, COPPER.mid], [1, COPPER.deep]]),
     linear(id('drip'), [[0, COPPER.hot], [0.5, COPPER.mid], [1, COPPER.cool]]),
     linear(id('heat'), [[0, '#FFB45C', 0.55], [0.45, '#FFB45C', 0.15], [1, '#FFB45C', 0]], { x1: 0, y1: WALL_TOP, x2: 0, y2: WALL_BASE, units: 'userSpaceOnUse' }),
     linear(id('valley'), [[0, '#9DB57E'], [1, '#6E9A62']]),
-    glowDef(id('fire'), '#FFB255', 0.75),
+    glowDef(id('fire'), '#FFC873', 0.7),
     glowDef(id('fire2'), '#FFE2A0', 0.8),
     glowDef(id('sunGlow'), '#FFE1A8', 0.8),
     glowDef(id('win'), '#FFD98A', 0.6),
@@ -104,7 +104,7 @@ export default function render() {
     const y0 = WALL_TOP + 4;
     const bulb = w * 0.4;
     drips += `M${r1(x - w / 2 - 6)},${y0} C${r1(x - w / 2)},${r1(y0 + 6)} ${r1(x - w * 0.3)},${r1(y0 + len * 0.6)} ${r1(x - bulb)},${r1(y0 + len)} A${r1(bulb)},${r1(bulb)} 0 1 0 ${r1(x + bulb)},${r1(y0 + len)} C${r1(x + w * 0.3)},${r1(y0 + len * 0.6)} ${r1(x + w / 2)},${r1(y0 + 6)} ${r1(x + w / 2 + 6)},${y0}Z `;
-    if (len > 100) drops += ellipse(x + R.range(-2, 2), y0 + len + bulb * 3.2, bulb * 0.55, bulb * 0.75);
+    if (len > 150) drops += ellipse(x + R.range(-2, 2), y0 + len + bulb * 3.2, bulb * 0.55, bulb * 0.75);
   }
   body += path(drips, { fill: `url(#${id('drip')})` });
   body += `<g fill="${COPPER.mid}">${drops}</g>`;

@@ -6,7 +6,7 @@
 // entrance; a little acacia tree, the moon, stars and desert mountains.
 // Safe and calm, silver-blue. Inside is dark; no people.
 import {
-  C, svgDoc, ids, rng, mix, lerp, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob,
+  C, svgDoc, ids, rng, lerp, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, blob,
   sparkle, starField, crescent, grass, r1, T, eye,
 } from '../lib.js';
 
@@ -191,6 +191,11 @@ export default function render() {
   body += boulder(232, 760, 210, 260, { ...rk, seed: 3 }, id.next('b'), extra);
   body += boulder(770, 770, 230, 300, { ...rk, fill: '#4F5F89', seed: 5 }, id.next('b'), extra);
   body += boulder(500, 412, 420, 150, { ...rk, fill: '#5A6A95', seed: 7 }, id.next('b'), extra);
+  // moonlit ledges and cracks on the rocky hill
+  for (const [lx, ly, lw] of [[430, 322, 64], [570, 316, 52], [196, 600, 50], [236, 684, 44], [806, 690, 60], [842, 744, 40], [84, 610, 44], [930, 640, 40]]) {
+    body += path(`M${lx - lw / 2},${ly + 4} q${r1(lw / 2)},-10 ${lw},-2`, { fill: 'none', stroke: '#7E90BE', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.55 });
+    body += path(`M${lx - lw / 2 + 6},${ly + 10} q${r1(lw / 2)},-8 ${lw - 10},0`, { fill: 'none', stroke: '#33406A', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.45 });
+  }
   // the dark mouth of the cave
   const mouth = [[312, 772], [300, 650], [318, 540], [370, 452], [450, 402], [540, 396], [620, 430], [680, 506], [700, 620], [692, 772]];
   const mouthD = blob(mouth);

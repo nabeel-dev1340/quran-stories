@@ -4,8 +4,8 @@
 // dark, bare and withered (68:19-20). Empty harvest baskets wait at the
 // closed gate. Calm, never frightening.
 import {
-  C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, cloud, sun, rays, farBird, bird, grass, flower, tree, bush, shadow, eye, r1, T, lerp,
+  C, svgDoc, ids, rng, mix, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, sparkle,
+  cloud, sun, rays, farBird, bird, grass, flower, tree, shadow, eye, r1, T, lerp,
 } from '../lib.js';
 
 // Warm (left) and cool (right) versions of a colour.
@@ -112,7 +112,7 @@ export default function render() {
     glowDef(id('warm'), '#FFE6B8', 0.55),
     vignetteDef(id('vig'), C.ink, 0.22),
     `<mask id="${id('coolMask')}" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><rect width="1000" height="1000" fill="url(#${id('maskGrad')})"/></mask>`,
-    linear(id('maskGrad'), [[0, '#000000'], [0.38, '#000000'], [0.5, '#7F7F7F'], [0.64, '#FFFFFF'], [1, '#FFFFFF']], { x1: 0, y1: 0, x2: 1, y2: 0 }),
+    linear(id('maskGrad'), [[0, '#000000'], [0.34, '#000000'], [0.374, '#070707'], [0.408, '#1B1B1B'], [0.442, '#373737'], [0.476, '#5A5A5A'], [0.51, '#808080'], [0.544, '#A5A5A5'], [0.578, '#C8C8C8'], [0.612, '#E4E4E4'], [0.646, '#F8F8F8'], [0.68, '#FFFFFF'], [1, '#FFFFFF']], { x1: 0, y1: 0, x2: 1, y2: 0 }),
   ].join('');
 
   // Everything is drawn twice - warm and cool - and the cool copy fades in
@@ -179,6 +179,10 @@ export default function render() {
   for (const [gx, gy, sd] of [[620, 712, 1], [760, 690, 2], [880, 740, 3], [960, 690, 4], [700, 790, 5]]) body += grass(gx, gy, { h: 24, n: 5, fill: '#8C8270', seed: sd });
   for (const [fx, fy, fc] of [[60, 720, C.rose1], [150, 700, C.gold1], [230, 742, C.coral1], [380, 712, C.rose1], [440, 760, C.gold1], [30, 790, C.coral1], [250, 800, C.rose1]]) body += flower(fx, fy, { r: 8, fill: fc, center: C.gold2 });
   for (const [gx, gy, sd] of [[90, 740, 6], [200, 716, 7], [340, 760, 8], [420, 724, 9]]) body += grass(gx, gy, { h: 26, n: 6, fill: C.leaf4, seed: sd });
+
+  // dawn glimmer on the lush side, a still, low mist on the withered side
+  for (const [sx, sy, ss] of [[96, 560, 9], [262, 520, 11], [180, 640, 7], [400, 600, 8], [330, 700, 6]]) body += sparkle(sx, sy, ss, '#FFF6DC', { opacity: 0.9 });
+  body += g({ mask: `url(#${id('coolMask')})` }, ellipse(800, 640, 320, 30, { fill: '#C9CFDA', opacity: 0.22 }), ellipse(760, 720, 300, 24, { fill: '#C9CFDA', opacity: 0.16 }));
 
   // ---- the fence and the closed gate across the orchard
   const fenceY = 836;

@@ -351,9 +351,6 @@ export default function render() {
 
   // ------------------------------------------------------------ the river
   const centre = [[800, 676, 24], [700, 694, 28], [580, 712, 34], [470, 736, 46], [392, 796, 70], [380, 884, 110], [420, 1020, 170]];
-  const lb = centre.map(([x, y, w]) => [x, y - w * 0.3 - 4]);
-  const rb = centre.map(([x, y, w]) => [x, y + w * 0.3 + 4]);
-  void lb; void rb;
   const L = centre.map(([x, y, w], i) => (i < 3 ? [x, y - w * 0.4] : [x - w, y]));
   const Rr = centre.map(([x, y, w], i) => (i < 3 ? [x, y + w * 0.45] : [x + w, y]));
   const riverD = (A, B) => `${smooth(A)} L${smooth(B.slice().reverse()).slice(1)} Z`;

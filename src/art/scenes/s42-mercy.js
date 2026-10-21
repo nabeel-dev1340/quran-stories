@@ -4,7 +4,7 @@
 // us of his kindness: a cat asleep in the shade, a camel resting, a little
 // goat, doves and small birds. Bright, gentle and warm. No people.
 import {
-  C, svgDoc, ids, rng, mix, lerp, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge,
+  C, svgDoc, ids, rng, mix, linear, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge,
   sparkle, cloud, sun, palm, bush, grass, flower, bird, farBird, crescent, r1, T, eye,
 } from '../lib.js';
 
@@ -298,6 +298,11 @@ export default function render() {
   body += bird(-2 + 60, 548, { s: 0.46, flip: true, body: C.gold2, wing: C.gold3, belly: C.gold0, beak: C.coral2 });
 
   for (const [sx, sy, ss] of [[500, 300, 9], [380, 380, 7], [640, 360, 8], [300, 460, 6]]) body += sparkle(sx, sy, ss, '#FFFFFF', { opacity: 0.8 });
+
+  // a fringe of taller grass and flowers right at the front edge
+  body += path(ridge([[-20, 984], [120, 972], [260, 982], [420, 976], [580, 984], [740, 974], [900, 982], [1020, 972]], 1010), { fill: C.leaf3 });
+  for (const [gx, gh, sd] of [[90, 56, 31], [200, 40, 32], [300, 50, 33], [420, 38, 34], [520, 52, 35], [650, 42, 36], [760, 56, 37], [880, 44, 38]]) body += grass(gx, 992, { h: gh, fill: C.leaf4, n: 6, seed: sd });
+  for (const [fx, fy, fc] of [[150, 968, C.coral1], [360, 972, C.gold1], [600, 966, C.rose1], [700, 970, C.white], [830, 966, C.coral1]]) body += flower(fx, fy, { r: 8, fill: fc, center: C.gold2, stemH: 14 });
 
   body += vignette(id('vig'));
 

@@ -86,7 +86,7 @@ h2.title { font: 800 26pt/1.05 'Fraunces Soft'; margin: 0.02in 0 0.08in; color: 
 
 .tp-body { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
 .story { font-size: var(--fs); line-height: 1.5; }
-.story p { margin: 0 0 0.42em; }
+.story p { margin: 0 0 0.42em; text-wrap: pretty; }
 .story p:last-child { margin-bottom: 0; }
 .dropcap {
   float: left; font: 800 calc(var(--fs) * 2.62)/0.84 'Fraunces Soft'; color: var(--accent);
@@ -242,10 +242,10 @@ h2.title { font: 800 26pt/1.05 'Fraunces Soft'; margin: 0.02in 0 0.08in; color: 
 
 /* little eyes */
 .eyes-intro { background: #fff; }
-.ei-wrap { position: absolute; top: 2.05in; left: 1.5in; right: 1.5in; bottom: 2.05in; background: #fff; border-radius: 0.3in; padding: 0.36in 0.42in; text-align: center; display: flex; flex-direction: column; justify-content: center; border: 0.05in solid #111; }
-.ei-kicker { font: 800 8pt 'Nunito'; letter-spacing: 0.16em; text-transform: uppercase; color: #D62F2F; }
-.eyes-intro h1 { font: 800 30pt/1.05 'Baloo 2', 'Fraunces Soft'; margin: 0.04in 0 0.12in; color: #111; }
-.eyes-intro p { font: 600 11pt/1.45 'Nunito'; margin: 0 0 0.5em; color: #222; }
+.ei-wrap { position: absolute; top: 1.75in; left: 1.2in; right: 1.2in; bottom: 1.75in; background: #fff; border-radius: 0.3in; padding: 0.36in 0.42in; text-align: center; display: flex; flex-direction: column; justify-content: center; border: 0.05in solid #111; }
+.ei-kicker { font: 800 9pt 'Nunito'; letter-spacing: 0.16em; text-transform: uppercase; color: #D62F2F; }
+.eyes-intro h1 { font: 800 36pt/1.05 'Baloo 2', 'Fraunces Soft'; margin: 0.06in 0 0.14in; color: #111; }
+.eyes-intro p { font: 600 13pt/1.45 'Nunito'; margin: 0 0 0.6em; color: #222; }
 .hc-word { position: absolute; bottom: 0.42in; left: 0; right: 0; text-align: center; font: 800 44pt/1 'Baloo 2', 'Nunito'; letter-spacing: 0.01em; }
 .hc-word span { display: inline-block; padding: 0.1in 0.42in 0.02in; border-radius: 0.5in; }
 .hc-light { background: #fff; } .hc-light .hc-word span { color: #111; background: #fff; box-shadow: 0 0 0 0.05in #111; }
@@ -265,3 +265,6 @@ h2.title { font: 800 26pt/1.05 'Fraunces Soft'; margin: 0.02in 0 0.08in; color: 
 .col-card .divider { display: block; margin: 0.06in auto 0.1in; }
 .col-card p { font: 500 9.6pt/1.45 'Nunito'; color: var(--ink); margin: 0 0 0.55em; }
 .col-card .col-small { font-size: 8pt; color: var(--ink-soft); margin: 0.1in 0 0; }
+
+/* avoid one-word last lines in the small boxes */
+.dua .en, .dua .tr, .lesson .txt, .cd-en, .bc-blurb, .gn-wrap p, .prose p, .mp-txt, .eyes-intro p, .col-card p { text-wrap: balance; }

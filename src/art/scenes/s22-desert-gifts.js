@@ -40,6 +40,29 @@ function quail(x, y, { s = 1, flip = false, peck = false } = {}) {
   return g({ transform: T(x, y, s, 0, flip) }, parts);
 }
 
+// A plump quail gliding down, wings spread, facing right. (x, y) = body centre.
+function flyingQuail(x, y, { s = 1, flip = false, rot = 12, up = true } = {}) {
+  const brown = '#B07D52';
+  const dark = '#7E5638';
+  const cream = '#F6E3C2';
+  const wing = up ? 'M-8,-8 C-20,-40 -2,-62 18,-66 C16,-52 14,-30 12,-8Z' : 'M-8,4 C-22,30 -6,50 14,52 C12,38 12,20 10,4Z';
+  const farWing = up ? 'M-2,-10 C-6,-34 10,-52 28,-56 C24,-40 20,-24 14,-8Z' : 'M0,4 C-6,26 8,42 24,44 C20,30 18,16 14,4Z';
+  return g({ transform: `translate(${r1(x)} ${r1(y)}) rotate(${r1(rot)}) scale(${flip ? -s : s} ${s})` },
+    path(farWing, { fill: dark }),
+    path('M-34,-4 L-50,-12 L-48,6Z', { fill: dark }),
+    ellipse(0, 0, 36, 22, { fill: brown }),
+    ellipse(6, 8, 24, 12, { fill: '#DDB78C' }),
+    circle(30, -12, 15, { fill: brown }),
+    path('M17,-18 C24,-30 38,-30 44,-18', { fill: dark }),
+    path('M18,-14 Q30,-22 44,-15', { fill: 'none', stroke: cream, 'stroke-width': 3, 'stroke-linecap': 'round' }),
+    path('M44,-12 L53,-8 L44,-5Z', { fill: '#6E5444' }),
+    eye(37, -10, 3.2),
+    ellipse(38, -2, 4, 2.4, { fill: C.cheek, opacity: 0.75 }),
+    path(wing, { fill: brown }),
+    path(up ? 'M-2,-20 Q6,-24 12,-20 M0,-34 Q8,-40 16,-36' : 'M-2,16 Q6,20 12,16 M0,30 Q8,34 14,32', { fill: 'none', stroke: cream, 'stroke-width': 2, 'stroke-linecap': 'round', opacity: 0.85 }),
+  );
+}
+
 // Low desert bush beaded with manna: sweet white-gold drops. (x, y) = base.
 function mannaBush(x, y, { w = 170, seed = 3, leaf = '#93B67E', dark = '#6F9A6A', light = '#B9D39A' } = {}) {
   const R = rng(seed);
@@ -104,7 +127,11 @@ export default function render() {
   body += cloud(760, 196, 300, { fill: C.white, shade: '#DCEBF1', seed: 13 });
   body += cloud(520, 92, 170, { fill: '#FBFEFE', shade: '#E2EFF3', seed: 2, opacity: 0.9 });
   body += sparkle(600, 250, 9, C.white, { opacity: 0.8 }) + sparkle(120, 300, 7, C.white, { opacity: 0.7 });
-  for (const [bx, by, bs] of [[440, 300, 1], [470, 286, 0.8], [960, 300, 0.8]]) body += farBird(bx, by, bs, '#6A86A0', 0.5);
+  for (const [bx, by, bs] of [[960, 300, 0.8], [930, 316, 0.6]]) body += farBird(bx, by, bs, '#6A86A0', 0.5);
+  // quails sent down, gliding toward the bushes (2:57)
+  body += flyingQuail(472, 286, { s: 0.78, rot: 14, up: true });
+  body += flyingQuail(586, 246, { s: 0.62, rot: 18, up: false });
+  body += flyingQuail(370, 236, { s: 0.56, rot: 10, up: false });
 
   // ---- distant Sinai mountains, hazy rose
   body += path(ridge([[-20, 452], [60, 410], [130, 432], [210, 380], [290, 420], [360, 400], [440, 436], [560, 420], [640, 390], [720, 428], [800, 396], [880, 420], [960, 384], [1020, 404]], 520), { fill: farTint(C.rock1) });
@@ -127,11 +154,11 @@ export default function render() {
   for (let i = 0; i < TENTS; i++) {
     const left = i < TENTS / 2;
     const k = left ? i : i - TENTS / 2;
-    const x = left ? 50 + k * 44 + (k % 2) * 4 : 728 + k * 44 + (k % 2) * 4;
+    const x = left ? 64 + k * 38 + (k % 2) * 3 : 744 + k * 38 + (k % 2) * 3;
     const y = 484 + (k % 2) * 7 + (left ? 0 : -2);
     const [f, d] = tentCols[(i * 5) % tentCols.length];
     body += ellipse(x, y + 1, 22, 3, { fill: C.ink, opacity: 0.1 });
-    body += smallTent(x, y, 38, mix(f, '#F4E9DA', 0.25), mix(d, '#F4E9DA', 0.25));
+    body += smallTent(x, y, 34, mix(f, '#F4E9DA', 0.25), mix(d, '#F4E9DA', 0.25));
   }
 
   // ---- cloud shadows on the sand (soft, cool patches of shade)
@@ -261,7 +288,7 @@ export default function render() {
   body += mannaBush(900, 880, { w: 210, seed: 9 });
   body += mannaBush(820, 960, { w: 120, seed: 12 });
   body += quail(240, 948, { s: 0.92 });
-  body += quail(132, 972, { s: 0.7, peck: true });
+  body += quail(140, 954, { s: 0.7, peck: true });
   body += quail(760, 796, { s: 0.62, flip: true });
   body += quail(686, 958, { s: 0.78, flip: true, peck: true });
   for (const [sx, sy, ss] of [[70, 800, 9], [170, 820, 7], [930, 790, 9], [850, 810, 6]]) body += sparkle(sx, sy, ss, '#FFF8E0', { opacity: 0.95 });

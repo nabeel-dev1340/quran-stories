@@ -4,8 +4,8 @@
 // forelegs stretched out (18:18). Vines and flowers have grown over the
 // mouth of the cave to show the long years passing (18:25).
 import {
-  C, svgDoc, ids, rng, mix, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth, blob,
-  sparkle, starField, crescent, cloud, grass, flower, cypress, frond, tree, bush, shadow, eye, r1, T,
+  C, svgDoc, ids, rng, linear, radial, glowDef, vignetteDef, vignette, rect, path, circle, ellipse, g, ridge, smooth,
+  blob, sparkle, starField, crescent, cloud, grass, flower, cypress, frond, tree, bush, eye, r1, T,
 } from '../lib.js';
 
 // night rock colours (moonlight from the upper left)
@@ -24,9 +24,10 @@ function dog(x, y, { s = 1, flip = false } = {}) {
   const p = [];
   p.push(ellipse(20, 3, 178, 12, { fill: C.night0, opacity: 0.4 }));
   // fluffy tail lying on the ground behind, tip curled up
-  p.push(path('M-96,-36 C-120,-40 -142,-34 -152,-46 C-160,-56 -176,-50 -174,-36 C-172,-16 -150,-4 -120,-2 C-108,-1 -98,-4 -94,-8Z', { fill: fur }));
-  p.push(path('M-174,-36 C-172,-18 -150,-6 -120,-4 C-108,-3 -98,-6 -94,-8 L-94,-4 C-100,-1 -110,0 -122,0 C-152,-2 -172,-16 -174,-36Z', { fill: dark, opacity: 0.8 }));
-  p.push(path('M-156,-50 C-166,-56 -176,-48 -172,-38 C-168,-46 -162,-48 -150,-44Z', { fill: light, opacity: 0.9 }));
+  p.push(path('M-96,-38 C-108,-44 -122,-42 -130,-38 C-140,-42 -152,-38 -158,-32 C-170,-30 -178,-20 -172,-11 C-164,-2 -130,0 -96,-4Z', { fill: fur }));
+  p.push(path('M-172,-11 C-164,-2 -130,0 -96,-4 L-96,0 C-130,3 -164,1 -172,-11Z', { fill: dark, opacity: 0.8 }));
+  p.push(path('M-158,-32 C-170,-30 -178,-20 -172,-11 C-168,-6 -160,-6 -154,-10 C-160,-16 -160,-26 -158,-32Z', { fill: light, opacity: 0.9 }));
+  p.push(path('M-104,-36 C-118,-38 -132,-30 -146,-26', { fill: 'none', stroke: light, 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.6 }));
   // far foreleg, stretched out
   p.push(rect(24, -34, 170, 18, { rx: 9, fill: dark }));
   p.push(ellipse(194, -25, 15, 10, { fill: dark }));
@@ -147,13 +148,6 @@ function boulder(bx, by, w, h, sd, { mid = RK.mid, light = RK.light, dark = RK.d
     ellipse(bx - w * 0.2, by - h * 0.78, w * 0.12, h * 0.06, { fill: hi, opacity: 0.6 });
 }
 
-// A rock shelf on the cliff face: a moonlit top lip over a shadowed band.
-function shelf(x0, x1, y, th) {
-  const top = `M${x0},${y} C${x0 + 24},${y - th} ${x1 - 24},${y - th - 4} ${x1},${y - 2} C${x1 - 30},${y + 3} ${x0 + 30},${y + 4} ${x0},${y}Z`;
-  const shade = `M${x0 + 6},${y + 2} C${x0 + 40},${y + 5} ${x1 - 40},${y + 4} ${x1 - 4},${y + 1} C${x1 - 30},${y + th * 1.4} ${x0 + 40},${y + th * 1.5} ${x0 + 6},${y + 2}Z`;
-  return path(shade, { fill: RK.deep, opacity: 0.5 }) + path(top, { fill: RK.light });
-}
-
 // Night cloud with a moonlit silver edge.
 const nightCloud = (x, y, w, seed, op = 0.7) =>
   cloud(x - w * 0.025, y - w * 0.03, w, { fill: '#8D9DD2', seed, opacity: op * 0.55 }) + cloud(x, y, w, { fill: '#4A5C97', shade: '#3B4B83', seed, opacity: op });
@@ -178,7 +172,7 @@ export default function render() {
   body += rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
   body += circle(215, 185, 280, { fill: `url(#${id('moonGlow')})` });
   body += starField({ seed: 32, n: 75, area: [0, 0, 1000, 620], twinkles: 9, color: '#E8EDFF', gold: '#FFE9B0', avoid: [[215, 185, 120]] });
-  body += nightCloud(470, 318, 220, 4, 0.75);
+  body += nightCloud(470, 318, 220, 4, 0.62);
   body += nightCloud(700, 112, 150, 7, 0.5);
   body += nightCloud(70, 420, 150, 9, 0.5);
   body += crescent(215, 185, 72, { fill: '#F5F2E8', angle: -28, thickness: 0.46 });
@@ -190,19 +184,23 @@ export default function render() {
   body += ellipse(170, 692, 240, 20, { fill: '#9AA9D8', opacity: 0.16 });
   body += path(ridge([[-20, 742], [110, 714], [230, 730], [330, 708]]), { fill: '#35447B' });
 
+  // a little tree, a bush and rocks up on the ridge, peeking over it
+  body += tree(712, 300, { r: 46, trunkH: 40, seed: 5, leaf: '#2E5A63', leafDark: '#24485A', leafLight: '#3F6E72', trunk: '#2C3560' });
+  body += bush(772, 262, { w: 54, fill: '#356468', dark: '#2A5059', light: '#4A7C78', seed: 770 });
+  body += boulder(872, 236, 116, 84, 3, { mid: '#46558A', light: '#5A6AA0', hi: '#7787BC' });
+  body += boulder(968, 208, 90, 64, 4, { mid: '#425085', light: '#56659B', hi: '#7383B8' });
+
   // ---- the mountainside
   const ridgePts = [[150, 1010], [184, 880], [218, 770], [264, 660], [318, 560], [376, 474], [440, 404], [512, 348], [598, 306], [690, 274], [780, 234], [866, 196], [950, 172], [1030, 160]];
   body += path(ridge(ridgePts, 1010), { fill: `url(#${id('rock')})` });
   body += path(smooth(ridgePts.slice(1, 12)), { fill: 'none', stroke: RK.hi, 'stroke-width': 5, 'stroke-linecap': 'round', opacity: 0.55 });
-  // a little tree and rocks up on the ridge, standing out against the sky
-  body += tree(712, 286, { r: 46, trunkH: 34, seed: 5, leaf: '#2E5A63', leafDark: '#24485A', leafLight: '#3F6E72', trunk: '#2C3560' });
-  body += shadow(870, 212, 120, 0.3, RK.deep) + boulder(870, 212, 110, 64, 3, { mid: '#46558A', light: '#5A6AA0', hi: '#7787BC' });
-  body += shadow(966, 190, 90, 0.3, RK.deep) + boulder(966, 190, 84, 50, 4, { mid: '#425085', light: '#56659B', hi: '#7383B8' });
-  body += shadow(946, 640, 220, 0.35, RK.deep) + boulder(946, 640, 210, 150, 5, { mid: '#4A5A8F' });
-  body += shadow(290, 690, 110, 0.3, RK.deep) + boulder(292, 690, 100, 64, 6);
-  for (const d of ['M780,300 C790,350 776,400 792,450', 'M900,300 C890,350 906,400 896,470']) body += path(d, { fill: 'none', stroke: RK.deep, 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.35 });
-  for (const [gx, gy, sd] of [[656, 300, 1], [790, 236, 2], [930, 210, 3], [1000, 196, 4], [870, 640, 5], [340, 688, 6], [560, 330, 7]]) body += grass(gx, gy, { h: 22, n: 5, fill: '#2F5E62', seed: sd });
-  for (const [bx, by, bw] of [[612, 318, 60], [770, 250, 54], [988, 470, 60]]) body += bush(bx, by, { w: bw, fill: '#356468', dark: '#2A5059', light: '#4A7C78', seed: bx });
+  // soft moonlit planes give the cliff face some volume
+  body += path('M640,330 C700,300 780,262 860,230 C900,300 880,400 820,470 C760,430 700,390 640,330Z', { fill: '#5A6AA0', opacity: 0.35 });
+  body += path('M860,330 C930,300 990,290 1010,290 L1010,520 C960,500 900,440 860,330Z', { fill: '#33406E', opacity: 0.35 });
+  body += boulder(946, 646, 210, 150, 5, { mid: '#4A5A8F' });
+  body += boulder(292, 694, 100, 64, 6);
+  for (const [gx, gy, sd] of [[870, 648, 5], [990, 650, 8], [270, 698, 6], [316, 700, 9], [560, 330, 7]]) body += grass(gx, gy, { h: 22, n: 5, fill: '#2F5E62', seed: sd });
+  for (const [bx, by, bw] of [[612, 318, 60], [988, 470, 60]]) body += bush(bx, by, { w: bw, fill: '#356468', dark: '#2A5059', light: '#4A7C78', seed: bx });
 
   // ---- the cave mouth
   const cx = 596;

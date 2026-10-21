@@ -11,8 +11,8 @@ import {
 
 // ---------------------------------------------------------------- camels
 // Standing camel in the kit's style, facing right (flip to face left).
-// drink: neck curves down so the muzzle reaches the water.
-function camel(x, y, { s = 1, flip = false, body = C.sand3, dark = C.sand4, light = C.sand2, drink = false, lashes = false, headScale = 1, fluffy = false } = {}) {
+// headTilt turns the head (positive = nose down); drip adds a water drop at the lip.
+function camel(x, y, { s = 1, flip = false, body = C.sand3, dark = C.sand4, light = C.sand2, belly, headTilt = 6, lashes = false, headScale = 1, fluffy = false, drip = false, shortNeck = 0, blanket = false, necklace = false } = {}) {
   const parts = [];
   parts.push(ellipse(10, 2, 96, 9, { fill: C.ink, opacity: 0.13 }));
   // far legs
@@ -25,37 +25,70 @@ function camel(x, y, { s = 1, flip = false, body = C.sand3, dark = C.sand4, ligh
   parts.push(path('M-82,-112 C-84,-150 -60,-168 -30,-170 C-18,-214 30,-214 40,-168 C62,-166 80,-150 80,-120 C80,-96 60,-86 0,-86 C-50,-86 -80,-92 -82,-112Z', { fill: body }));
   parts.push(path('M-30,-170 C-18,-214 30,-214 40,-168 C20,-180 -10,-182 -30,-170Z', { fill: light, opacity: 0.75 }));
   parts.push(path('M-74,-132 C-70,-152 -52,-164 -30,-168 C-50,-158 -64,-146 -74,-132Z', { fill: light, opacity: 0.6 }));
-  parts.push(path('M-70,-100 C-40,-88 30,-88 70,-102 C66,-90 50,-86 0,-86 C-40,-86 -64,-90 -70,-100Z', { fill: dark, opacity: 0.5 }));
+  if (belly) parts.push(path('M-78,-108 C-50,-96 30,-96 78,-114 C78,-96 60,-86 0,-86 C-50,-86 -74,-92 -78,-108Z', { fill: belly }));
+  else parts.push(path('M-70,-100 C-40,-88 30,-88 70,-102 C66,-90 50,-86 0,-86 C-40,-86 -64,-90 -70,-100Z', { fill: dark, opacity: 0.5 }));
+  parts.push(path('M-76,-128 C-70,-152 -52,-164 -30,-169 C-18,-208 24,-210 37,-172', { fill: 'none', stroke: light, 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 0.85 }));
+  if (blanket) {
+    // a festive saddle blanket draped over the hump: teal cloth, gold trim, tassels
+    const cloth = C.water3;
+    const clothDark = C.water4;
+    const top = 'M-58,-160 C-48,-168 -40,-170 -32,-172 C-20,-218 32,-218 42,-169 C48,-167 56,-164 62,-158';
+    parts.push(path(`${top} L64,-124 Q4,-108 -60,-121Z`, { fill: cloth }));
+    // shade on the side away from the light, following the top edge
+    parts.push(path('M16,-205 C32,-202 40,-186 42,-169 C48,-167 56,-164 62,-158 L64,-124 Q40,-116 22,-113 C30,-148 28,-184 16,-205Z', { fill: clothDark, opacity: 0.5 }));
+    parts.push(path('M-50,-160 C-42,-166 -36,-168 -28,-171 C-16,-208 26,-210 36,-176', { fill: 'none', stroke: C.water1, 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.55 }));
+    parts.push(path('M-60,-121 Q4,-108 64,-124', { fill: 'none', stroke: C.gold2, 'stroke-width': 7, 'stroke-linecap': 'round' }));
+    parts.push(path('M-56,-141 Q4,-128 62,-144', { fill: 'none', stroke: C.gold2, 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.9 }));
+    for (let k = 0; k < 6; k++) {
+      const dx = -42 + k * 18;
+      const dy = -132 + ((dx - 2) / 60) ** 2 * 3;
+      parts.push(path(`M${dx},${r1(dy - 6.5)} l6,6.5 l-6,6.5 l-6,-6.5Z`, { fill: C.cream }));
+    }
+    parts.push(path('M4,-190 l11,13 l-11,13 l-11,-13Z', { fill: C.gold2 }), circle(4, -177, 3.8, { fill: C.coral2 }));
+    for (let k = 0; k < 7; k++) {
+      const tx = -52 + k * 18.5;
+      const ty = -116 + ((tx - 2) / 62) ** 2 * 6 + 3;
+      parts.push(path(`M${r1(tx)},${r1(ty - 4)} L${r1(tx)},${r1(ty + 6)}`, { stroke: C.gold3, 'stroke-width': 2 }));
+      parts.push(ellipse(tx, ty + 11, 3.6, 6, { fill: k % 2 ? C.coral2 : C.gold2 }));
+    }
+  }
   if (fluffy) parts.push(g({ fill: light }, circle(-6, -204, 7), circle(6, -207, 7), circle(17, -203, 6)));
   // near legs with knobby knees and soft feet
   parts.push(rect(-40, -100, 16, 102, { rx: 8, fill: body }), rect(50, -100, 16, 102, { rx: 8, fill: body }));
   parts.push(ellipse(-32, -48, 10, 8, { fill: light }), ellipse(58, -48, 10, 8, { fill: light }));
   parts.push(ellipse(-32, 0, 13, 6, { fill: dark }), ellipse(58, 0, 13, 6, { fill: dark }));
-  const face = (hx, hy, rot) => {
-    // a head drawn pointing along +x, then turned by rot degrees about (hx, hy)
-    const hs = headScale;
-    const lashes3 = lashes ? path(`M${-3 * hs},${-12 * hs} l-3,-6 M${2 * hs},${-13 * hs} l0,-7 M${7 * hs},${-12 * hs} l3,-6`, { fill: 'none', stroke: C.ink, 'stroke-width': 2, 'stroke-linecap': 'round' }) : '';
-    return g({ transform: `translate(${r1(hx)} ${r1(hy)}) rotate(${r1(rot)})` },
-      ellipse(-22 * hs, -16 * hs, 6.5 * hs, 11 * hs, { fill: dark, transform: `rotate(-50 ${r1(-22 * hs)} ${r1(-16 * hs)})` }),
-      ellipse(-4 * hs, 0, 28 * hs, 20 * hs, { fill: body }),
-      ellipse(24 * hs, 5 * hs, 22 * hs, 15 * hs, { fill: body }),
-      ellipse(26 * hs, 9 * hs, 17 * hs, 9 * hs, { fill: light, opacity: 0.55 }),
-      path(`M${-26 * hs},${-8 * hs} C${-14 * hs},${-20 * hs} ${8 * hs},${-22 * hs} ${20 * hs},${-12 * hs}`, { fill: 'none', stroke: light, 'stroke-width': r1(5 * hs), 'stroke-linecap': 'round', opacity: 0.6 }),
-      ellipse(40 * hs, -1 * hs, 3.4 * hs, 2.4 * hs, { fill: dark }),
-      path(`M${32 * hs},${15 * hs} Q${38 * hs},${18 * hs} ${44 * hs},${13 * hs}`, { fill: 'none', stroke: dark, 'stroke-width': r1(2.6 * hs), 'stroke-linecap': 'round' }),
-      g({ transform: `translate(${r1(2 * hs)} ${r1(-4 * hs)})` }, lashes3, eye(0, -4 * hs, 5 * hs)),
-      ellipse(10 * hs, 7 * hs, 7 * hs, 4.2 * hs, { fill: C.cheek, opacity: 0.6 }),
-    );
-  };
-  if (drink) {
-    parts.push(path('M52,-162 C100,-160 140,-126 158,-80 L184,-90 C160,-138 122,-156 80,-120 C72,-114 66,-122 60,-130Z', { fill: body }));
-    parts.push(path('M80,-120 C122,-156 160,-138 184,-90 L176,-87 C156,-126 124,-144 86,-114Z', { fill: light, opacity: 0.5 }));
-    parts.push(face(170, -70, 68));
-  } else {
-    parts.push(path('M62,-150 C88,-160 96,-190 98,-222 L124,-222 C124,-180 112,-134 76,-118Z', { fill: body }));
-    parts.push(path('M98,-222 L124,-222 C124,-196 120,-170 110,-150 C114,-176 110,-200 98,-222Z', { fill: light, opacity: 0.45 }));
-    parts.push(face(120, -232, -8));
+  // neck rising from the chest
+  const nt = -222 + shortNeck;
+  parts.push(path(`M62,-150 C88,-160 96,${-190 + shortNeck * 0.6} 98,${nt} L124,${nt} C124,${-180 + shortNeck * 0.5} 112,-134 76,-118Z`, { fill: body }));
+  parts.push(path(`M98,${nt} L124,${nt} C124,${-196 + shortNeck * 0.6} 120,-170 110,-150 C114,-176 110,${-200 + shortNeck * 0.6} 98,${nt}Z`, { fill: light, opacity: 0.45 }));
+  if (necklace) {
+    const P = (t) => [(1 - t) ** 2 * 86 + 2 * (1 - t) * t * 99 + t * t * 117, (1 - t) ** 2 * -175 + 2 * (1 - t) * t * -142 + t * t * -167];
+    parts.push(path('M86,-175 Q99,-142 117,-167', { fill: 'none', stroke: C.gold3, 'stroke-width': 2 }));
+    for (let k = 0; k <= 8; k++) {
+      const [bx, by] = P(k / 8);
+      parts.push(circle(bx, by, 4.2, { fill: k % 2 ? C.gold2 : C.water2 }));
+    }
+    const [mx, my] = P(0.5);
+    parts.push(path(`M${r1(mx)},${r1(my + 3)} L${r1(mx)},${r1(my + 10)}`, { stroke: C.gold3, 'stroke-width': 2 }));
+    parts.push(path(`M${r1(mx - 5)},${r1(my + 10)} L${r1(mx + 5)},${r1(my + 10)} L${r1(mx + 3)},${r1(my + 24)} L${r1(mx - 3)},${r1(my + 24)}Z`, { fill: C.coral2 }));
   }
+  // a gentle head in profile, pointing along +x from the top of the neck
+  const hs = headScale;
+  const headT = `translate(98 ${nt + 6}) rotate(${r1(headTilt)}) scale(${hs})`;
+  parts.push(g({ transform: headT },
+    ellipse(-12, -32, 6.5, 12, { fill: dark, transform: 'rotate(-35 -12 -32)' }),
+    ellipse(8, -16, 27, 21, { fill: body }),
+    path('M14,-34 C30,-36 52,-30 62,-20 C70,-12 70,0 62,6 C52,12 34,12 18,8 C6,4 0,-6 2,-16Z', { fill: body }),
+    path('M8,-34 C22,-38 44,-34 58,-24', { fill: 'none', stroke: light, 'stroke-width': 6, 'stroke-linecap': 'round', opacity: 0.7 }),
+    ellipse(56, 9, 11, 6, { fill: dark, opacity: 0.55 }),
+    path('M58,-16 q4,-3 8,1', { fill: 'none', stroke: dark, 'stroke-width': 3, 'stroke-linecap': 'round' }),
+    path('M46,6 Q54,10 62,6', { fill: 'none', stroke: mix(dark, '#000000', 0.2), 'stroke-width': 2.4, 'stroke-linecap': 'round' }),
+    lashes ? path('M15,-27 l-5,-6 M20,-28.5 l-2,-8 M25,-27.5 l2,-7', { fill: 'none', stroke: C.ink, 'stroke-width': 2.2, 'stroke-linecap': 'round' }) : '',
+    eye(21, -21, 5.6),
+    path('M14,-25 Q21,-30 28,-25', { fill: 'none', stroke: C.ink, 'stroke-width': 2, 'stroke-linecap': 'round', opacity: 0.8 }),
+    ellipse(30, -6, 8, 4.6, { fill: C.cheek, opacity: 0.65 }),
+    drip ? path('M58,14 C56,20 54,24 54,27 C54,31 60,31 60,27 C60,24 58,20 58,14Z', { fill: C.water1 }) + circle(56, 26, 1.2, { fill: C.white }) : '',
+  ));
   return g({ transform: T(x, y, s, 0, flip) }, parts);
 }
 
@@ -159,9 +192,10 @@ export default function render() {
   const defs = [
     linear(id('sky'), [[0, '#86C6E2'], [0.45, '#B8E0EA'], [0.75, '#EEE8DC'], [1, '#F8DCCB']]),
     glowDef(id('sunGlow'), '#FFF4D6', 0.8),
-    glowDef(id('sign'), '#FFF2D0', 0.8),
+    glowDef(id('sign'), '#FFF4DA', 0.9),
+    glowDef(id('signSoft'), '#FFF0C8', 0.7),
     linear(id('cliff'), [[0, '#F0C3AA'], [0.6, '#E2A48A'], [1, '#CD8A72']]),
-    linear(id('ground'), [[0, '#F6D9B4'], [1, '#EBC08F']]),
+    linear(id('ground'), [[0, '#FAE6C9'], [1, '#F1D2A6']]),
     vignetteDef(id('vig'), C.ink, 0.18),
   ].join('');
 
@@ -180,10 +214,7 @@ export default function render() {
   const cliffL = [[-40, 660], [-30, 300], [30, 236], [120, 214], [210, 236], [270, 280], [300, 360], [340, 400], [380, 660]];
   const cliffC = [[300, 660], [320, 380], [370, 300], [450, 250], [540, 236], [620, 262], [680, 320], [700, 400], [720, 660]];
   const cliffR = [[660, 660], [680, 340], [740, 270], [830, 236], [930, 250], [1000, 290], [1050, 330], [1050, 660]];
-  for (const [pts, shadeX] of [[cliffC, 640], [cliffL, 300], [cliffR, 990]]) {
-    body += path(blob(pts, 0.9), { fill: `url(#${id('cliff')})` });
-    void shadeX;
-  }
+  for (const pts of [cliffC, cliffL, cliffR]) body += path(blob(pts, 0.9), { fill: `url(#${id('cliff')})` });
   // soft vertical weathering lines and rounded shading on the right of each outcrop
   body += path('M300,360 C320,420 330,520 340,660 L380,660 C370,520 350,420 300,360Z', { fill: '#C98670', opacity: 0.35 });
   body += path('M680,320 C700,400 704,520 712,660 L724,660 C720,520 716,420 700,360Z', { fill: '#C98670', opacity: 0.4 });
@@ -206,26 +237,38 @@ export default function render() {
   // ------------------------------------------------------------ ground and palms
   body += path(ridge([[-20, 650], [200, 640], [420, 652], [640, 638], [860, 650], [1020, 642]], 1000), { fill: `url(#${id('ground')})` });
   body += path(ridge([[-20, 760], [240, 744], [520, 760], [760, 740], [1020, 756]], 1000), { fill: '#EFC795', opacity: 0.6 });
-  body += palm(684, 676, { h: 230, seed: 5, lean: 0.08, dateColor: C.coral3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
-  body += palm(300, 680, { h: 200, seed: 8, lean: -0.1, dateColor: C.gold3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
+  body += path(ridge([[-20, 930], [260, 910], [560, 936], [820, 912], [1020, 926]], 1000), { fill: '#E7B987', opacity: 0.45 });
+  for (let i = 0; i < 12; i++) {
+    const x = R() * 1000;
+    const y = 900 + R() * 90;
+    const w = 40 + R() * 60;
+    body += path(`M${r1(x)},${r1(y)} q${r1(w / 2)},-6 ${r1(w)},0`, { fill: 'none', stroke: '#FBE3C2', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.6 });
+  }
+  body += palm(700, 668, { h: 150, seed: 5, lean: 0.06, dateColor: C.coral3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
+  body += palm(296, 668, { h: 150, seed: 8, lean: -0.08, dateColor: C.gold3, trunk: far(C.wood2, 0.2), trunkDark: far(C.wood3, 0.2), leaf: far(C.leaf3, 0.2), leafMid: far(C.leaf4, 0.2), leafDark: far(C.leaf5, 0.2) });
 
   // ------------------------------------------------------------ the well, the trough and the she-camel
-  body += glow(560, 640, 360, id('sign'));
-  body += well(150, 820, { s: 1.0 });
+  body += glow(560, 600, 400, id('sign')) + glow(570, 640, 250, id('signSoft'));
+  body += well(118, 830, { s: 0.98 });
   // the she-camel of Allah, drinking on her day
-  body += camel(612, 866, { s: 1.5, flip: true, drink: true, lashes: true, body: '#F1CDA2', dark: '#DDA97F', light: '#FBE4C4' });
-  body += trough(370, 880, 250, { h: 52 });
+  body += camel(592, 868, { s: 1.44, flip: true, headTilt: 14, lashes: true, drip: true, blanket: true, necklace: true, body: '#D59D58', dark: '#B67E40', light: '#F0CC90', belly: '#E8C38A' });
+  body += trough(352, 884, 250, { h: 52 });
   // her baby, standing close
-  body += camel(812, 900, { s: 0.78, flip: true, headScale: 1.3, fluffy: true, lashes: true, body: '#F6DDBA', dark: '#E5BD92', light: '#FFF0D8' });
+  body += camel(888, 914, { s: 0.76, flip: true, headScale: 1.32, headTilt: -6, shortNeck: 26, fluffy: true, lashes: true, body: '#DDAC69', dark: '#BF8E4E', light: '#F4D6A2', belly: '#EECD9A' });
   // two little birds on the trough rim
-  body += bird(268, 822, { s: 0.36, body: C.coral2, wing: C.coral3, belly: C.coral0 });
-  body += bird(470, 822, { s: 0.34, flip: true, body: C.sky0, wing: C.water3, belly: C.sky2 });
+  body += bird(258, 826, { s: 0.36, body: C.coral2, wing: C.coral3, belly: C.coral0 });
+  body += bird(300, 826, { s: 0.34, flip: true, body: C.sky0, wing: C.water3, belly: C.sky2 });
   // gentle sparkles: she is a sign from Allah
-  for (const [sx, sy, sz] of [[500, 470, 13], [760, 520, 10], [640, 410, 9], [420, 560, 8], [880, 600, 8], [560, 560, 7]]) body += sparkle(sx, sy, sz, '#FFF8E4', { opacity: 0.95 });
+  for (const [sx, sy, sz] of [[520, 452, 13], [760, 520, 10], [640, 410, 9], [318, 478, 9], [880, 600, 8], [600, 520, 7]]) body += sparkle(sx, sy, sz, '#FFF8E4', { opacity: 0.95 });
 
   // ------------------------------------------------------------ foreground framing
-  body += palm(-10, 1010, { h: 470, seed: 2, lean: 0.14, dateColor: C.coral3 });
-  body += palm(1000, 1010, { h: 430, seed: 9, lean: -0.16, dateColor: C.gold3 });
+  body += palm(986, 700, { h: 250, seed: 9, lean: -0.1, dateColor: C.gold3 });
+  // desert shrubs in the lower corners
+  for (const [bx, by, bw] of [[20, 1010, 150], [118, 1012, 90], [980, 1010, 140], [890, 1014, 80]]) {
+    body += g({ fill: '#93A065' }, circle(bx - bw * 0.25, by - bw * 0.2, bw * 0.24), circle(bx, by - bw * 0.32, bw * 0.3), circle(bx + bw * 0.27, by - bw * 0.18, bw * 0.22));
+    body += g({ fill: '#ADB97A' }, circle(bx - bw * 0.3, by - bw * 0.28, bw * 0.15), circle(bx - bw * 0.05, by - bw * 0.44, bw * 0.16));
+    body += g({ fill: C.rose1 }, circle(bx - bw * 0.12, by - bw * 0.36, 4), circle(bx + bw * 0.18, by - bw * 0.26, 3.5), circle(bx - bw * 0.36, by - bw * 0.16, 3.5));
+  }
   for (const [gx, gy, gh, sd] of [[60, 1006, 60, 1], [120, 1006, 44, 2], [880, 1006, 50, 3], [940, 1006, 64, 4], [560, 1006, 34, 5]]) body += grass(gx, gy, { h: gh, n: 6, seed: sd, fill: '#9AA36C' });
   for (const [fx, fy, c] of [[200, 960, C.rose1], [240, 980, C.coral1], [700, 970, C.rose1], [740, 950, C.white], [470, 975, C.coral1]]) body += flower(fx, fy, { r: 8, fill: c, center: C.gold2, stem: '#8E9A62', stemH: 12, rot: fx });
   for (const [px, py, pw] of [[330, 960, 26], [620, 950, 20], [520, 990, 30]]) body += ellipse(px, py, pw / 2, pw * 0.3, { fill: '#D9A483' }) + ellipse(px - pw * 0.1, py - pw * 0.08, pw * 0.24, pw * 0.1, { fill: '#F4D4B8', opacity: 0.8 });

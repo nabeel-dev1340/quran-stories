@@ -29,7 +29,8 @@ export default function render() {
   const R = rng(8);
   const defs = [linear(id('sky'), [[0, '#16244A'], [0.6, '#24396E'], [1, '#41508F']]), glowDef(id('warm'), '#FFE3A6', 0.6), glowDef(id('moon'), '#FFF2C6', 0.45), glowDef(id('lamp'), '#FFD98A', 0.65)].join('');
   let b = rect(0, 0, 1000, 1000, { fill: `url(#${id('sky')})` });
-  b += starField({ seed: 74, n: 80, area: [0, 0, 1000, 700], twinkles: 12 });
+  b += starField({ seed: 74, n: 70, area: [0, 345, 1000, 380], twinkles: 10 });
+  b += starField({ seed: 75, n: 14, area: [0, 0, 70, 340], twinkles: 2 }) + starField({ seed: 76, n: 14, area: [930, 0, 70, 340], twinkles: 2 });
   b += glow(150, 600, 150, id('moon')) + crescent(150, 600, 38, { fill: '#FFF0C8', angle: -20, thickness: 0.5 });
   b += cloud(150, 990, 420, { fill: '#33477F', seed: 2 }) + cloud(860, 1000, 460, { fill: '#33477F', seed: 6 });
   b += glow(500, 840, 330, id('warm'));

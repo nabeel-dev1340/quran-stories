@@ -41,7 +41,7 @@ export const prophets = [
 
 export const moreProphets = {
   title: 'More Prophets of Allah',
-  intro: 'Allah sent prophets to people everywhere, to teach them to worship Him alone and to be good. Twenty-five of them are named in the Quran. Here are some we have not yet met in this book.',
+  intro: 'Allah sent prophets to people everywhere, to teach them to worship Him alone and to be good. Twenty-five of them are named in the Quran. Here are some we have met only for a moment, or not yet at all.',
   list: [
     ['Idris {as}', 'A truthful prophet, patient and good, whom Allah raised to a high place.', '19:56–57 · 21:85'],
     ['Lut {as}', 'Ibrahim’s nephew, who believed with him. He told his people to stop their wicked ways, and Allah saved him and his family.', '21:71–75 · 29:26'],
@@ -50,9 +50,8 @@ export const moreProphets = {
     ['Dhul-Kifl {as}', 'One of the patient ones, among the very best.', '21:85–86 · 38:48'],
     ['Ilyas {as}', 'He called his people to leave the idol Ba‘l and worship Allah, the Best of Creators.', '37:123–132'],
     ['Al-Yasa‘ {as}', 'Chosen by Allah, and among the best.', '6:86 · 38:48'],
-    ['Muhammad {saw}', 'The last of all the prophets, sent as a mercy to all the worlds.', '33:40 · 21:107'],
   ],
-  closing: 'We love and honour every one of Allah’s prophets. Peace be upon them all.',
+  closing: 'The last of all the prophets is our beloved Prophet Muhammad {saw}. We love and honour every one of them — peace be upon them all.',
 };
 
 export const closingDua = {

@@ -623,7 +623,14 @@ export function tent(x, y, { w = 220, h = 110, fill = C.coral2, dark = C.coral3,
   const top = y - h;
   let s = path(`M${r1(x - w / 2)},${r1(y)} L${r1(x - w * 0.38)},${r1(top + h * 0.18)} Q${r1(x - w * 0.2)},${r1(top - h * 0.05)} ${r1(x)},${r1(top + h * 0.08)} Q${r1(x + w * 0.2)},${r1(top - h * 0.05)} ${r1(x + w * 0.38)},${r1(top + h * 0.18)} L${r1(x + w / 2)},${r1(y)}Z`, { fill });
   s += path(`M${r1(x + w * 0.05)},${r1(top + h * 0.09)} Q${r1(x + w * 0.2)},${r1(top - h * 0.04)} ${r1(x + w * 0.38)},${r1(top + h * 0.18)} L${r1(x + w / 2)},${r1(y)} L${r1(x + w * 0.12)},${r1(y)}Z`, { fill: dark, opacity: 0.6 });
-  for (const t of [0.35, 0.55]) s += path(`M${r1(x - w * 0.47)},${r1(top + h * t + h * 0.12)} L${r1(x + w * 0.47)},${r1(top + h * t + h * 0.12)}`, { stroke: stripe, 'stroke-width': r1(h * 0.05), opacity: 0.55 });
+  // stripes stop at the sloping sides (side runs from x±w/2 at the ground to x±0.38w near the top)
+  const sideTop = top + h * 0.18;
+  for (const t of [0.35, 0.55]) {
+    const ys = top + h * t + h * 0.12;
+    const k = (y - ys) / (y - sideTop);
+    const half = w / 2 - k * w * 0.12 - h * 0.03;
+    s += path(`M${r1(x - half)},${r1(ys)} L${r1(x + half)},${r1(ys)}`, { stroke: stripe, 'stroke-width': r1(h * 0.05), opacity: 0.55 });
+  }
   s += path(`M${r1(x - w * 0.12)},${r1(y)} L${r1(x - w * 0.04)},${r1(top + h * 0.42)} L${r1(x + w * 0.06)},${r1(top + h * 0.42)} L${r1(x + w * 0.14)},${r1(y)}Z`, { fill: open });
   return s;
 }
